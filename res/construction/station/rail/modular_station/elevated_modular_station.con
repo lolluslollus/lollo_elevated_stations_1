@@ -144,8 +144,8 @@ function data()
                     }
                 }
             )
--- LOLLO TODO remove this?
-            table.insert(
+-- LOLLO removed this
+--[[             table.insert(
                 templates,
                 {
                     constructionType = 'RAIL_STATION',
@@ -164,7 +164,7 @@ function data()
                     }
                 }
             )
-        end
+ ]]        end
         makePassengerTemplate(
             eraAStart,
             eraBStart,
