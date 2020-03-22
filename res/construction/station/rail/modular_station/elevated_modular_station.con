@@ -1,0 +1,1542 @@
+local vec2 = require 'vec2'
+local vec3 = require 'vec3'
+local transf = require 'transf'
+local constructionutil = require 'constructionutil'
+local paramsutil = require 'paramsutil'
+local colliderutil = require 'colliderutil'
+local modulesutil = require 'modulesutil'
+local trainstationutil = require 'modules/elevated_trainstationutil'
+local lolloConstants = require("lolloConstants")
+
+local dump = require('luadump')
+--local zed = 20
+
+function data()
+    local mainBuildingSlotId = 3400000
+    local platformSlotId = 4400000
+    local cargoPlatformSlotId = 6400000
+    local passengerPlatformSlotId = 7400000
+    local trackSlotId = 8400000
+    local stairsSlotId = 9400000
+    local passengerPlatformRoofSlotId = 10400000
+    local passengerPlatformAddonSlotId = 10800000
+
+    local platformLength = 40
+    local platformWidth = 5
+
+    local mainBuildingPosition = vec3.new(-10, 0, 0)
+
+    local jMin = trainstationutil.stationYMin
+    local jMax = trainstationutil.stationYMax
+
+    local mainBuildingTag = 0
+    local trackTag = 1
+    local platformTag = 2
+    local addonTag = 3
+
+    local headLeftTag = 0
+    local headRightTag = 1
+    local throughFrontTag = 2
+    local throughBackTag = 3
+
+    local cargoTag = 0
+    local passengerTag = 1
+
+    local genericAddonTag = 0
+    local roofTag = 1
+
+    local function GetId(type, subtype, i, j, k, o)
+        if o == nil then
+            o = 0
+        end
+        if type == mainBuildingTag then
+            local offset = 0
+            if subtype == headLeftTag then
+                offset = 300000
+                return mainBuildingSlotId + offset + 1000 * i + 20 * j + o
+            elseif subtype == headRightTag then
+                offset = 400000
+                return mainBuildingSlotId + offset + 1000 * i + 20 * j + o
+            elseif subtype == throughFrontTag then
+                offset = 200000
+                return mainBuildingSlotId + offset + 3000 * i + 40 * j + 10 * k + o
+            elseif subtype == throughBackTag then
+                offset = 0
+                return mainBuildingSlotId + offset + 3000 * i + 40 * j + 10 * k + o
+            end
+        elseif type == trackTag then
+            return trackSlotId + 1000 * i + 10 * j
+        elseif type == platformTag then
+            return (subtype == cargoTag and cargoPlatformSlotId or passengerPlatformSlotId) + 1000 * i + 10 * j
+        elseif type == addonTag then
+            return ((subtype == genericAddonTag) and passengerPlatformAddonSlotId or passengerPlatformRoofSlotId) +
+                1000 * i +
+                10 * j
+        end
+    end
+
+    local function makeBaseParams()
+        return {
+            -- {
+            -- key = "type",
+            -- name = _("Type"),
+            -- values = { _("Passenger"), _("Cargo") },
+            -- defaultIndex = 0,
+            -- },
+            {
+                key = 'tracks',
+                name = _('Tracks'),
+                values = {_('1'), _('2'), _('3'), _('4'), _('5'), _('6'), _('7'), _('8')},
+                defaultIndex = 0
+            },
+            {
+                key = 'length',
+                name = _('Length'),
+                values = {_('80m'), _('120m'), _('160m'), _('240m'), _('320m'), _('400m'), _('480m')},
+                defaultIndex = 2
+            },
+            -- {
+            -- key = "head",
+            -- name = _("Head"),
+            -- values = { _("No"), _("Yes") },
+            -- defaultIndex = 0,
+            -- },
+            paramsutil.makeTrackTypeParam(),
+            paramsutil.makeTrackCatenaryParam(),
+            {
+                key = 'height',
+                name = _('Height'),
+                values = {_('0m'), _('5m'), _('10m'), _('15m'), _('20m'), _('25m')},
+                defaultIndex = lolloConstants().defaultHeightIndex
+            }
+        }
+    end
+
+    local eraAStart = 1850
+    local eraBStart = 1920
+    local eraCStart = 1980
+
+    local function getEra(year)
+        return year >= eraCStart and 'c' or year >= eraBStart and 'b' or 'a'
+    end
+
+    local function makeTemplates()
+        local templates = {}
+
+        local function makePassengerTemplate(from, to, icon, icon_head)
+            --print("Year = ", game.interface.getGameTime().date.year) -- wrong thread
+            table.insert(
+                templates,
+                {
+                    constructionType = 'RAIL_STATION',
+                    type = 'DYNAMIC',
+                    availability = {
+                        yearFrom = math.max(from, lolloConstants().availableFrom),
+                        yearTo = to
+                    },
+                    description = {
+                        name = _('Elevated passenger station'),
+                        description = _('Elevated modular train station for passengers.'),
+                        icon = icon
+                    },
+                    data = {
+                        params = makeBaseParams()
+                    }
+                }
+            )
+
+            table.insert(
+                templates,
+                {
+                    constructionType = 'RAIL_STATION',
+                    type = 'DYNAMIC',
+                    availability = {
+                        yearFrom = math.max(from, lolloConstants().availableFrom),
+                        yearTo = to
+                    },
+                    description = {
+                        name = _('Elevated passenger terminus station'),
+                        description = _('Elevated modular terminus station for passengers.'),
+                        icon = icon_head
+                    },
+                    data = {
+                        params = makeBaseParams()
+                    }
+                }
+            )
+        end
+        makePassengerTemplate(
+            eraAStart,
+            eraBStart,
+            'ui/construction/station/rail/modular_station/station_era_a.tga',
+            'ui/construction/station/rail/modular_station/station_head_era_a.tga'
+        )
+        makePassengerTemplate(
+            eraBStart,
+            eraCStart,
+            'ui/construction/station/rail/modular_station/station_era_b.tga',
+            'ui/construction/station/rail/modular_station/station_head_era_b.tga'
+        )
+        makePassengerTemplate(
+            eraCStart,
+            0,
+            'ui/construction/station/rail/modular_station/station_era_c.tga',
+            'ui/construction/station/rail/modular_station/station_head_era_c.tga'
+        )
+
+        --LOLLO commented out this
+--[[         table.insert(
+            templates,
+            {
+                constructionType = 'RAIL_STATION_CARGO',
+                type = 'DYNAMIC',
+                description = {
+                    name = _('Cargo station'),
+                    description = _('Elevated modular train station for cargo.'),
+                    icon = 'ui/construction/station/rail/modular_station/station_cargo.tga'
+                },
+                data = {
+                    params = makeBaseParams()
+                }
+            }
+        )
+        table.insert(
+            templates,
+            {
+                constructionType = 'RAIL_STATION_CARGO',
+                type = 'DYNAMIC',
+                description = {
+                    name = _('Cargo terminus station'),
+                    description = _('Modular terminus station for cargo.'),
+                    icon = 'ui/construction/station/rail/modular_station/station_cargo_head.tga'
+                },
+                data = {
+                    params = makeBaseParams()
+                }
+            }
+        ) ]]
+
+        return templates
+    end
+
+    return {
+        type = 'RAIL_STATION',
+        description = {
+            name = _('Elevated train station'),
+            description = _('Elevated modular train station for passengers.')
+        },
+        availability = {
+            yearFrom = lolloConstants().availableFrom,
+            yearTo = 0
+        },
+        order = 1000,
+        soundConfig = {
+            soundSet = {name = 'station_cargo_old'}
+        },
+        constructionTemplates = makeTemplates(),
+        createTemplateFn = function(params)
+            local result = {}
+
+            if not params.trackType then
+                params.trackType = 0
+            end
+            if not params.catenary then
+                params.catenary = 0
+            end
+
+            --local cargo = params.type == 1
+            --local head = params.head == 1
+            local cargo = params.templateIndex >= 6
+            local head = params.templateIndex % 2 == 1
+            local year = params.year
+            local era = getEra(year)
+            local variant = cargo and 'cargo' or 'era_' .. era
+
+            -- print('-- params = ')
+            -- dump(true)(params)
+
+            local lmap = {0, 1, 2, 3, 5, 7, 9, 11, 13}
+            params.length = lmap[params.length + 2]
+
+            local s = params.length and -math.floor(params.length / 2) or 0
+            local e = params.length and math.ceil(params.length / 2) or 0
+            local even = (e - s) % 2 == 0
+
+            local offset = 1
+            local mbModule = 'station/rail/modular_station/elevated_main_building_3_' .. variant .. '.module'
+            local level = 3
+            if params.tracks < 3 then
+                offset = 0
+                mbModule = 'station/rail/modular_station/elevated_main_building_1_' .. variant .. '.module'
+                level = 1
+            elseif params.tracks < 6 then
+                offset = 0
+                mbModule = 'station/rail/modular_station/elevated_main_building_2_' .. variant .. '.module'
+                level = 2
+            end
+
+            local function AddTrack(i, s, e)
+                for j = s, e do
+                    local id = GetId(trackTag, nil, i, j)
+                    if params.catenary == 0 and params.trackType == 0 then
+                        result[id] = 'station/rail/modular_station/elevated_platform_track.module'
+                    elseif params.catenary == 0 and params.trackType == 1 then
+                        result[id] = 'station/rail/modular_station/elevated_platform_high_speed_track.module'
+                    elseif params.catenary == 1 and params.trackType == 0 then
+                        result[id] = 'station/rail/modular_station/elevated_platform_track_catenary.module'
+                    elseif params.catenary == 1 and params.trackType == 1 then
+                        result[id] = 'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module'
+                    end
+                end
+            end
+            local function AddCargo(i, s, e)
+                --[[ for j = s, e do
+                    result[GetId(platformTag, cargoTag, i, j)] =
+                        'station/rail/modular_station/platform_cargo_era_' .. era .. '.module'
+                end ]]
+            end
+            local function AddPassenger(i, s, e)
+                local center = math.floor((e - s) / 2) + s
+                local dist = e - s
+                local roofModule = 'station/rail/modular_station/platform_passenger_roof_era_' .. era .. '.module'
+                local curvedRoofModule =
+                    (level == 3 and era == 'c') and
+                    'station/rail/modular_station/platform_passenger_roof_curved_era_' .. era .. '.module' or
+                    roofModule
+                local underpassModule =
+                    'station/rail/modular_station/elevated_addon_platform_passenger_stairs_era_' .. era .. '.module'
+                local platformModule =
+                    'station/rail/modular_station/elevated_platform_passenger_era_' .. era .. '.module'
+
+                for j = s, e do
+                    if not head then
+                        local id = GetId(platformTag, passengerTag, i, j)
+                        result[id] = platformModule
+                        if (j == center or (dist > 3 and j == s + 1) or (dist > 3 and j == e - 1)) then
+                            result[GetId(addonTag, genericAddonTag, i, j)] = underpassModule
+                        end
+                        if (j ~= s and j ~= e) or e - s <= 3 then
+                            result[GetId(addonTag, roofTag, i, j)] =
+                                (not even and (j == center or j == center + 1) or j == center) and curvedRoofModule or
+                                roofModule
+                        end
+                    else
+                        local id = GetId(platformTag, passengerTag, i, j)
+                        result[id] = platformModule
+                        if (j == center or j == s or (dist > 3 and j == e - 1)) then
+                            result[GetId(addonTag, genericAddonTag, i, j)] = underpassModule
+                        end
+                        if j ~= e or j == s or j == s + 1 then
+                            result[GetId(addonTag, roofTag, i, j)] = j == s and curvedRoofModule or roofModule
+                        end
+                    end
+                end
+            end
+
+            local function GetSideModuleAndOffset(variant, level)
+                local offset = 7 - 3 + level
+                if level == 3 and variant ~= 'era_c' then
+                    offset = 6
+                end
+                return 'station/rail/modular_station/elevated_side_building_' .. level .. '_' .. variant .. '.module', offset
+            end
+
+            --LOLLO commented out this
+            --[[ if head then
+                local mul = cargo and 2 or 1
+                local c = params.tracks and (math.floor((params.tracks + 1) / 2) + 1) * mul + 1 + params.tracks or 1
+                c = math.floor(c / 2) - 1
+                local l = -math.floor(params.length / 2)
+                result[GetId(mainBuildingTag, headLeftTag, c, l, nil, offset)] = mbModule
+            else
+                local k = 0
+                if not even then
+                    k = 2
+                end
+                
+                result[mainBuildingSlotId + 10 * k + offset] = mbModule
+                if level >= 3 then
+                    local i = variant == 'era_c' and 2 or 0
+                    if params.length > 5 then
+                        local m, o = GetSideModuleAndOffset(variant, level - 2)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 2, k + 0 + i, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -2, k - 1 - i, o)] = m
+                        local m, o = GetSideModuleAndOffset(variant, level - 1)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 2, k - 1 + i, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -2, k + 1 - i, o)] = m
+                        local m, o = GetSideModuleAndOffset(variant, level - 1)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 1, k + 1 + i, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -1, k - 1 - i, o)] = m
+                        local m, o = GetSideModuleAndOffset(variant, level)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 1, k - 1 + i / 2, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -1, k + 1 - i / 2, o)] = m
+                    elseif params.length > 4 then
+                        local m, o = GetSideModuleAndOffset(variant, level - 2)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 2, k - 2 + i, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -2, k + 1 - i, o)] = m
+                        local m, o = GetSideModuleAndOffset(variant, level - 1)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 1, k + 1 + i, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -1, k - 1 - i, o)] = m
+                        local m, o = GetSideModuleAndOffset(variant, level)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 1, k - 1 + i / 2, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -1, k + 1 - i / 2, o)] = m
+                    elseif params.length > 3 then
+                        local m, o = GetSideModuleAndOffset(variant, level - 2)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 1, k, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -1, k - 1, o)] = m
+                        local m, o = GetSideModuleAndOffset(variant, level - 1)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 1, k - 1, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -1, k + 1, o)] = m
+                    elseif params.length > 1 then
+                        local m, o = GetSideModuleAndOffset(variant, level - 1)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 1, k - 1, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -1, k + 1, o)] = m
+                    end
+                elseif level >= 2 then
+                    if params.length > 4 then
+                        local m, o = GetSideModuleAndOffset(variant, 2)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 0, k + 2, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -1, k + 2, o)] = m
+                        local m, o = GetSideModuleAndOffset(variant, 1)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 1, k - 1, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -1, k + 0, o)] = m
+                    elseif params.length > 2 then
+                        local m, o = GetSideModuleAndOffset(variant, 1)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 0, k + 1, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 0, k - 2, o)] = m
+                    end
+                else
+                    if params.length > 2 then
+                        local m, o = GetSideModuleAndOffset(variant, 1)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 0, k + 1, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 0, k - 2, o)] = m
+                    end
+                    if params.length > 4 then
+                        local m, o = GetSideModuleAndOffset(variant, 1)
+                        result[GetId(mainBuildingTag, throughBackTag, 0, 0, k + 2, o)] = m
+                        result[GetId(mainBuildingTag, throughBackTag, 0, -1, k + 1, o)] = m
+                    end
+                end
+            end ]]
+
+            if not cargo then
+                AddPassenger(0, s, e)
+                AddTrack(1, s, e)
+                if params.tracks >= 1 then
+                    AddTrack(2, s, e)
+                    AddPassenger(3, s, e)
+                end
+                if params.tracks >= 2 then
+                    AddTrack(4, s, e)
+                end
+                if params.tracks >= 3 then
+                    AddTrack(5, s, e)
+                    AddPassenger(6, s, e)
+                end
+                if params.tracks >= 4 then
+                    AddTrack(7, s, e)
+                end
+                if params.tracks >= 5 then
+                    AddTrack(8, s, e)
+                    AddPassenger(9, s, e)
+                end
+                if params.tracks >= 6 then
+                    AddTrack(10, s, e)
+                end
+                if params.tracks >= 7 then
+                    AddTrack(11, s, e)
+                    AddPassenger(12, s, e)
+                end
+            end
+            if cargo then
+                AddCargo(0, s, e)
+                AddTrack(2, s, e)
+                if params.tracks >= 1 then
+                    AddTrack(3, s, e)
+                    AddCargo(4, s, e)
+                end
+                if params.tracks >= 2 then
+                    AddTrack(6, s, e)
+                end
+                if params.tracks >= 3 then
+                    AddTrack(7, s, e)
+                    AddCargo(8, s, e)
+                end
+                if params.tracks >= 4 then
+                    AddTrack(10, s, e)
+                end
+                if params.tracks >= 5 then
+                    AddTrack(11, s, e)
+                    AddCargo(12, s, e)
+                end
+                if params.tracks >= 6 then
+                    AddTrack(14, s, e)
+                end
+                if params.tracks >= 7 then
+                    AddTrack(15, s, e)
+                    AddCargo(16, s, e)
+                end
+            end
+            return result
+        end,
+        params = {},
+        upgradeFn = function(params)
+            --print("upgradeFn has zed = ", trainstationutil.getZed(params))
+            local modules = {}
+
+            local SwapModule = function(slotId, from, to)
+                if params.modules[slotId] and params.modules[slotId].name == from then
+                    table.insert(modules, {slotId, to})
+                    return true
+                end
+                return false
+            end
+            local SwapRow = function(slotId, from, to)
+                local slotId2 = slotId
+                while SwapModule(slotId2, from, to) do
+                    slotId2 = slotId2 + 10
+                end
+                slotId2 = slotId
+                while SwapModule(slotId2, from, to) do
+                    slotId2 = slotId2 - 10
+                end
+            end
+
+            if params.modules[params.slotId] == nil then
+                return {}
+            end
+
+            if params.catenaryToggle == 1 then
+                SwapRow(
+                    params.slotId,
+                    'station/rail/modular_station/elevated_platform_high_speed_track.module',
+                    'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module'
+                )
+                SwapRow(
+                    params.slotId,
+                    'station/rail/modular_station/elevated_platform_track.module',
+                    'station/rail/modular_station/elevated_platform_track_catenary.module'
+                )
+                SwapRow(
+                    params.slotId,
+                    'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module',
+                    'station/rail/modular_station/elevated_platform_high_speed_track.module'
+                )
+                SwapRow(
+                    params.slotId,
+                    'station/rail/modular_station/elevated_platform_track_catenary.module',
+                    'station/rail/modular_station/elevated_platform_track.module'
+                )
+            end
+            if params.trackTypeToggle == 1 then
+                SwapRow(
+                    params.slotId,
+                    'station/rail/modular_station/elevated_platform_high_speed_track.module',
+                    'station/rail/modular_station/elevated_platform_track.module'
+                )
+                SwapRow(
+                    params.slotId,
+                    'station/rail/modular_station/elevated_platform_track.module',
+                    'station/rail/modular_station/elevated_platform_high_speed_track.module'
+                )
+                SwapRow(
+                    params.slotId,
+                    'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module',
+                    'station/rail/modular_station/elevated_platform_track_catenary.module'
+                )
+                SwapRow(
+                    params.slotId,
+                    'station/rail/modular_station/elevated_platform_track_catenary.module',
+                    'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module'
+                )
+            end
+
+            return modules
+        end,
+        updateFn = function(params)
+            --print("updateFn has zed = ", trainstationutil.getZed(params))
+            -- local platformWidth = 5
+
+            -- Layout and coordinate system:
+            -- 		MMM
+            -- -------------------
+            -- -------------------
+            --
+            -- MMM = Main building
+            -- --- = track or platform
+            -- <-- left (negative y-axis) (positive j)
+            -- --> right (positive y-axis) (positive j)
+            -- ^ up (negative x-axis) (negative i)
+            -- v down (positive x-axis) (positive i)
+            -- Coord system:
+            -- +--j->
+            -- ¦
+            -- i
+            -- ¦
+            -- ¦
+            -- v
+            local result = {}
+
+            local function makeEmptyTrack(type, catenary)
+                return {
+                    type = 'TRACK',
+                    params = {
+                        type = type,
+                        catenary = catenary
+                    },
+                    edges = {},
+                    edgeType = 'BRIDGE',
+                    edgeTypeName = 'lollo_cement.lua',
+                    snapNodes = {},
+                    tag2nodes = {}
+                }
+            end
+
+            result.models = {}
+            result.slots = {}
+            result.colliders = {}
+            result.terrainAlignmentLists = {}
+            result.groundFaces = {}
+            result.terminalGroups = {}
+            result.stations = {}
+            result.dependentSlots = {}
+            result.edgeLists = {
+                makeEmptyTrack('standard.lua', false),
+                makeEmptyTrack('standard.lua', true),
+                makeEmptyTrack('high_speed.lua', false),
+                makeEmptyTrack('high_speed.lua', true)
+            }
+            result.setPlatformNumber = {}
+            result.addPlatformCallback = function(i, j, callback)
+                if result.setPlatformNumber[i] == nil then
+                    result.setPlatformNumber[i] = {}
+                end
+                if result.setPlatformNumber[i][j] == nil then
+                    result.setPlatformNumber[i][j] = {}
+                end
+                table.insert(result.setPlatformNumber[i][j], callback)
+            end
+            result.platformCallback = function(i, j, left, n, station)
+                if result.setPlatformNumber[i] ~= nil and result.setPlatformNumber[i][j] ~= nil then
+                    for k, fn in pairs(result.setPlatformNumber[i][j]) do
+                        fn(left, n, station)
+                    end
+                end
+            end
+            result.labelText = {}
+
+            local countPlatforms = 0
+            local countCargoPlatforms = 0
+            local countTracks = 0
+            for i, k in pairs(params.modules) do
+                if k.metadata.track then
+                    countTracks = countTracks + 1
+                end
+                if k.metadata.platform then
+                    countPlatforms = countPlatforms + 1
+                end
+                if k.metadata.cargo_platform then
+                    countCargoPlatforms = countCargoPlatforms + 1
+                end
+            end
+
+            result.slotConfig = {}
+
+            local backwardDist = 8
+            local forwardDist = 15
+
+            local slotId2Coord = {}
+            result.trackCoord2models = {}
+            result.GetModuleAt = function(i, j)
+                return params.modules[cargoPlatformSlotId + 1000 * i + 10 * j] or
+                    params.modules[cargoPlatformSlotId + 1000 * (i - 1) + 10 * j] or
+                    params.modules[passengerPlatformSlotId + 1000 * i + 10 * j] or
+                    params.modules[trackSlotId + 1000 * i + 10 * j]
+            end
+            result.GetRoofAt = function(i, j)
+                return params.modules[passengerPlatformRoofSlotId + 1000 * i + 10 * j]
+            end
+            result.GetPlatformAddonAt = function(i, j)
+                return params.modules[passengerPlatformAddonSlotId + 1000 * i + 10 * j]
+            end
+            result.GetCoord = function(slotId)
+                return slotId2Coord[slotId]
+            end
+
+            local function AddSlot(i, j, baseSlotId, type, offset, spacing)
+                local id = baseSlotId + 1000 * i + 10 * j
+                result.slots[#result.slots + 1] = {
+                    id = id,
+                    transf = transf.rotZYXTransl(
+                        transf.degToRad(0.0, 0.0, 0.0),
+                        vec3.new(i * platformWidth + offset, j * platformLength, trainstationutil.getZed(params))
+                    ),
+                    type = type,
+                    spacing = {
+                        platformWidth / 2 * spacing,
+                        platformWidth / 2 * spacing,
+                        platformLength / 2 - 0.5,
+                        platformLength / 2 - 0.5
+                    }
+                }
+                slotId2Coord[id] = {i, j}
+            end
+
+            if not params.modules then
+                params.modules = {}
+            end
+
+            result.connector = {}
+
+            local minS = {}
+            local maxS = {}
+            local leftW = {}
+            local rightW = {}
+
+            for i = -backwardDist, forwardDist + 1 do
+                result.trackCoord2models[i] = {}
+
+                for j = jMin, jMax do
+                    result.trackCoord2models[i][j] = {}
+                    local mij = result.GetModuleAt(i, j)
+                    if
+                        mij or result.GetModuleAt(i, j + 1) or result.GetModuleAt(i, j - 1) or
+                            result.GetModuleAt(i + 1, j) or
+                            result.GetModuleAt(i - 1, j) or
+                            (i == 0 and j == 0)
+                     then
+                        AddSlot(i, j, passengerPlatformSlotId, 'passenger_platform', 0, 1)
+                        AddSlot(i, j, trackSlotId, 'track', 0, 1)
+
+                        local mod = result.GetModuleAt(i, j)
+
+                        if mod and mod.metadata.platform and mod.metadata.passenger_platform then
+                            local id = passengerPlatformSlotId + 1000 * i + 10 * j
+
+                            local id1 = passengerPlatformRoofSlotId + 1000 * i + 10 * j
+                            result.slots[#result.slots + 1] = {
+                                id = id1,
+                                transf = transf.rotZYXTransl(
+                                    transf.degToRad(0.0, 0.0, 0.0),
+                                    vec3.new(i * platformWidth, j * platformLength, 2 + trainstationutil.getZed(params))
+                                ),
+                                type = 'passenger_platform_roof',
+                                spacing = {0, 0, 0, 0}
+                            }
+                            slotId2Coord[id1] = {i, j}
+
+                            local id2 = passengerPlatformAddonSlotId + 1000 * i + 10 * j
+                            if not mod.name:match('platform_passenger_stairs_') then -- old stairs logic legacy fix
+                                result.slots[#result.slots + 1] = {
+                                    id = id2,
+                                    transf = transf.rotZYXTransl(
+                                        transf.degToRad(0.0, 0.0, 0.0),
+                                        vec3.new(i * platformWidth, j * platformLength, 2 + trainstationutil.getZed(params))
+                                    ),
+                                    type = 'passenger_platform_addon',
+                                    spacing = {0, 0, 0, 0}
+                                }
+                                slotId2Coord[id2] = {i, j}
+                            end
+
+                            result.dependentSlots[id] = {id1, id2}
+                        end
+                        --LOLLO commented this out
+--[[                         if mod and mod.metadata.platform and mod.metadata.cargo_platform then
+                            local id = passengerPlatformSlotId + 1000 * i + 10 * j
+
+                            local id1 = passengerPlatformRoofSlotId + 1000 * i + 10 * j
+                            result.slots[#result.slots + 1] = {
+                                id = id1,
+                                transf = transf.rotZYXTransl(
+                                    transf.degToRad(0.0, 0.0, 0.0),
+                                    vec3.new(i * platformWidth, j * platformLength, 2 + trainstationutil.getZed(params))
+                                ),
+                                type = 'cargo_platform_roof',
+                                spacing = {0, 0, 0, 0}
+                            }
+                            slotId2Coord[id1] = {i, j}
+
+                            local id2 = passengerPlatformAddonSlotId + 1000 * i + 10 * j
+                            result.slots[#result.slots + 1] = {
+                                id = id2,
+                                transf = transf.rotZYXTransl(
+                                    transf.degToRad(0.0, 0.0, 0.0),
+                                    vec3.new(i * platformWidth, j * platformLength, 2 + trainstationutil.getZed(params))
+                                ),
+                                type = 'cargo_platform_addon',
+                                spacing = {0, 0, 0, 0}
+                            }
+                            slotId2Coord[id2] = {i, j}
+
+                            result.dependentSlots[id] = {id1, id2}
+                        end ]]
+                    end
+                    --LOLLO commented this out
+--[[                     if
+                        mij or result.GetModuleAt(i, j + 1) or result.GetModuleAt(i, j - 1) or
+                            result.GetModuleAt(i + 1, j + 1) or
+                            result.GetModuleAt(i + 1, j - 1) or
+                            result.GetModuleAt(i - 1, j) or
+                            result.GetModuleAt(i + 2, j)
+                     then
+                        AddSlot(i, j, cargoPlatformSlotId, 'cargo_platform', platformWidth / 2, 2)
+                    end
+ ]]
+                    if mij then
+                        if minS[j] == nil then
+                            minS[j] = i
+                        end
+                        maxS[j] = i
+                        if leftW[i] == nil then
+                            leftW[i] = j
+                        end
+                        rightW[i] = j
+                    end
+                end
+            end
+
+            local mainBuildingSize = vec2.new(5, 12)
+            local mainBuildingAddonSize = vec2.new(5, 8)
+
+            local mainBuildingSlotSpacing1 = {10, 5, 5, 5}
+            local mainBuildingSlotSpacing2 = {10, 5, 10, 10}
+            local mainBuildingSlotSpacing3 = {10, 5, 20, 20}
+
+            result.occupied = {{}, {}, {}, {}}
+            result.GetAddonAt = function(side, j, k)
+                return result.occupied[side][(j - jMin) * 4 + k]
+            end
+
+            result.mainBuildingCoord = {}
+
+            local function AddSlot(id, transf, type, spacing, buildingType)
+                --if buildingType == 1 and (countTracks < 8 or countPlatforms < 8) then return end
+                --if buildingType == 2 and (countTracks < 8 or countPlatforms < 8) then return end
+                --if buildingType == 3 and (countTracks < 12 and countPlatforms < 12) then return end
+                --if buildingType == 4 and (countTracks < 10 and countPlatforms < 10) then return end
+                --if buildingType == 5 and (countTracks < 14 and countPlatforms < 14) then return end
+                --if buildingType == 6 and (countTracks < 16 and countPlatforms < 16) then return end
+
+                table.insert(
+                    result.slots,
+                    {
+                        id = id,
+                        transf = transf,
+                        type = type,
+                        spacing = spacing
+                    }
+                )
+            end
+
+            -- NON-HEAD SLOTS
+            for j = jMin, jMax do
+                if minS[j] ~= nil then
+                    local minDist = -minS[j] * platformWidth
+                    local pos = vec3.sub(mainBuildingPosition, vec3.new(minDist, 0, 0))
+
+                    local last = result.GetModuleAt(minS[j], j)
+                    if last and last.metadata.platform then
+                        for k = -2, minS[j + 1] == nil and 2 or 1 do
+                            -- Allow shifting by removing 3000 offset
+                            local id = GetId(mainBuildingTag, throughBackTag, minS[j], j, k)
+
+                            local tf1 = transf.transl(vec3.add(pos, vec3.new(0, j * platformLength + k * 10 + 5, 0)))
+                            local tf2 = transf.transl(vec3.add(pos, vec3.new(0, j * platformLength + k * 10, 0)))
+
+                            -- MAIN
+                            AddSlot(id, tf2, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
+                            AddSlot(id + 1, tf2, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
+                            -- SIDE
+                            if k < 2 then
+                                AddSlot(id + 5, tf1, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
+                            end
+                            AddSlot(id + 6, tf2, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
+                            AddSlot(id + 7, tf2, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
+
+                            local mod =
+                                params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or
+                                params.modules[id + 6] or
+                                params.modules[id + 7]
+                            if mod ~= nil then
+                                local data = {mod, minS[j]}
+                                for size = mod.metadata.span[1], mod.metadata.span[2] do
+                                    result.occupied[1][(j - jMin) * 4 + k + size] = data
+                                end
+                                result.mainBuildingCoord[id] = {false, false, minS[j], j, k}
+                            end
+                        end
+                    end
+                end
+                if maxS[j] ~= nil then
+                    local maxDist = -maxS[j] * platformWidth
+                    local pos = vec3.sub(mainBuildingPosition, vec3.new(maxDist - 20, 0, 0))
+
+                    -- Blacklist non platforms
+                    local last = result.GetModuleAt(maxS[j], j)
+                    if last and last.metadata.platform then
+                        for k = -2, minS[j + 1] == nil and 2 or 1 do
+                            -- Allow shifting by removing 3000 offset
+                            local id = GetId(mainBuildingTag, throughFrontTag, maxS[j], j, k)
+
+                            local tf1 =
+                                transf.rotZTransl(
+                                math.rad(180),
+                                vec3.add(pos, vec3.new(0, j * platformLength + k * 10 + 5, 0))
+                            )
+                            local tf2 =
+                                transf.rotZTransl(
+                                math.rad(180),
+                                vec3.add(pos, vec3.new(0, j * platformLength + k * 10, 0))
+                            )
+
+                            -- MAIN
+                            AddSlot(id, tf2, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
+                            AddSlot(id + 1, tf2, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
+
+                            -- Side
+                            if k < 2 then
+                                AddSlot(id + 5, tf1, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
+                            end
+                            AddSlot(id + 6, tf2, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
+                            AddSlot(id + 7, tf2, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
+
+                            local mod =
+                                params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or
+                                params.modules[id + 6] or
+                                params.modules[id + 7]
+                            if mod ~= nil then
+                                local data = {mod, maxS[j]}
+                                for size = mod.metadata.span[1], mod.metadata.span[2] do
+                                    result.occupied[2][(j - jMin) * 4 + k + size] = data
+                                end
+                                result.mainBuildingCoord[id] = {false, true, maxS[j], j, k}
+                            end
+                        end
+                    end
+                end
+            end
+
+            -- HEAD SLOTS
+            -- Head station building slots
+            for i = -backwardDist, forwardDist do
+                -- Left when looking with station opposite to camera (negative j)
+                --if leftW[i] ~= nil and maxS[leftW[i]] and maxS[leftW[i]] > i then
+                for j = jMin, jMax do
+                    local pos = vec3.new(i * platformWidth + 2.5, j * platformLength - 0.5 * platformLength - 12.5, 0)
+                    local tf = transf.rotZTransl(math.rad(90), pos)
+
+                    -- Allow shifting by removing 20 offset
+                    local id = GetId(mainBuildingTag, headLeftTag, i, j)
+
+                    local function check(from, to)
+                        for k = from, to do
+                            if result.GetModuleAt(i + k, j) then
+                                return true
+                            end
+                        end
+                        return false
+                    end
+                    local size2l = check(0, 1)
+                    local size4l = check(-1, 2)
+                    local size8l = check(-3, 4)
+
+                    -- MAIN
+                    if size4l then
+                        AddSlot(id, tf, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
+                    end
+                    if size8l then
+                        AddSlot(id + 1, tf, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
+                    end
+
+                    -- SIDE
+                    if size2l then
+                        AddSlot(id + 5, tf, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
+                    end
+                    if size4l then
+                        AddSlot(id + 6, tf, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
+                    end
+                    if size8l then
+                        AddSlot(id + 7, tf, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
+                    end
+
+                    local mod =
+                        params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or
+                        params.modules[id + 7]
+                    if mod ~= nil then
+                        local data = {mod, j}
+                        local size = mod.metadata.span[2] - mod.metadata.span[1]
+                        for l = -size - 1, size do
+                            result.occupied[3][i + l] = data
+                        end
+                        result.mainBuildingCoord[id] = {true, true, i, j}
+                    end
+                    local pos = vec3.new(i * platformWidth + 2.5, j * platformLength + 0.5 * platformLength + 12.5, 0)
+
+                    local tf = transf.rotZTransl(math.rad(-90), pos)
+
+                    -- Allow shifting by removing 20 offset
+                    local id = GetId(mainBuildingTag, headRightTag, i, j)
+
+                    local function check(from, to)
+                        for k = from, to do
+                            if result.GetModuleAt(i + k, j) then
+                                return true
+                            end
+                        end
+                        return false
+                    end
+                    local size2l = check(0, 1)
+                    local size4l = check(-1, 2)
+                    local size8l = check(-3, 4)
+
+                    -- MAIN
+                    if size4l then
+                        AddSlot(id, tf, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
+                    end
+                    if size8l then
+                        AddSlot(id + 1, tf, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
+                    end
+
+                    -- SIDE
+                    if size2l then
+                        AddSlot(id + 5, tf, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
+                    end
+                    if size4l then
+                        AddSlot(id + 6, tf, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
+                    end
+                    if size8l then
+                        AddSlot(id + 7, tf, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
+                    end
+
+                    local mod =
+                        params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or
+                        params.modules[id + 7]
+                    if mod ~= nil then
+                        local data = {mod, j}
+                        local size = mod.metadata.span[2] - mod.metadata.span[1]
+                        for l = -size - 1, size do
+                            result.occupied[4][i + l] = data
+                        end
+                        result.mainBuildingCoord[id] = {true, false, i, j}
+                    end
+                end
+            end
+
+            -- Add stairs
+            for j = jMin, jMax do
+                if maxS[j] ~= nil then
+                    local last = result.GetModuleAt(maxS[j], j)
+                    if
+                        last and not last.metadata.track and not result.occupied[2][(j - jMin) * 4 + 1] and
+                            not result.occupied[2][(j - jMin) * 4 + 2]
+                     then
+                        AddSlot(
+                            stairsSlotId + 10 * j + 1,
+                            transf.rotZYXTransl(
+                                transf.degToRad(0.0, 0.0, 0.0),
+                                vec3.new(maxS[j] * platformWidth + 2.5, j * platformLength, 0)
+                            ),
+                            'elevated_rail_stairs',
+                            {0, 0, 0, 0}
+                        )
+                    end
+                end
+                if minS[j] ~= nil then
+                    local first = result.GetModuleAt(minS[j], j)
+                    if
+                        first and not first.metadata.track and not result.occupied[1][(j - jMin) * 4 + 1] and
+                            not result.occupied[1][(j - jMin) * 4 + 2]
+                     then
+                        AddSlot(
+                            stairsSlotId + 10 * j,
+                            transf.rotZYXTransl(
+                                transf.degToRad(180.0, 0.0, 0.0),
+                                vec3.new(minS[j] * platformWidth - 2.5, j * platformLength, 0)
+                            ),
+                            'elevated_rail_stairs',
+                            {0, 0, 0, 0}
+                        )
+                    end
+                end
+            end
+
+            result.cost = 0
+
+            result.terminateConstructionHook = function()
+                --print("terminateConstructionHook has zed = ", trainstationutil.getZed(params))
+                --local year = game.interface.getGameTime().date.year
+                local year = params.year or 0
+                local era = getEra(year)
+
+                if params.modules == nil then
+                    return
+                end
+
+                -- Add connectors
+                for i, k in pairs(result.connector) do
+                    local coordI = k[1]
+                    local coordJ = k[2]
+                    local l = k[3]
+                    local type = k[4]
+                    --local id = 'station/rail/era_' .. era .. '/perron_5_head.mdl'
+                    local id = 'era_' .. era .. '/perron_5_head.mdl'
+                    local angle = 0
+                    local offsetX = 0
+                    local offsetY = 0
+
+                    if type == 0 then
+                        if l == 0 then
+                            angle = -90
+                            local mod = result.GetModuleAt(coordI, coordJ - 1)
+                            if mod and (mod.metadata.passenger_platform or mod.metadata.cargo_platform) then
+                                --id = 'station/rail/era_' .. era .. '/perron_5_head_con.mdl'
+                                id = 'era_' .. era .. '/perron_5_head_con.mdl'
+                            end
+                            offsetX = 0
+                            offsetY = -5
+                        elseif l == 7 then
+                            angle = 90
+                            local mod = result.GetModuleAt(coordI, coordJ + 1)
+                            if mod and (mod.metadata.passenger_platform or mod.metadata.cargo_platform) then
+                                --id = 'station/rail/era_' .. era .. '/perron_5_head_con.mdl'
+                                id = 'era_' .. era .. '/perron_5_head_con.mdl'
+                            end
+                        end
+
+                        if result.connector[1000 * (coordI + 1) + 100 * coordJ + l] == nil then
+                            result.models[#result.models + 1] = {
+                                --id = 'station/rail/era_' .. era .. '/perron_5_end.mdl',
+                                id = 'era_' .. era .. '/perron_5_end.mdl',
+                                transf = transf.rotZTransl(
+                                    math.rad(0),
+                                    vec3.new(coordI * 5 + 2.5, coordJ * platformLength - 17.5 + l * 5, 0)
+                                ),
+                                tag = ''
+                            }
+                        end
+                        if result.connector[1000 * (coordI - 1) + 100 * coordJ + l] == nil then
+                            result.models[#result.models + 1] = {
+                                --id = 'station/rail/era_' .. era .. '/perron_5_end.mdl',
+                                id = 'era_' .. era .. '/perron_5_end.mdl',
+                                transf = transf.rotZTransl(
+                                    math.rad(180),
+                                    vec3.new(coordI * 5 - 2.5, coordJ * platformLength - 17.5 + l * 5, 0)
+                                ),
+                                tag = ''
+                            }
+                        end
+                    else
+                        offsetX = 2.5
+                        offsetY = -2.5
+                        if
+                            result.connector[1000 * (coordI) + 100 * coordJ + l - 1] == nil and
+                                (not result.GetModuleAt(coordI, coordJ - 1) or
+                                    not result.GetModuleAt(coordI, coordJ - 1).metadata.platform)
+                         then
+                            result.models[#result.models + 1] = {
+                                --id = 'station/rail/era_' .. era .. '/perron_5_end.mdl',
+                                id = 'era_' .. era .. '/perron_5_end.mdl',
+                                transf = transf.rotZTransl(
+                                    math.rad(-90),
+                                    vec3.new(coordI * 5, coordJ * platformLength - 17.5 + l * 5 - 2.5, 0)
+                                ),
+                                tag = ''
+                            }
+                        end
+                        if
+                            result.connector[1000 * (coordI) + 100 * coordJ + l + 1] == nil and
+                                (not result.GetModuleAt(coordI, coordJ + 1) or
+                                    not result.GetModuleAt(coordI, coordJ + 1).metadata.platform)
+                         then
+                            result.models[#result.models + 1] = {
+                                --id = 'station/rail/era_' .. era .. '/perron_5_end.mdl',
+                                id = 'era_' .. era .. '/perron_5_end.mdl',
+                                transf = transf.rotZTransl(
+                                    math.rad(90),
+                                    vec3.new(coordI * 5, coordJ * platformLength - 17.5 + l * 5 + 2.5, 0)
+                                ),
+                                tag = ''
+                            }
+                        end
+                    end
+
+                    result.models[#result.models + 1] = {
+                        id = id,
+                        transf = transf.rotZTransl(
+                            math.rad(angle),
+                            vec3.new(
+                                coordI * 5 + offsetX,
+                                coordJ * platformLength - 15 + l * 5 + offsetY,
+                                trainstationutil.getZed(params)
+                            )
+                        ),
+                        tag = ''
+                    }
+
+                    local faces = {
+                        {coordI * 5 + 2.5, coordJ * platformLength - 20 + l * 5, trainstationutil.getZed(params)},
+                        {coordI * 5 + 2.5, coordJ * platformLength - 15 + l * 5, trainstationutil.getZed(params)},
+                        {coordI * 5 - 2.5, coordJ * platformLength - 15 + l * 5, trainstationutil.getZed(params)},
+                        {coordI * 5 - 2.5, coordJ * platformLength - 20 + l * 5, trainstationutil.getZed(params)}
+                    }
+
+                    table.insert(result.terrainAlignmentLists, {type = 'EQUAL', faces = {faces}})
+
+                    table.insert(
+                        result.groundFaces,
+                        {
+                            face = faces,
+                            modes = {
+                                {
+                                    type = 'FILL',
+                                    key = 'shared/gravel_03.gtex.lua'
+                                },
+                                {
+                                    type = 'STROKE_OUTER',
+                                    key = 'street_border.lua'
+                                }
+                            }
+                        }
+                    )
+
+                    table.insert(
+                        result.colliders,
+                        colliderutil.createBox({coordI * 5, coordJ * platformLength - 17.5 + l * 5, 0}, {2.5, 2.5, 2})
+                    )
+                end
+
+                local tgLeft = nil
+                local tgRight = nil
+
+                local passengerGroups = {}
+                local cargoGroups = {}
+                local passengerGroupCallbacks = {}
+                local cargoGroupCallbacks = {}
+
+                local cumsum = {}
+                local c = 0
+                for i = 1, #result.edgeLists do
+                    cumsum[i] = c
+                    c = c + #result.edgeLists[i].edges
+                end
+
+                --local headLeft = true
+                --local headRight = true
+
+                for i = -backwardDist, forwardDist + 1 do
+                    local startIndexL = {}
+                    for j = jMin, jMax do
+                        local moduleHere = result.GetModuleAt(i, j)
+                        local j1l = 0
+                        if
+                            moduleHere and moduleHere.metadata.track and
+                                (result.trackCoord2models[i][j].left ~= nil or
+                                    result.trackCoord2models[i][j].right ~= nil)
+                         then
+                            local left = result.GetModuleAt(i - 1, j)
+                            local prevT = result.GetModuleAt(i, j - 1)
+                            table.insert(startIndexL, j)
+
+                            local continueLeft = false
+                            if prevT and prevT.metadata.track then
+                                local prevL = result.GetModuleAt(i - 1, j - 1)
+                                if
+                                    prevL and left and
+                                        ((prevL.metadata.cargo_platform and left.metadata.cargo_platform) or
+                                            (prevL.metadata.passenger_platform and left.metadata.passenger_platform))
+                                 then
+                                    for k, v in pairs(result.trackCoord2models[i][j].left) do
+                                        table.insert(tgLeft.terminals, v)
+                                        table.insert(
+                                            tgLeft.callbacks,
+                                            function(n, station)
+                                                result.platformCallback(i - 1, j, true, n, station)
+                                            end
+                                        )
+                                    end
+                                    local vno =
+                                        result.trackCoord2models[i][j].nodeLeft[2] +
+                                        cumsum[result.trackCoord2models[i][j].nodeLeft[1]]
+                                    local vnoCenter =
+                                        result.trackCoord2models[i][j].nodeCenterLeft[2] +
+                                        cumsum[result.trackCoord2models[i][j].nodeCenterLeft[1]]
+                                    table.insert(tgLeft.vehicleNodeOverrideList, vno)
+                                    table.insert(tgLeft.vehicleNodeOverrideListCenter, vnoCenter)
+                                    continueLeft = true
+                                end
+                            end
+                            if not continueLeft then
+                                if tgLeft ~= nil then
+                                    local headStart = result.connector[1000 * (i) + 100 * (j - 1) + 7]
+                                    local headEnd = result.connector[1000 * (i) + 100 * (startIndexL[1] + 1) + 0]
+
+                                    local index = math.ceil(#tgLeft.vehicleNodeOverrideList / 2)
+                                    if headStart then
+                                        index = 1
+                                    elseif headEnd then
+                                        index = #tgLeft.vehicleNodeOverrideList
+                                    end
+
+                                    if #tgLeft.vehicleNodeOverrideListCenter % 2 == 0 and not headStart and not headEnd then
+                                        tgLeft.vehicleNodeOverride =
+                                            tgLeft.vehicleNodeOverrideListCenter[
+                                            #tgLeft.vehicleNodeOverrideListCenter / 2 + 1
+                                        ]
+                                    else
+                                        tgLeft.vehicleNodeOverride = tgLeft.vehicleNodeOverrideList[index]
+                                    end
+                                    table.insert(result.terminalGroups, tgLeft)
+                                    if tgLeft.cargo then
+                                        table.insert(cargoGroups, #result.terminalGroups - 1)
+                                        table.insert(cargoGroupCallbacks, tgLeft.callbacks)
+                                    else
+                                        table.insert(passengerGroups, #result.terminalGroups - 1)
+                                        table.insert(passengerGroupCallbacks, tgLeft.callbacks)
+                                    end
+                                    tgLeft = nil
+                                    j1l = j1l + 1
+                                end
+                                if left and (left.metadata.cargo_platform or left.metadata.passenger_platform) then
+                                    local vno =
+                                        result.trackCoord2models[i][j].nodeLeft[2] +
+                                        cumsum[result.trackCoord2models[i][j].nodeLeft[1]]
+                                    local vnoCenter =
+                                        result.trackCoord2models[i][j].nodeCenterLeft[2] +
+                                        cumsum[result.trackCoord2models[i][j].nodeCenterLeft[1]]
+                                    tgLeft = {
+                                        callbacks = {
+                                            function(n, station)
+                                                result.platformCallback(i - 1, j, true, n, station)
+                                            end
+                                        },
+                                        terminals = result.trackCoord2models[i][j].left,
+                                        vehicleNodeOverrideList = {vno},
+                                        vehicleNodeOverrideListCenter = {vnoCenter},
+                                        cargo = left.metadata.cargo_platform,
+                                        tag = 100 * j1l + 2 * i
+                                    }
+                                    startIndexL = {}
+                                end
+                            end
+                        end
+                    end
+
+                    if tgLeft ~= nil then
+                        local headStart =
+                            startIndexL[1] and result.connector[1000 * (i) + 100 * (startIndexL[1] - 2) + 7]
+                        local headEnd =
+                            startIndexL[#startIndexL] and
+                            result.connector[1000 * (i) + 100 * (startIndexL[#startIndexL] + 1) + 0]
+
+                        local index = math.ceil(#tgLeft.vehicleNodeOverrideList / 2)
+                        if headStart then
+                            index = 1
+                        elseif headEnd then
+                            index = #tgLeft.vehicleNodeOverrideList
+                        end
+
+                        if #tgLeft.vehicleNodeOverrideListCenter % 2 == 0 and not headStart and not headEnd then
+                            tgLeft.vehicleNodeOverride =
+                                tgLeft.vehicleNodeOverrideListCenter[#tgLeft.vehicleNodeOverrideListCenter / 2 + 1]
+                        else
+                            tgLeft.vehicleNodeOverride = tgLeft.vehicleNodeOverrideList[index]
+                        end
+                        table.insert(result.terminalGroups, tgLeft)
+                        if tgLeft.cargo then
+                            table.insert(cargoGroups, #result.terminalGroups - 1)
+                            table.insert(cargoGroupCallbacks, tgLeft.callbacks)
+                        else
+                            table.insert(passengerGroups, #result.terminalGroups - 1)
+                            table.insert(passengerGroupCallbacks, tgLeft.callbacks)
+                        end
+                        tgLeft = nil
+                    end
+
+                    local startIndexR = {}
+                    for j = jMin, jMax do
+                        local moduleHere = result.GetModuleAt(i, j)
+                        local j1r = 0
+                        if
+                            moduleHere and moduleHere.metadata.track and
+                                (result.trackCoord2models[i][j].left ~= nil or
+                                    result.trackCoord2models[i][j].right ~= nil)
+                         then
+                            local right = result.GetModuleAt(i + 1, j)
+                            local prevT = result.GetModuleAt(i, j - 1)
+                            table.insert(startIndexR, j)
+
+                            local continueRight = false
+                            if prevT and prevT.metadata.track then
+                                local prevR = result.GetModuleAt(i + 1, j - 1)
+                                if
+                                    prevR and right and
+                                        ((prevR.metadata.cargo_platform and right.metadata.cargo_platform) or
+                                            (prevR.metadata.passenger_platform and right.metadata.passenger_platform))
+                                 then
+                                    for k, v in pairs(result.trackCoord2models[i][j].right) do
+                                        table.insert(tgRight.terminals, v)
+                                        table.insert(
+                                            tgRight.callbacks,
+                                            function(n, station)
+                                                result.platformCallback(i + 1, j, false, n, station)
+                                            end
+                                        )
+                                    end
+                                    local vno =
+                                        result.trackCoord2models[i][j].nodeRight[2] +
+                                        cumsum[result.trackCoord2models[i][j].nodeRight[1]]
+                                    local vnoCenter =
+                                        result.trackCoord2models[i][j].nodeCenterRight[2] +
+                                        cumsum[result.trackCoord2models[i][j].nodeCenterRight[1]]
+                                    table.insert(tgRight.vehicleNodeOverrideList, vno)
+                                    table.insert(tgRight.vehicleNodeOverrideListCenter, vnoCenter)
+                                    continueRight = true
+                                end
+                            end
+                            if not continueRight then
+                                if tgRight ~= nil then
+                                    local headStart = result.connector[1000 * (i) + 100 * (j - 1) + 7]
+                                    local headEnd = result.connector[1000 * (i) + 100 * (startIndexR[1] + 1) + 0]
+
+                                    local index = math.ceil(#tgRight.vehicleNodeOverrideList / 2)
+                                    if headStart then
+                                        index = 1
+                                    elseif headEnd then
+                                        index = #tgRight.vehicleNodeOverrideList
+                                    end
+
+                                    if #tgRight.vehicleNodeOverrideListCenter % 2 == 0 and not headStart and not headEnd then
+                                        tgRight.vehicleNodeOverride =
+                                            tgRight.vehicleNodeOverrideListCenter[
+                                            #tgRight.vehicleNodeOverrideListCenter / 2
+                                        ]
+                                    else
+                                        tgRight.vehicleNodeOverride = tgRight.vehicleNodeOverrideList[index]
+                                    end
+                                    table.insert(result.terminalGroups, tgRight)
+                                    if tgRight.cargo then
+                                        table.insert(cargoGroups, #result.terminalGroups - 1)
+                                        table.insert(cargoGroupCallbacks, tgRight.callbacks)
+                                    else
+                                        table.insert(passengerGroups, #result.terminalGroups - 1)
+                                        table.insert(passengerGroupCallbacks, tgRight.callbacks)
+                                    end
+                                    tgRight = nil
+                                    j1r = j1r + 1
+                                end
+                                if right and (right.metadata.cargo_platform or right.metadata.passenger_platform) then
+                                    local vno =
+                                        result.trackCoord2models[i][j].nodeRight[2] +
+                                        cumsum[result.trackCoord2models[i][j].nodeRight[1]]
+                                    local vnoCenter =
+                                        result.trackCoord2models[i][j].nodeCenterRight[2] +
+                                        cumsum[result.trackCoord2models[i][j].nodeCenterRight[1]]
+                                    tgRight = {
+                                        callbacks = {
+                                            function(n, station)
+                                                result.platformCallback(i + 1, j, false, n, station)
+                                            end
+                                        },
+                                        terminals = result.trackCoord2models[i][j].right,
+                                        vehicleNodeOverrideList = {vno},
+                                        vehicleNodeOverrideListCenter = {vnoCenter},
+                                        cargo = right.metadata.cargo_platform,
+                                        tag = 100 * j1r + 2 * i + 1
+                                    }
+                                    startIndexR = {}
+                                end
+                            end
+                        end
+                    end
+
+                    if tgRight ~= nil then
+                        local headStart =
+                            startIndexR[1] and result.connector[1000 * (i) + 100 * (startIndexR[1] - 2) + 7]
+                        local headEnd =
+                            startIndexR[#startIndexR] and
+                            result.connector[1000 * (i) + 100 * (startIndexR[#startIndexR] + 1) + 0]
+
+                        local index = math.ceil(#tgRight.vehicleNodeOverrideList / 2)
+                        if headStart then
+                            index = 1
+                        elseif headEnd then
+                            index = #tgRight.vehicleNodeOverrideList
+                        end
+
+                        if #tgRight.vehicleNodeOverrideListCenter % 2 == 0 and not headStart and not headEnd then
+                            tgRight.vehicleNodeOverride =
+                                tgRight.vehicleNodeOverrideListCenter[#tgRight.vehicleNodeOverrideListCenter / 2]
+                        else
+                            tgRight.vehicleNodeOverride = tgRight.vehicleNodeOverrideList[index]
+                        end
+                        table.insert(result.terminalGroups, tgRight)
+                        if tgRight.cargo then
+                            table.insert(cargoGroups, #result.terminalGroups - 1)
+                            table.insert(cargoGroupCallbacks, tgRight.callbacks)
+                        else
+                            table.insert(passengerGroups, #result.terminalGroups - 1)
+                            table.insert(passengerGroupCallbacks, tgRight.callbacks)
+                        end
+                        tgRight = nil
+                    end
+                end
+
+                if #result.terminalGroups > 0 then
+                    local c = 0
+                    if #passengerGroups > 0 then
+                        local station = {terminals = {}, tag = 2}
+                        for i = 1, #passengerGroups do
+                            table.insert(station.terminals, passengerGroups[i])
+                            for k, fn in pairs(passengerGroupCallbacks[i]) do
+                                fn(#station.terminals, c)
+                            end
+                        end
+                        c = c + 1
+                        table.insert(result.stations, station)
+                    end
+                    --[[ if #cargoGroups > 0 then
+                        local station = {terminals = {}, tag = 1}
+                        for i = 1, #cargoGroups do
+                            table.insert(station.terminals, cargoGroups[i])
+                            for k, fn in pairs(cargoGroupCallbacks[i]) do
+                                fn(#station.terminals, c)
+                            end
+                        end
+                        c = c + 1
+                        table.insert(result.stations, station)
+                    end ]]
+                end
+
+                if #result.models == 0 then
+                    table.insert(
+                        result.models,
+                        {
+                            id = 'asset/icon/marker_exclamation.mdl',
+                            transf = transf.transl(vec3.new(10.0, 0.0, .0))
+                        }
+                    )
+                end
+                if result.terrainAlignmentLists == nil or #result.terrainAlignmentLists == 0 then
+                    result.terrainAlignmentLists = {
+                        {
+                            type = 'LESS',
+                            faces = {
+                                {
+                                    {10.1, -0.1, 0.0, 1.0},
+                                    {10.1, 0.1, 0.0, 1.0},
+                                    {9.9, 0.1, 0.0, 1.0},
+                                    {9.9, -0.1, 0.0, 1.0}
+                                }
+                            }
+                        }
+                    }
+                end
+            end
+
+            -- print('-- result = ')
+            -- dump(true)(result)
+            return result
+        end
+    }
+end

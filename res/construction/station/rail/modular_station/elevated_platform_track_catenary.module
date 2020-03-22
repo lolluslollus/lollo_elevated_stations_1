@@ -1,0 +1,47 @@
+local transf = require "transf"
+local vec3 = require "vec3"
+local modulesutil = require "modulesutil"
+local trainstationutil = require "modules/elevated_trainstationutil"
+local lolloConstants = require("lolloConstants")
+
+function data()
+
+return { 
+	availability = {
+		yearFrom = lolloConstants().availableFrom, -- was 1920
+		yearTo = 0,
+	},
+	cost = {
+		price = 25000,
+	},
+	description = {
+		name = _("Elevated tracks"),
+		description = _("Elevated tracks with catenary and limited speed capabilities."),
+		icon = "ui/construction/station/rail/modular_station/track_catenary.tga"
+	},
+	category = {
+		categories = { "elevated tracks", },
+	},
+	--buildMode = "MULTI",
+	type = "track",
+	order = {
+		value = 260,
+	},
+	metadata = {
+		track = true,
+	},
+	
+	updateFn = function(result, transform, tag, slotId, addModuleFn, params)
+		trainstationutil.makeTrack(result, transform, tag, slotId, addModuleFn, params, 2)
+	end,
+	
+	getModelsFn = function()
+		
+		local result = {
+		}
+		
+		return result
+	end
+}
+
+end

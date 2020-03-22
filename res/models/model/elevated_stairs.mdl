@@ -1,0 +1,762 @@
+local underpassZed = require('lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
+
+local leftAboveTransf = {0, .5, 0, 0, 1, 0, 0, 0, 0, 0, 1.1, 0, -9.75, -2.3, 0.7, 1}
+local frontAboveTransf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.1, 0, 0, -5, 0.7, 1}
+local rightAboveTransf = {0, .5, 0, 0, 1, 0, 0, 0, 0, 0, 1.1, 0, 9.75, -2.3, 0.7, 1}
+local leftBelowTransf = {0, .65, 0, 0, 1, 0, 0, 0, 0, 0, 20, 0, -9.75, -2.0, -59.3, 1}
+local frontBelowTransf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 20, 0, 0, -5, -59.3, 1}
+local rightBelowTransf = {0, .65, 0, 0, 1, 0, 0, 0, 0, 0, 20, 0, 9.75, -2.0, -59.3, 1}
+local rearBelowTransf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 20, 0, 0, 1, -59.3, 1}
+local facadeDecorationTransf = {2, 0, 0, 0, 0, 2, 0, 0, 0, 0, -15.5, 0, 0, -3.2, -7.2, 1}
+local roofTransf = {2, 0, 0, 0, 0, 0, 1, 0, 0, 1.9, 0, 0, 0, -5.3, 4.2, 1}
+local solarOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1.1, 4.45, 1}
+local solarTwoTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -3.4, 4.45, 1}
+local ventOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 6, -2, 4.5, 1}
+local ventTwoTransf = {-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -6, -2, 4.5, 1}
+local idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
+local stationMainTransf = {.6, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
+
+function data()
+    --print('- underpassZed = ', underpassZed)
+    return {
+        boundingInfo = {
+            bbMax = {5.5, -5.0, -59.0},
+            bbMin = {-5.5, 1.0, -1.0}
+        },
+        collider = {
+            params = {
+                halfExtents = {4.4999990463257, 0.50002193450928, 0.31999999284744}
+            },
+            transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+            type = 'BOX'
+        },
+        lods = {
+            {
+                node = {
+                    children = {
+                        -- {
+                        --     materials = {'station/rail/era_a/borders_1.mtl'},
+                        --     mesh = 'station/rail/era_a/stairs/stairs_lod0.msh',
+                        --     name = 'stairs',
+                        --     transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 22, 17, 0, 1}
+                        -- },
+                        {
+                            children = {
+                                -- walls above the platform
+                                {
+                                    -- front wall
+                                    --materials = { "industry/oil_refinery/era_a/wall_2.mtl", },
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = frontAboveTransf
+                                },
+                                {
+                                    --right wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    --materials = { "asset/commercial/era_c/com_glass.mtl", },
+                                    --materials = { "building/era_c/com_1_1x1_03/com_era_c_window_glass_mat.mtl", }, -- crashes
+                                    --materials = { "asset/roof/asset_roof_decor1.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = rightAboveTransf
+                                },
+                                {
+                                    -- left wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = leftAboveTransf
+                                },
+                                -- walls below the platform
+                                {
+                                    -- facade decoration
+                                    --materials = { "asset/industry/asset_industry_chimneys_01.mtl", "asset/industry/asset_industry_transparent_01.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", "asset/industry/asset_industry_transparent_01.mtl", },
+                                    materials = {'station/rail/era_c/era_c_trainstation_glass_milk.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_roof_white.mtl", },
+                                    mesh = 'asset/industry/ind_chimney_3_big_single/ind_chimney_3_big_single_lod0.msh',
+                                    name = 'ind_chimney_3_big_single',
+                                    transf = facadeDecorationTransf
+                                },
+                                {
+                                    -- front wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = frontBelowTransf
+                                },
+                                {
+                                    --rear wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = rearBelowTransf
+                                },
+                                {
+                                    --right wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = rightBelowTransf
+                                },
+                                {
+                                    -- left wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = leftBelowTransf
+                                },
+                                -- roof
+                                {
+                                    -- flat roof
+                                    --materials = { "industry/oil_refinery/era_a/wall_2.mtl", },
+                                    --materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_roof_white.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "asset/roof/asset_roof_decor1.mtl", },
+                                    --materials = { "asset/roof/asset_roof_decor1.mtl", },
+                                    --materials = { "industry/chemical_plant/wall_1.mtl", },
+                                    --materials = { "industry/goods_factory/goods_factory_roof1.mtl", },
+                                    --materials = { "industry/machines_factory/wall_1.mtl", },
+                                    materials = {'industry/machines_factory/roof_2.mtl'},
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = roofTransf
+                                },
+                                {
+                                    --solar panel 1
+                                    materials = {'asset/roof/asset_roof_decor1.mtl'},
+                                    mesh = 'asset/roof/lod_0_solar_panel1.msh',
+                                    transf = solarOneTransf
+                                },
+                                {
+                                    --solar panel 2
+                                    materials = {'asset/roof/asset_roof_decor1.mtl'},
+                                    mesh = 'asset/roof/lod_0_solar_panel1.msh',
+                                    transf = solarTwoTransf
+                                },
+                                {
+                                    -- roof vent 1
+                                    materials = {'asset/roof/asset_roof_decor1.mtl'},
+                                    mesh = 'asset/roof/lod_0_ventilation_end_curved.msh',
+                                    transf = ventOneTransf
+                                },
+                                {
+                                    -- roof vent 2
+                                    materials = {'asset/roof/asset_roof_decor1.mtl'},
+                                    mesh = 'asset/roof/lod_0_ventilation_end_curved.msh',
+                                    transf = ventTwoTransf
+                                },
+                                -- floor
+                                {
+                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
+                                    mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod0.msh',
+                                    name = 'station_1_main_perron',
+                                    transf = idTransf
+                                }
+                            },
+                            name = 'station_1_main_grp',
+                            transf = stationMainTransf
+                        },
+                        --[[                         {
+                            animations = {
+                                forever = {
+                                    forward = true,
+                                    params = {
+                                        keyframes = {
+                                            {
+                                                rot = {0, 0, 0},
+                                                time = 0,
+                                                transl = {0, 0, 0}
+                                            },
+                                            {
+                                                rot = {0, 0, 0},
+                                                time = 4000,
+                                                transl = {0, 0, -22}
+                                            },
+                                            {
+                                                rot = {0, 0, 0},
+                                                time = 6000,
+                                                transl = {0, 0, -22}
+                                            },
+                                            {
+                                                rot = {0, 0, 0},
+                                                time = 10000,
+                                                transl = {0, 0, 0}
+                                            },
+                                            {
+                                                rot = {0, 0, 0},
+                                                time = 12000,
+                                                transl = {0, 0, 0}
+                                            }
+                                        },
+                                        origin = {0, 0, 0}
+                                    },
+                                    type = 'KEYFRAME'
+                                }
+                            },
+                            materials = {'industry/construction_material/trim_2.mtl'},
+                            mesh = 'industry/construction_material/lod_0_building_2_elevator.msh',
+                            --transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.5, 0, 30, 1, },
+                            transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, -1, 1}
+                        }, ]]
+                        --[[ 						{
+							animations = {
+								forever = {
+									forward = false,
+									params = {
+										keyframes = {
+											{
+												rot = { 0, 0, 0, },
+												time = 0,
+												transl = { 0, 0, 1, },
+											},
+											{
+												rot = { 0, 0, 0, },
+												time = 4000,
+												transl = { 0, 0, -25, },
+											},
+											{
+												rot = { 0, 0, 0, },
+												time = 6000,
+												transl = { 0, 0, -25, },
+											},
+											{
+												rot = { 0, 0, 0, },
+												time = 10000,
+												transl = { 0, 0, 1, },
+											},
+											{
+												rot = { 0, 0, 0, },
+												time = 12000,
+												transl = { 0, 0, 1, },
+											},
+										},
+										origin = { 0, 0, 0, },
+									},
+									type = "KEYFRAME",
+								},
+							},
+							materials = { "industry/construction_material/trim_2.mtl", },
+							mesh = "industry/construction_material/lod_0_building_2_elevator.msh",
+							--transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8.5, 0, 30, 1, },
+                            transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -2.5, 0, -1, 1, },
+                        }, ]]
+                        {
+                            children = {
+                                {
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_station_name/era_c_station_name_lod0.msh',
+                                    name = 'era_c_station_name',
+                                    transf = idTransf
+                                }
+                            },
+                            name = 'era_c_station_name_grp',
+                            --transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                            transf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -5.1, -.1, 1}
+                        }
+                    },
+                    name = 'RootNode',
+                    transf = idTransf
+                },
+                static = false,
+                visibleFrom = 0,
+                visibleTo = 100
+            },
+            {
+                node = {
+                    children = {
+                        {
+                            children = {
+                                -- walls above the platform
+                                {
+                                    -- front wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = frontAboveTransf
+                                },
+                                {
+                                    --right wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    --materials = { "asset/commercial/era_c/com_glass.mtl", },
+                                    --materials = { "building/era_c/com_1_1x1_03/com_era_c_window_glass_mat.mtl", }, -- crashes
+                                    --materials = { "asset/roof/asset_roof_decor1.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = rightAboveTransf
+                                },
+                                {
+                                    -- left wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = leftAboveTransf
+                                },
+                                -- walls below the platform
+                                {
+                                    -- facade decoration
+                                    --materials = { "asset/industry/asset_industry_chimneys_01.mtl", "asset/industry/asset_industry_transparent_01.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", "asset/industry/asset_industry_transparent_01.mtl", },
+                                    materials = {'station/rail/era_c/era_c_trainstation_glass_milk.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_roof_white.mtl", },
+                                    mesh = 'asset/industry/ind_chimney_3_big_single/ind_chimney_3_big_single_lod0.msh',
+                                    name = 'ind_chimney_3_big_single',
+                                    transf = facadeDecorationTransf
+                                },
+                                {
+                                    -- front wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = frontBelowTransf
+                                },
+                                {
+                                    --rear wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = rearBelowTransf
+                                },
+                                {
+                                    --right wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = rightBelowTransf
+                                },
+                                {
+                                    -- left wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = leftBelowTransf
+                                },
+                                -- roof
+                                {
+                                    -- flat roof
+                                    --materials = { "industry/oil_refinery/era_a/wall_2.mtl", },
+                                    --materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_roof_white.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "asset/roof/asset_roof_decor1.mtl", },
+                                    --materials = { "asset/roof/asset_roof_decor1.mtl", },
+                                    --materials = { "industry/chemical_plant/wall_1.mtl", },
+                                    --materials = { "industry/goods_factory/goods_factory_roof1.mtl", },
+                                    --materials = { "industry/machines_factory/wall_1.mtl", },
+                                    materials = {'industry/machines_factory/roof_2.mtl'},
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = roofTransf
+                                },
+                                {
+                                    --solar panel 1
+                                    materials = {'asset/roof/asset_roof_decor1.mtl'},
+                                    mesh = 'asset/roof/lod_0_solar_panel1.msh',
+                                    transf = solarOneTransf
+                                },
+                                {
+                                    --solar panel 2
+                                    materials = {'asset/roof/asset_roof_decor1.mtl'},
+                                    mesh = 'asset/roof/lod_0_solar_panel1.msh',
+                                    transf = solarTwoTransf
+                                },
+                                {
+                                    -- roof vent 1
+                                    materials = {'asset/roof/asset_roof_decor1.mtl'},
+                                    mesh = 'asset/roof/lod_0_ventilation_end_curved.msh',
+                                    transf = ventOneTransf
+                                },
+                                {
+                                    -- roof vent 2
+                                    materials = {'asset/roof/asset_roof_decor1.mtl'},
+                                    mesh = 'asset/roof/lod_0_ventilation_end_curved.msh',
+                                    transf = ventTwoTransf
+                                },
+                                -- floor
+                                {
+                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
+                                    mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod1.msh',
+                                    name = 'station_1_main_perron',
+                                    transf = idTransf
+                                }
+                            },
+                            name = 'station_1_main_grp',
+                            transf = stationMainTransf
+                        }
+                    },
+                    name = 'RootNode',
+                    transf = idTransf
+                },
+                static = false,
+                visibleFrom = 100,
+                visibleTo = 400
+            },
+            {
+                node = {
+                    children = {
+                        {
+                            children = {
+                                -- walls above the platform
+                                {
+                                    -- front wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = frontAboveTransf
+                                },
+                                {
+                                    --right wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    --materials = { "asset/commercial/era_c/com_glass.mtl", },
+                                    --materials = { "building/era_c/com_1_1x1_03/com_era_c_window_glass_mat.mtl", }, -- crashes
+                                    --materials = { "asset/roof/asset_roof_decor1.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = rightAboveTransf
+                                },
+                                {
+                                    -- left wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = leftAboveTransf
+                                },
+                                -- walls below the platform
+                                {
+                                    -- facade decoration
+                                    --materials = { "asset/industry/asset_industry_chimneys_01.mtl", "asset/industry/asset_industry_transparent_01.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", "asset/industry/asset_industry_transparent_01.mtl", },
+                                    materials = {'station/rail/era_c/era_c_trainstation_glass_milk.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_roof_white.mtl", },
+                                    mesh = 'asset/industry/ind_chimney_3_big_single/ind_chimney_3_big_single_lod0.msh',
+                                    name = 'ind_chimney_3_big_single',
+                                    transf = facadeDecorationTransf
+                                },
+                                {
+                                    -- front wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = frontBelowTransf
+                                },
+                                {
+                                    --rear wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = rearBelowTransf
+                                },
+                                {
+                                    --right wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = rightBelowTransf
+                                },
+                                {
+                                    -- left wall
+                                    --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = leftBelowTransf
+                                },
+                                -- roof
+                                {
+                                    -- flat roof
+                                    --materials = { "industry/oil_refinery/era_a/wall_2.mtl", },
+                                    --materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
+                                    --materials = { "station/rail/era_c/era_c_trainstation_roof_white.mtl", },
+                                    --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
+                                    --materials = { "asset/roof/asset_roof_decor1.mtl", },
+                                    --materials = { "asset/roof/asset_roof_decor1.mtl", },
+                                    --materials = { "industry/chemical_plant/wall_1.mtl", },
+                                    --materials = { "industry/goods_factory/goods_factory_roof1.mtl", },
+                                    --materials = { "industry/machines_factory/wall_1.mtl", },
+                                    materials = {'industry/machines_factory/roof_2.mtl'},
+                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = roofTransf
+                                },
+                                -- floor
+                                {
+                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
+                                    mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod2.msh',
+                                    name = 'station_1_main_perron',
+                                    transf = idTransf
+                                }
+                            },
+                            name = 'station_1_main_grp',
+                            transf = stationMainTransf
+                        }
+                    },
+                    name = 'RootNode',
+                    transf = idTransf
+                },
+                static = false,
+                visibleFrom = 400,
+                visibleTo = 3500
+            }
+        },
+        metadata = {
+            labelList = {
+                labels = {
+                    {
+                        alignment = 'CENTER',
+                        alphaMode = 'BLEND',
+                        childId = 'RootNode',
+                        fitting = 'SCALE',
+                        nLines = 1,
+                        size = {5.2, .6},
+                        transf = {1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, -2.6, -5.333, .23, 1},
+                        type = 'STATION_NAME',
+                        verticalAlignment = 'CENTER'
+                    }
+                }
+            },
+            transportNetworkProvider = {
+                laneLists = {
+                    {
+                        -- down the stairs
+                        linkable = true, -- LOLLO was false
+                        nodes = {
+                            {
+                                {0, 0, 0.80000001192093},
+                                {0, -2.5, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {0, -2.5, 0},
+                                {0, -2.5, 0},
+                                2.4000000953674
+                            }
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+                    },
+                    --[[                     {
+						-- along the steps, below
+                        linkable = true,
+                        nodes = {
+                            {
+                                {-5, -2.5, 0},
+                                {5, 0, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {0, -2.5, 0},
+                                {5, 0, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {0, -2.5, 0},
+                                {5, 0, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {5, -2.5, 0},
+                                {5, 0, 0},
+                                2.4000000953674
+                            }
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+					}, ]]
+                    {
+                        -- horizontally into the underpass
+                        linkable = true,
+                        nodes = {
+                            {
+                                {0, -0, underpassZed},
+                                {0, -2.5, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {0, -2.5, underpassZed},
+                                {0, -2.5, 0},
+                                2.4000000953674
+                            }
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+                    },
+                    {
+                        -- vertically down
+                        -- LOLLO NOTE alter the sequence if underpassZed changes!
+                        linkable = true,
+                        nodes = {
+                            {
+                                {0, -2.5, 0},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, underpassZed},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, underpassZed},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -5},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -5},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -10},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -10},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -15},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -15},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -20},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -20},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -25},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -25},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -30},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -30},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -35},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -35},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -40},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -40},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -45},
+                                {0, -1, 0},
+                                2.4
+                            }
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+                    }
+                },
+                runways = {},
+                terminals = {}
+            }
+        },
+        version = 1
+    }
+end

@@ -1,0 +1,98 @@
+local transf = require "transf"
+local vec3 = require "vec3"
+local modulesutil = require "modulesutil"
+local constructionutil = require "constructionutil"
+local trainstationutil = require "modules/elevated_trainstationutil"
+
+--Begin Generated
+local generatedData = {
+	["main"] = {
+		models = {
+			["station/rail/era_c/station_1.mdl"] = {
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000 },
+			},
+		},
+	},
+	["assets"] = {
+		models = {
+			["station/rail/asset/era_c_street_pillar.mdl"] = {
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -5.00000, -16.30000, 0.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -3.00000, -16.30000, 0.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, -11.05000, 0.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -1.00000, -16.30000, 0.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 1.00000, -16.30000, 0.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 2.50000, -11.05000, 0.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -2.50000, -11.05000, 0.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 3.00000, -16.30000, 0.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 5.00000, -16.30000, 0.00000, 1.00000 },
+			},
+		},
+	},
+}
+--End Generated
+
+function data()
+
+return { 
+	cost = {
+		price = 5000,
+	},
+	category = {
+		categories = { "elevated passenger buildings", },
+	},
+	description = {
+		name = _("Small side building"),
+		description = _("Small side building with street access for passenger stations."),
+		icon = "ui/construction/station/rail/modular_station/side_building_1_era_c.tga",
+	}, 
+	availability = {
+		yearFrom = 1980,
+	},
+	type = "rail_side_building_size1",
+	order = {
+		value = 731,
+	},
+	metadata = {
+		era = 2,
+		level =1,
+		span = {2, 2}
+	},
+	
+	updateFn = function(result, transform, tag, slotId, addModuleFn, params)
+		local config = {
+			extend = { 6, -6, 0, -17, 4, 0 },
+			main = "station/rail/era_c/station_1.mdl",
+			con_left = {"station/rail/era_c/station_1_con_l_1.mdl","station/rail/era_c/station_1_con_l.mdl","station/rail/era_c/station_1_con_l.mdl",},
+			con_right = {"station/rail/era_c/station_1_con_r_1.mdl","station/rail/era_c/station_1_con_r.mdl","station/rail/era_c/station_1_con_r.mdl",},
+			end_left = "station/rail/era_c/station_1_end_l.mdl",
+			end_right = "station/rail/era_c/station_1_end_r.mdl",
+			slotIdOffset = 5,
+			translationY = 0,
+		}
+	
+		local tran = trainstationutil.MakeMainBuildingModule(result, transform, tag, slotId, addModuleFn, params, config)
+		constructionutil.addModels(generatedData["assets"], result.models, tran, tag)
+	end,
+	
+	getModelsFn = function()
+		
+		local result = {
+			{ 
+				id = "station/rail/era_c/station_1.mdl",
+				transf = transf.rotZTransl(math.rad(-90), vec3.new(15,0,0)),
+			},
+			{ 
+				id = "station/rail/era_c/station_1_end_l.mdl",
+				transf = transf.rotZTransl(math.rad(-90), vec3.new(15,0,0)),
+			},
+			{ 
+				id = "station/rail/era_c/station_1_end_r.mdl",
+				transf = transf.rotZTransl(math.rad(-90), vec3.new(15,0,0)),
+			},
+		}
+		
+		return result
+	end
+}
+
+end

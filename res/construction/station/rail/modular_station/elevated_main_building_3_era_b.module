@@ -1,0 +1,115 @@
+local transf = require "transf"
+local vec3 = require "vec3"
+local modulesutil = require "modulesutil"
+local trainstationutil = require "modules/elevated_trainstationutil"
+local constructionutil = require "constructionutil"
+local lolloConstants = require("lolloConstants")
+
+--Begin Generated
+local generatedData = {
+	["era_b_station_3_main_assets_1"] = {
+		models = {
+			["asset/roof/era_b_lamp_b_01.mdl"] = {
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -5.50000, -3.00000, 4.00000, 1.00000 },
+				{ -1.00000, 0.00000, 0.00000, 0.00000, -0.00000, -1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -5.50000, -21.40000, 4.00000, 1.00000 },
+				{ 0.00000, 1.00000, 0.00000, 0.00000, -1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -11.54000, -20.00000, 4.00000, 1.00000 },
+				{ -0.00000, -1.00000, 0.00000, 0.00000, 1.00000, -0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 11.54000, -20.00000, 4.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 5.50000, -3.00000, 4.00000, 1.00000 },
+				{ -1.00000, 0.00000, 0.00000, 0.00000, -0.00000, -1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 5.50000, -21.40000, 4.00000, 1.00000 },
+			},
+			["station/rail/asset/era_b_double_chair.mdl"] = {
+				{ 0.00000, -1.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -10.00000, -27.00000, 0.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -15.00000, -21.00000, 0.00000, 1.00000 },
+				{ -1.00000, -0.00000, 0.00000, 0.00000, 0.00000, -1.00000, -0.00000, 0.00000, 0.00000, -0.00000, 1.00000, 0.00000, -16.00000, -2.00000, 0.80000, 1.00000 },
+				{ -1.00000, -0.00000, 0.00000, 0.00000, 0.00000, -1.00000, -0.00000, 0.00000, 0.00000, -0.00000, 1.00000, 0.00000, 16.00000, -2.00000, 0.80000, 1.00000 },
+				{ 0.00000, -1.00000, 0.00000, 0.00000, 1.00000, 0.00000, -0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 10.00000, -27.00000, 0.00000, 1.00000 },
+			},
+			["station/rail/asset/era_b_name_board.mdl"] = {
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 16.00000, -22.00000, 0.00000, 1.00000 },
+			},
+			["station/rail/asset/era_b_trashcan.mdl"] = {
+				{ 0.00000, -1.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -10.00000, -29.50000, 0.00000, 1.00000 },
+				{ 0.00000, -1.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 10.00000, -29.50000, 0.00000, 1.00000 },
+				{ 0.00000, -1.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, -2.60000, 0.80000, 1.00000 },
+			},
+			["street/street_asset_mix/mailbox_us_a.mdl"] = {
+				{ -1.00000, -0.00000, 0.00000, 0.00000, 0.00000, -1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -6.00000, -21.75000, 0.00000, 1.00000 },
+			},
+			["street/street_light_us_a.mdl"] = {
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -10.00000, -34.00000, 0.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, -10.00000, -24.50000, 0.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 10.00000, -34.00000, 0.00000, 1.00000 },
+				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 10.00000, -24.50000, 0.00000, 1.00000 },
+			},
+		},
+	},
+}
+--End Generated
+
+function data()
+
+return { 
+	cost = {
+		price = 30000,
+	},
+	category = {
+		categories = { "elevated passenger buildings", },
+	},
+	description = {
+		name = _("Large main building"),
+		description = _("Large main building with street access for passenger stations."),
+		icon = "ui/construction/station/rail/modular_station/main_building_3_era_b.tga"
+	}, 
+	availability = {
+		yearFrom = lolloConstants().availableFrom,
+		yearTo = 1980
+	},
+	type = "rail_main_building_size3",
+
+	order = {
+		value = 850,
+	},
+	metadata = {
+		era = 1,
+		level = 3,
+		span = {0, 3}
+	},
+	
+	updateFn = function(result, transform, tag, slotId, addModuleFn, params)
+		local config = {
+			extend = { 21, -21, 0, -38, 4, 0 },
+			main = "station/rail/era_b/station_3_main.mdl",
+			con_left = {"station/rail/era_b/station_3_main_con_l_2.mdl","station/rail/era_b/station_3_main_con_l_2.mdl","station/rail/era_b/station_3_main_con_l_3.mdl",},
+			con_right = {"station/rail/era_b/station_3_main_con_r_2.mdl","station/rail/era_b/station_3_main_con_r_2.mdl","station/rail/era_b/station_3_main_con_r_3.mdl",},
+			end_left = "station/rail/era_b/station_3_main_end_l.mdl",
+			end_right = "station/rail/era_b/station_3_main_end_r.mdl",
+			slotIdOffset = 1,
+			translationY = 0,
+		}
+	
+		local tran = trainstationutil.MakeMainBuildingModule(result, transform, tag, slotId, addModuleFn, params, config)
+		constructionutil.addModels(generatedData["era_b_station_3_main_assets_1"], result.models, tran, tag)
+	end,
+	
+	getModelsFn = function()
+		
+		local result = {
+			{ 
+				id = "station/rail/era_b/station_3_main.mdl",
+				transf = transf.rotZTransl(math.rad(-90), vec3.new(15,0,0)),
+			},
+			{ 
+				id = "station/rail/era_b/station_3_main_end_l.mdl",
+				transf = transf.rotZTransl(math.rad(-90), vec3.new(15,0,0)),
+			},
+			{ 
+				id = "station/rail/era_b/station_3_main_end_r.mdl",
+				transf = transf.rotZTransl(math.rad(-90), vec3.new(15,0,0)),
+			},
+		}
+		
+		return result
+	end
+}
+
+end
