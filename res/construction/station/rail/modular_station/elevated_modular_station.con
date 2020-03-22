@@ -144,7 +144,7 @@ function data()
                     }
                 }
             )
-
+-- LOLLO TODO remove this?
             table.insert(
                 templates,
                 {
