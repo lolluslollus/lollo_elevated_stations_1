@@ -108,7 +108,13 @@ function data()
                 name = _('Height'),
                 values = {_('0m'), _('5m'), _('10m'), _('15m'), _('20m'), _('25m')},
                 defaultIndex = lolloConstants().defaultHeightIndex
-            }
+            },
+            {
+                key = 'pillars',
+                name = _('Pillars'),
+                values = {_('normal'),_('spaced'), _('none')},
+                defaultIndex = lolloConstants().defaultPillarsIndex
+            },
         }
     end
 
@@ -586,7 +592,7 @@ function data()
                     },
                     edges = {},
                     edgeType = 'BRIDGE',
-                    edgeTypeName = 'lollo_cement.lua',
+                    edgeTypeName = trainstationutil.getBridge(params),
                     snapNodes = {},
                     tag2nodes = {}
                 }

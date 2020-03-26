@@ -2,10 +2,45 @@ local vec3 = require 'vec3'
 local transf = require 'transf'
 local modulesutil = require 'modulesutil'
 local lolloConstants = require 'lolloConstants'
+local dump = require('luadump')
 
 local trainstationutil = {}
 
-local dump = require('luadump')
+local function replaceBridgeType(params, edgeLists)
+    local bridgeType = trainstationutil.getBridge(params)
+    -- print("bridge type = ", bridgeType)
+    -- print('edgeLists type = ', type(edgeLists)) -- table
+    for index1 = 1, #edgeLists do
+        for index2 = 1, #edgeLists[index1] do
+            if edgeLists[index1][index2] == 'BRIDGE' then
+                edgeLists[index1][index2].edgeTypeName = bridgeType
+            else
+                print('not a bridge: ', dump(true)(edgeLists[index1][index2]))
+            end
+        end
+    end
+end
+
+function trainstationutil.lolloErrorHandler(err)
+    print('LOLLO ERROR: ', err)
+end
+
+function trainstationutil.getBridge(params)
+    local bmap = {'lollo_cement_normal.lua', 'lollo_cement.lua', 'lollo_cement_no_pillars.lua'}
+
+    if params and params.pillars then
+        return bmap[params.pillars + 1]
+    elseif params then
+        -- this happens when configuring a station built with the previous version, which had no "pillars" param
+        -- print('trainstationutil.getBridge received params but no params.pillars')
+        -- print('traceback = ', debug.traceback())
+        return bmap[lolloConstants().defaultPillarsIndex + 1]
+    else
+        print('trainstationutil.getBridge received nil params')
+        print('traceback = ', debug.traceback())
+        return bmap[lolloConstants().defaultPillarsIndex + 1]
+    end
+end
 
 function trainstationutil.getZed(params)
     local hmap = {0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50}
@@ -13,19 +48,18 @@ function trainstationutil.getZed(params)
     if params and params.height then
         return hmap[params.height + 1]
     elseif params then
-        print("trainstationutil.getZed received params but no params.height")
-        print("traceback = ", debug.traceback())
+        -- this happens when configuring a non-elevated station, which has no "height" param
+        -- print('trainstationutil.getZed received params but no params.height')
+        -- print('traceback = ', debug.traceback())
         return hmap[lolloConstants().defaultHeightIndex + 1]
     else
-        print("trainstationutil.getZed received nil params")
-        print("traceback = ", debug.traceback())
+        print('trainstationutil.getZed received nil params')
+        print('traceback = ', debug.traceback())
         return hmap[lolloConstants().defaultHeightIndex + 1]
     end
 end
 
 function trainstationutil.makeTrack(result, transform, tag, slotId, addModuleFn, params, edgeListNum)
-    -- print('- transform = ')
-    -- dump(true)(transform)
     --print('trainstationutil.makeTrack has zed = ', trainstationutil.getZed(params))
 
     local pos = vec3.new(transform[13], transform[14], transform[15])
@@ -38,6 +72,14 @@ function trainstationutil.makeTrack(result, transform, tag, slotId, addModuleFn,
         transf = transf.mul(transform, transf.transl(vec3.new(0, 0, 0))),
         tag = tag
     }
+
+    print('trainstationutil.params.pillars = ', dump(true)(params.pillars))
+    xpcall(
+        function()
+            replaceBridgeType(params, result.edgeLists)
+        end,
+        trainstationutil.lolloErrorHandler
+    )
 
     result.edgeLists[edgeListNum].edges[nedges + 1] = {
         {pos.x, pos.y - 18, trainstationutil.getZed(params)},
@@ -132,10 +174,7 @@ function trainstationutil.makeTrack(result, transform, tag, slotId, addModuleFn,
         else ]] if
             forwardM.metadata.passenger_platform
          then
-            addModuleFn(
-                'station/rail/era_a/tn_passenger_wait_area.mdl',
-                transf.rotZTransl(math.rad(180), vec3.new(3.5, 0, 0))
-            )
+            addModuleFn('station/rail/era_a/tn_passenger_wait_area.mdl', transf.rotZTransl(math.rad(180), vec3.new(3.5, 0, 0)))
             AddTerminal(i, j, false, {{#result.models - 1, 0}})
         end
     end
@@ -256,12 +295,7 @@ function trainstationutil.MakeMainBuildingModule(result, transform, tag, slotId,
         }
     )
 
-    local center =
-        vec3.new(
-        (config.extend[1] + config.extend[2]) / 2,
-        (config.extend[3] + config.extend[4]) / 2,
-        (config.extend[5] + config.extend[6]) / 2
-    )
+    local center = vec3.new((config.extend[1] + config.extend[2]) / 2, (config.extend[3] + config.extend[4]) / 2, (config.extend[5] + config.extend[6]) / 2)
     local halfExtends = {
         math.abs((config.extend[1] - config.extend[2]) / 2),
         math.abs((config.extend[3] - config.extend[4]) / 2),
@@ -326,44 +360,20 @@ function trainstationutil.MakeMainBuildingModule(result, transform, tag, slotId,
 
         if linksLeft then
             if config.con_left[linksLeft] then
-                addModuleFn(
-                    config.con_left[linksLeft],
-                    transf.rotZTransl(
-                        math.rad(-90),
-                        vec3.new(7.5, config.translationY, trainstationutil.getZed(params))
-                    )
-                )
+                addModuleFn(config.con_left[linksLeft], transf.rotZTransl(math.rad(-90), vec3.new(7.5, config.translationY, trainstationutil.getZed(params))))
             end
         else
             if config.end_left then
-                addModuleFn(
-                    config.end_left,
-                    transf.rotZTransl(
-                        math.rad(-90),
-                        vec3.new(7.5, config.translationY, trainstationutil.getZed(params))
-                    )
-                )
+                addModuleFn(config.end_left, transf.rotZTransl(math.rad(-90), vec3.new(7.5, config.translationY, trainstationutil.getZed(params))))
             end
         end
         if linksRight then
             if config.con_right[linksRight] then
-                addModuleFn(
-                    config.con_right[linksRight],
-                    transf.rotZTransl(
-                        math.rad(-90),
-                        vec3.new(7.5, -config.translationY, trainstationutil.getZed(params))
-                    )
-                )
+                addModuleFn(config.con_right[linksRight], transf.rotZTransl(math.rad(-90), vec3.new(7.5, -config.translationY, trainstationutil.getZed(params))))
             end
         else
             if config.end_right then
-                addModuleFn(
-                    config.end_right,
-                    transf.rotZTransl(
-                        math.rad(-90),
-                        vec3.new(7.5, -config.translationY, trainstationutil.getZed(params))
-                    )
-                )
+                addModuleFn(config.end_right, transf.rotZTransl(math.rad(-90), vec3.new(7.5, -config.translationY, trainstationutil.getZed(params))))
             end
         end
 
