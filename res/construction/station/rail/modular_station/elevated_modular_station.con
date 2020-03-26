@@ -150,7 +150,7 @@ function data()
                     }
                 }
             )
--- LOLLO removed this
+-- LOLLO removed this (head station icon in rail building menu)
 --[[             table.insert(
                 templates,
                 {
@@ -1211,7 +1211,6 @@ function data()
                         result.colliders,
                         colliderutil.createBox({coordI * 5, coordJ * platformLength - 17.5 + l * 5, 0.0}, {2.5, 2.5, 2})
                     )
-                    --print('LOLLO FIVE')
                 end
 
                 local tgLeft = nil
