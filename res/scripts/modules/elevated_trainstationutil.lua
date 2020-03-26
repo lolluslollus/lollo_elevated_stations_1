@@ -73,7 +73,7 @@ function trainstationutil.makeTrack(result, transform, tag, slotId, addModuleFn,
         tag = tag
     }
 
-    print('trainstationutil.params.pillars = ', dump(true)(params.pillars))
+    --print('trainstationutil.params.pillars = ', params.pillars)
     xpcall(
         function()
             replaceBridgeType(params, result.edgeLists)
