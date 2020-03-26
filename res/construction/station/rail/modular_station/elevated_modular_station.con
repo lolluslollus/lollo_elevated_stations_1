@@ -929,6 +929,7 @@ function data()
                 -- Left when looking with station opposite to camera (negative j)
                 --if leftW[i] ~= nil and maxS[leftW[i]] and maxS[leftW[i]] > i then
                 for j = jMin, jMax do
+                    -- -- left end
                     local pos = vec3.new(i * platformWidth + 2.5, j * platformLength - 0.5 * platformLength - 12.5, 0)
                     local tf = transf.rotZTransl(math.rad(90), pos)
 
@@ -981,6 +982,7 @@ function data()
 
                     local tf = transf.rotZTransl(math.rad(-90), pos)
 
+                    -- -- right end
                     -- Allow shifting by removing 20 offset
                     local id = GetId(mainBuildingTag, headRightTag, i, j)
 
