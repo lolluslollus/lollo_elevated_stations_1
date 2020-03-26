@@ -35,9 +35,9 @@ function data()
         carriers = {'RAIL', 'ROAD'},
         speedLimit = 320.0 / 3.6,
         pillarLen = 1, -- LOLLO was 3,
-        pillarMinDist = 48.0, -- LOLLO was 6.0,
-        pillarMaxDist = 192.0, -- LOLLO was 132.0,
-        pillarTargetDist = 96.0, -- LOLLO was 48.0,
+        pillarMinDist = 6.0, -- LOLLO was 6.0,
+        pillarMaxDist = 132.0, -- LOLLO was 132.0,
+        pillarTargetDist = 48.0, -- LOLLO was 48.0,
         cost = 400.0,
         materialsToReplace = {
             streetPaving = {

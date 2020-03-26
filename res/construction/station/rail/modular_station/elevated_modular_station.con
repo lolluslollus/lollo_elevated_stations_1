@@ -1,10 +1,10 @@
 local vec2 = require 'vec2'
 local vec3 = require 'vec3'
 local transf = require 'transf'
-local constructionutil = require 'constructionutil'
+--local constructionutil = require 'constructionutil'
 local paramsutil = require 'paramsutil'
 local colliderutil = require 'colliderutil'
-local modulesutil = require 'modulesutil'
+--local modulesutil = require 'modulesutil'
 local trainstationutil = require 'modules/elevated_trainstationutil'
 local lolloConstants = require("lolloConstants")
 
@@ -108,7 +108,13 @@ function data()
                 name = _('Height'),
                 values = {_('0m'), _('5m'), _('10m'), _('15m'), _('20m'), _('25m')},
                 defaultIndex = lolloConstants().defaultHeightIndex
-            }
+            },
+            {
+                key = 'pillars',
+                name = _('Pillars'),
+                values = {_('normal'),_('spaced'), _('none')},
+                defaultIndex = lolloConstants().defaultPillarsIndex
+            },
         }
     end
 
@@ -144,8 +150,8 @@ function data()
                     }
                 }
             )
-
-            table.insert(
+-- LOLLO removed this (head station icon in rail building menu)
+--[[             table.insert(
                 templates,
                 {
                     constructionType = 'RAIL_STATION',
@@ -164,7 +170,7 @@ function data()
                     }
                 }
             )
-        end
+ ]]        end
         makePassengerTemplate(
             eraAStart,
             eraBStart,
@@ -586,7 +592,7 @@ function data()
                     },
                     edges = {},
                     edgeType = 'BRIDGE',
-                    edgeTypeName = 'lollo_cement.lua',
+                    edgeTypeName = trainstationutil.getBridge(params),
                     snapNodes = {},
                     tag2nodes = {}
                 }
@@ -1200,9 +1206,10 @@ function data()
                         }
                     )
 
+                    -- LOLLO this seems useless
                     table.insert(
                         result.colliders,
-                        colliderutil.createBox({coordI * 5, coordJ * platformLength - 17.5 + l * 5, 0}, {2.5, 2.5, 2})
+                        colliderutil.createBox({coordI * 5, coordJ * platformLength - 17.5 + l * 5, 0.0}, {2.5, 2.5, 2})
                     )
                 end
 

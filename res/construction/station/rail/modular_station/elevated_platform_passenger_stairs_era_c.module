@@ -47,7 +47,6 @@ function data()
 
 local function GetModelsConfig() 
 	return {
-		-- LOLLO TODO make my own perron_5_underpass.mdl so you can't look inside
 		--perron = "station/rail/era_c/perron_5_underpass.mdl",
 		perron = "era_c/perron_5_underpass.mdl",
 		--endPerron = "station/rail/era_c/perron_5_end.mdl",

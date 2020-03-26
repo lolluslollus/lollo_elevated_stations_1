@@ -35,7 +35,9 @@ function data()
                 {-1.0, 5.0, 0.0, 1.0},
 				{-1.0, -5.0, 0.0, 1.0},
             }
+            --print("faces before transform = ", dump(true)(faces))
             modulesutil.TransformFaces(transform, faces)
+            --print("faces after transform = ", dump(true)(faces))
 			local faces2 = {
 				type = 'EQUAL', 
 				faces = {faces},
@@ -62,9 +64,9 @@ function data()
             )
 
 			--addModuleFn('station/rail/era_a/stairs.mdl', transf.rotZTransl(math.rad(90), vec3.new(0, 0, trainstationutil.getZed(params))))
-			local transf1 = transf.rotZTransl(math.rad(90), vec3.new(0, 0, trainstationutil.getZed(params)))
-
 			--addModuleFn('elevated_stairs.mdl', transf.rotZTransl(math.rad(90), vec3.new(0, 0, trainstationutil.getZed(params))))
+
+			local transf1 = transf.rotZTransl(math.rad(90), vec3.new(0, 0, trainstationutil.getZed(params)))
 			addModuleFn('elevated_stairs.mdl', transf1)
         end,
         getModelsFn = function()
