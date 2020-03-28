@@ -984,7 +984,6 @@ function data()
                 end
             end
             -- head stairs
-            print('LOLLO set slots for head stairs')
             for i = -backwardDist, forwardDist do
                 -- left end - side 3
                 if leftW[i] ~= nil then
