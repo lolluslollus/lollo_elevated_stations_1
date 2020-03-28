@@ -81,13 +81,12 @@ return {
 		yearFrom = 1980,
 	},
 	type = "rail_main_building_size2",
-
 	order = {
 		value = 730,
 	},
 	metadata = {
 		era = 2,
-		level =1,
+		level = 1,
 		span = {1, 2}
 	},
 	
@@ -110,7 +109,6 @@ return {
 	end,
 	
 	getModelsFn = function()
-		
 		local result = {
 			{ 
 				id = "station/rail/era_c/station_1_main.mdl",
