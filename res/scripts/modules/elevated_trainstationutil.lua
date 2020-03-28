@@ -174,6 +174,7 @@ function trainstationutil.makeTrack(result, transform, tag, slotId, addModuleFn,
         else ]] if
             forwardM.metadata.passenger_platform
          then
+            --print("LOLLO adding wait area after forwardM")
             addModuleFn('station/rail/era_a/tn_passenger_wait_area.mdl', transf.rotZTransl(math.rad(180), vec3.new(3.5, 0, 0)))
             AddTerminal(i, j, false, {{#result.models - 1, 0}})
         end
@@ -186,6 +187,7 @@ function trainstationutil.makeTrack(result, transform, tag, slotId, addModuleFn,
         else ]] if
             backwardM.metadata.passenger_platform
          then
+            --print("LOLLO adding wait area after backwardM")
             addModuleFn('station/rail/era_a/tn_passenger_wait_area.mdl', transf.transl(vec3.new(-3.5, 0, 0)))
             AddTerminal(i, j, true, {{#result.models - 1, 0}})
         end
