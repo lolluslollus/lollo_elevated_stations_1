@@ -96,7 +96,12 @@ return {
 			{-2.5, -20.0, 0.0, 1.0},
 		}
 		modulesutil.TransformFaces(transform, faces)
-		local faces2 = { type = "EQUAL", faces = {  faces } }
+		local faces2 = { 
+			type = "EQUAL", 
+			faces = { faces },
+			slopeHigh = 99, --LOLLO added this
+			slopeLow = 0, --LOLLO added this	
+		}
 		--LOLLO commented out this
 		--table.insert(result.terrainAlignmentLists, faces2)
 		

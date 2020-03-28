@@ -8,12 +8,18 @@ local frontBelowTransf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 20, 0, 0, -5, -59.3, 1}
 local rightBelowTransf = {0, .65, 0, 0, 1, 0, 0, 0, 0, 0, 20, 0, 9.75, -2.0, -59.3, 1}
 local rearBelowTransf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 20, 0, 0, 1, -59.3, 1}
 local facadeDecorationTransf = {2, 0, 0, 0, 0, 2, 0, 0, 0, 0, -15.5, 0, 0, -3.2, -7.2, 1}
-local roofTransf = {2, 0, 0, 0, 0, 0, 1, 0, 0, 1.9, 0, 0, 0, -5.3, 4.2, 1}
+local roofTransf = {2, 0, 0, 0, 0, 0, 4.0, 0, 0, 1.9, 0, 0, 0, -5.3, 4.2, 1}
 local solarOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1.1, 4.45, 1}
 local solarTwoTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -3.4, 4.45, 1}
 local ventOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 6, -2, 4.5, 1}
 local ventTwoTransf = {-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -6, -2, 4.5, 1}
-local idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
+local floorTransf = {
+    1, 0, 0, 0, 
+    0, 1, 0, 0, 
+    0, 0, 1, 0, 
+    0, 0, 0, 1
+}
+local idTransf =    {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 local stationMainTransf = {.6, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 
 function data()
@@ -169,11 +175,12 @@ function data()
                                     transf = ventTwoTransf
                                 },
                                 -- floor
-                                {
+                                 {
                                     materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
                                     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod0.msh',
-                                    name = 'station_1_main_perron',
-                                    transf = idTransf
+                                    -- name = 'station_1_main_perron',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = floorTransf
                                 }
                             },
                             name = 'station_1_main_grp',
@@ -419,8 +426,9 @@ function data()
                                 {
                                     materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
                                     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod1.msh',
-                                    name = 'station_1_main_perron',
-                                    transf = idTransf
+                                    -- name = 'station_1_main_perron',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = floorTransf
                                 }
                             },
                             name = 'station_1_main_grp',
@@ -545,8 +553,9 @@ function data()
                                 {
                                     materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
                                     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod2.msh',
-                                    name = 'station_1_main_perron',
-                                    transf = idTransf
+                                    -- name = 'station_1_main_perron',
+                                    name = 'oil_refinery_wall_large',
+                                    transf = floorTransf
                                 }
                             },
                             name = 'station_1_main_grp',
