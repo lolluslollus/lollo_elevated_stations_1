@@ -26,7 +26,7 @@ function data()
         },
         metadata = {
             -- era = 1,
-            -- level =1,
+            -- level = 1,
             span = {1, 2}
         },
         type = 'elevated_rail_stairs',
@@ -40,9 +40,7 @@ function data()
                 {-1.0, 5.0, 0.0, 1.0},
 				{-1.0, -5.0, 0.0, 1.0},
             }
-            --print("faces before transform = ", dump(true)(faces))
             modulesutil.TransformFaces(transform, faces)
-            --print("faces after transform = ", dump(true)(faces))
 			local faces2 = {
 				type = 'EQUAL', 
 				faces = {faces},
