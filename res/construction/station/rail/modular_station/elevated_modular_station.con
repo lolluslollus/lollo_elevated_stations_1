@@ -6,7 +6,7 @@ local paramsutil = require 'paramsutil'
 local colliderutil = require 'colliderutil'
 --local modulesutil = require 'modulesutil'
 local trainstationutil = require 'modules/elevated_trainstationutil'
-local lolloConstants = require("lolloConstants")
+local lolloConstants = require('lolloConstants')
 
 local dump = require('luadump')
 --local zed = 20
@@ -69,9 +69,7 @@ function data()
         elseif type == platformTag then
             return (subtype == cargoTag and cargoPlatformSlotId or passengerPlatformSlotId) + 1000 * i + 10 * j
         elseif type == addonTag then
-            return ((subtype == genericAddonTag) and passengerPlatformAddonSlotId or passengerPlatformRoofSlotId) +
-                1000 * i +
-                10 * j
+            return ((subtype == genericAddonTag) and passengerPlatformAddonSlotId or passengerPlatformRoofSlotId) + 1000 * i + 10 * j
         end
     end
 
@@ -112,9 +110,9 @@ function data()
             {
                 key = 'pillars',
                 name = _('Pillars'),
-                values = {_('normal'),_('spaced'), _('none')},
+                values = {_('normal'), _('spaced'), _('none')},
                 defaultIndex = lolloConstants().defaultPillarsIndex
-            },
+            }
         }
     end
 
@@ -150,8 +148,8 @@ function data()
                     }
                 }
             )
--- LOLLO removed this (head station icon in rail building menu)
---[[             table.insert(
+            -- LOLLO removed this (head station icon in rail building menu)
+            --[[             table.insert(
                 templates,
                 {
                     constructionType = 'RAIL_STATION',
@@ -170,28 +168,14 @@ function data()
                     }
                 }
             )
- ]]        end
-        makePassengerTemplate(
-            eraAStart,
-            eraBStart,
-            'ui/construction/station/rail/modular_station/station_era_a.tga',
-            'ui/construction/station/rail/modular_station/station_head_era_a.tga'
-        )
-        makePassengerTemplate(
-            eraBStart,
-            eraCStart,
-            'ui/construction/station/rail/modular_station/station_era_b.tga',
-            'ui/construction/station/rail/modular_station/station_head_era_b.tga'
-        )
-        makePassengerTemplate(
-            eraCStart,
-            0,
-            'ui/construction/station/rail/modular_station/station_era_c.tga',
-            'ui/construction/station/rail/modular_station/station_head_era_c.tga'
-        )
+ ]]
+        end
+        makePassengerTemplate(eraAStart, eraBStart, 'ui/construction/station/rail/modular_station/station_era_a.tga', 'ui/construction/station/rail/modular_station/station_head_era_a.tga')
+        makePassengerTemplate(eraBStart, eraCStart, 'ui/construction/station/rail/modular_station/station_era_b.tga', 'ui/construction/station/rail/modular_station/station_head_era_b.tga')
+        makePassengerTemplate(eraCStart, 0, 'ui/construction/station/rail/modular_station/station_era_c.tga', 'ui/construction/station/rail/modular_station/station_head_era_c.tga')
 
         --LOLLO commented out this
---[[         table.insert(
+        --[[         table.insert(
             templates,
             {
                 constructionType = 'RAIL_STATION_CARGO',
@@ -221,7 +205,6 @@ function data()
                 }
             }
         ) ]]
-
         return templates
     end
 
@@ -305,14 +288,9 @@ function data()
                 local center = math.floor((e - s) / 2) + s
                 local dist = e - s
                 local roofModule = 'station/rail/modular_station/platform_passenger_roof_era_' .. era .. '.module'
-                local curvedRoofModule =
-                    (level == 3 and era == 'c') and
-                    'station/rail/modular_station/platform_passenger_roof_curved_era_' .. era .. '.module' or
-                    roofModule
-                local underpassModule =
-                    'station/rail/modular_station/elevated_addon_platform_passenger_stairs_era_' .. era .. '.module'
-                local platformModule =
-                    'station/rail/modular_station/elevated_platform_passenger_era_' .. era .. '.module'
+                local curvedRoofModule = (level == 3 and era == 'c') and 'station/rail/modular_station/platform_passenger_roof_curved_era_' .. era .. '.module' or roofModule
+                local underpassModule = 'station/rail/modular_station/elevated_addon_platform_passenger_stairs_era_' .. era .. '.module'
+                local platformModule = 'station/rail/modular_station/elevated_platform_passenger_era_' .. era .. '.module'
 
                 for j = s, e do
                     if not head then
@@ -322,9 +300,7 @@ function data()
                             result[GetId(addonTag, genericAddonTag, i, j)] = underpassModule
                         end
                         if (j ~= s and j ~= e) or e - s <= 3 then
-                            result[GetId(addonTag, roofTag, i, j)] =
-                                (not even and (j == center or j == center + 1) or j == center) and curvedRoofModule or
-                                roofModule
+                            result[GetId(addonTag, roofTag, i, j)] = (not even and (j == center or j == center + 1) or j == center) and curvedRoofModule or roofModule
                         end
                     else
                         local id = GetId(platformTag, passengerTag, i, j)
@@ -424,7 +400,6 @@ function data()
                     end
                 end
             end ]]
-
             if not cargo then
                 AddPassenger(0, s, e)
                 AddTrack(1, s, e)
@@ -513,48 +488,16 @@ function data()
             end
 
             if params.catenaryToggle == 1 then
-                SwapRow(
-                    params.slotId,
-                    'station/rail/modular_station/elevated_platform_high_speed_track.module',
-                    'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module'
-                )
-                SwapRow(
-                    params.slotId,
-                    'station/rail/modular_station/elevated_platform_track.module',
-                    'station/rail/modular_station/elevated_platform_track_catenary.module'
-                )
-                SwapRow(
-                    params.slotId,
-                    'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module',
-                    'station/rail/modular_station/elevated_platform_high_speed_track.module'
-                )
-                SwapRow(
-                    params.slotId,
-                    'station/rail/modular_station/elevated_platform_track_catenary.module',
-                    'station/rail/modular_station/elevated_platform_track.module'
-                )
+                SwapRow(params.slotId, 'station/rail/modular_station/elevated_platform_high_speed_track.module', 'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module')
+                SwapRow(params.slotId, 'station/rail/modular_station/elevated_platform_track.module', 'station/rail/modular_station/elevated_platform_track_catenary.module')
+                SwapRow(params.slotId, 'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module', 'station/rail/modular_station/elevated_platform_high_speed_track.module')
+                SwapRow(params.slotId, 'station/rail/modular_station/elevated_platform_track_catenary.module', 'station/rail/modular_station/elevated_platform_track.module')
             end
             if params.trackTypeToggle == 1 then
-                SwapRow(
-                    params.slotId,
-                    'station/rail/modular_station/elevated_platform_high_speed_track.module',
-                    'station/rail/modular_station/elevated_platform_track.module'
-                )
-                SwapRow(
-                    params.slotId,
-                    'station/rail/modular_station/elevated_platform_track.module',
-                    'station/rail/modular_station/elevated_platform_high_speed_track.module'
-                )
-                SwapRow(
-                    params.slotId,
-                    'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module',
-                    'station/rail/modular_station/elevated_platform_track_catenary.module'
-                )
-                SwapRow(
-                    params.slotId,
-                    'station/rail/modular_station/elevated_platform_track_catenary.module',
-                    'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module'
-                )
+                SwapRow(params.slotId, 'station/rail/modular_station/elevated_platform_high_speed_track.module', 'station/rail/modular_station/elevated_platform_track.module')
+                SwapRow(params.slotId, 'station/rail/modular_station/elevated_platform_track.module', 'station/rail/modular_station/elevated_platform_high_speed_track.module')
+                SwapRow(params.slotId, 'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module', 'station/rail/modular_station/elevated_platform_track_catenary.module')
+                SwapRow(params.slotId, 'station/rail/modular_station/elevated_platform_track_catenary.module', 'station/rail/modular_station/elevated_platform_high_speed_track_catenary.module')
             end
 
             return modules
@@ -654,8 +597,7 @@ function data()
             local slotId2Coord = {}
             result.trackCoord2models = {}
             result.GetModuleAt = function(i, j)
-                return params.modules[cargoPlatformSlotId + 1000 * i + 10 * j] or
-                    params.modules[cargoPlatformSlotId + 1000 * (i - 1) + 10 * j] or
+                return params.modules[cargoPlatformSlotId + 1000 * i + 10 * j] or params.modules[cargoPlatformSlotId + 1000 * (i - 1) + 10 * j] or
                     params.modules[passengerPlatformSlotId + 1000 * i + 10 * j] or
                     params.modules[trackSlotId + 1000 * i + 10 * j]
             end
@@ -673,10 +615,7 @@ function data()
                 local id = baseSlotId + 1000 * i + 10 * j
                 result.slots[#result.slots + 1] = {
                     id = id,
-                    transf = transf.rotZYXTransl(
-                        transf.degToRad(0.0, 0.0, 0.0),
-                        vec3.new(i * platformWidth + offset, j * platformLength, trainstationutil.getZed(params))
-                    ),
+                    transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth + offset, j * platformLength, trainstationutil.getZed(params))),
                     type = type,
                     spacing = {
                         platformWidth / 2 * spacing,
@@ -705,12 +644,7 @@ function data()
                 for j = jMin, jMax do
                     result.trackCoord2models[i][j] = {}
                     local mij = result.GetModuleAt(i, j)
-                    if
-                        mij or result.GetModuleAt(i, j + 1) or result.GetModuleAt(i, j - 1) or
-                            result.GetModuleAt(i + 1, j) or
-                            result.GetModuleAt(i - 1, j) or
-                            (i == 0 and j == 0)
-                     then
+                    if mij or result.GetModuleAt(i, j + 1) or result.GetModuleAt(i, j - 1) or result.GetModuleAt(i + 1, j) or result.GetModuleAt(i - 1, j) or (i == 0 and j == 0) then
                         AddSlot(i, j, passengerPlatformSlotId, 'passenger_platform', 0, 1)
                         AddSlot(i, j, trackSlotId, 'track', 0, 1)
 
@@ -722,10 +656,7 @@ function data()
                             local id1 = passengerPlatformRoofSlotId + 1000 * i + 10 * j
                             result.slots[#result.slots + 1] = {
                                 id = id1,
-                                transf = transf.rotZYXTransl(
-                                    transf.degToRad(0.0, 0.0, 0.0),
-                                    vec3.new(i * platformWidth, j * platformLength, 2 + trainstationutil.getZed(params))
-                                ),
+                                transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth, j * platformLength, 2 + trainstationutil.getZed(params))),
                                 type = 'passenger_platform_roof',
                                 spacing = {0, 0, 0, 0}
                             }
@@ -735,10 +666,7 @@ function data()
                             if not mod.name:match('platform_passenger_stairs_') then -- old stairs logic legacy fix
                                 result.slots[#result.slots + 1] = {
                                     id = id2,
-                                    transf = transf.rotZYXTransl(
-                                        transf.degToRad(0.0, 0.0, 0.0),
-                                        vec3.new(i * platformWidth, j * platformLength, 2 + trainstationutil.getZed(params))
-                                    ),
+                                    transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth, j * platformLength, 2 + trainstationutil.getZed(params))),
                                     type = 'passenger_platform_addon',
                                     spacing = {0, 0, 0, 0}
                                 }
@@ -747,8 +675,8 @@ function data()
 
                             result.dependentSlots[id] = {id1, id2}
                         end
-                        --LOLLO commented this out
---[[                         if mod and mod.metadata.platform and mod.metadata.cargo_platform then
+                    --LOLLO commented this out
+                    --[[                         if mod and mod.metadata.platform and mod.metadata.cargo_platform then
                             local id = passengerPlatformSlotId + 1000 * i + 10 * j
 
                             local id1 = passengerPlatformRoofSlotId + 1000 * i + 10 * j
@@ -779,7 +707,7 @@ function data()
                         end ]]
                     end
                     --LOLLO commented this out
---[[                     if
+                    --[[                     if
                         mij or result.GetModuleAt(i, j + 1) or result.GetModuleAt(i, j - 1) or
                             result.GetModuleAt(i + 1, j + 1) or
                             result.GetModuleAt(i + 1, j - 1) or
@@ -837,6 +765,7 @@ function data()
 
             -- NON-HEAD SLOTS
             for j = jMin, jMax do
+                -- along the tracks, north side - side 1
                 if minS[j] ~= nil then
                     local minDist = -minS[j] * platformWidth
                     local pos = vec3.sub(mainBuildingPosition, vec3.new(minDist, 0, 0))
@@ -860,10 +789,7 @@ function data()
                             AddSlot(id + 6, tf2, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
                             AddSlot(id + 7, tf2, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
 
-                            local mod =
-                                params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or
-                                params.modules[id + 6] or
-                                params.modules[id + 7]
+                            local mod = params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or params.modules[id + 7]
                             if mod ~= nil then
                                 local data = {mod, minS[j]}
                                 for size = mod.metadata.span[1], mod.metadata.span[2] do
@@ -874,6 +800,7 @@ function data()
                         end
                     end
                 end
+                -- along the tracks, south side - side 2
                 if maxS[j] ~= nil then
                     local maxDist = -maxS[j] * platformWidth
                     local pos = vec3.sub(mainBuildingPosition, vec3.new(maxDist - 20, 0, 0))
@@ -885,16 +812,8 @@ function data()
                             -- Allow shifting by removing 3000 offset
                             local id = GetId(mainBuildingTag, throughFrontTag, maxS[j], j, k)
 
-                            local tf1 =
-                                transf.rotZTransl(
-                                math.rad(180),
-                                vec3.add(pos, vec3.new(0, j * platformLength + k * 10 + 5, 0))
-                            )
-                            local tf2 =
-                                transf.rotZTransl(
-                                math.rad(180),
-                                vec3.add(pos, vec3.new(0, j * platformLength + k * 10, 0))
-                            )
+                            local tf1 = transf.rotZTransl(math.rad(180), vec3.add(pos, vec3.new(0, j * platformLength + k * 10 + 5, 0)))
+                            local tf2 = transf.rotZTransl(math.rad(180), vec3.add(pos, vec3.new(0, j * platformLength + k * 10, 0)))
 
                             -- MAIN
                             AddSlot(id, tf2, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
@@ -907,10 +826,7 @@ function data()
                             AddSlot(id + 6, tf2, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
                             AddSlot(id + 7, tf2, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
 
-                            local mod =
-                                params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or
-                                params.modules[id + 6] or
-                                params.modules[id + 7]
+                            local mod = params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or params.modules[id + 7]
                             if mod ~= nil then
                                 local data = {mod, maxS[j]}
                                 for size = mod.metadata.span[1], mod.metadata.span[2] do
@@ -929,7 +845,7 @@ function data()
                 -- Left when looking with station opposite to camera (negative j)
                 --if leftW[i] ~= nil and maxS[leftW[i]] and maxS[leftW[i]] > i then
                 for j = jMin, jMax do
-                    -- -- left end
+                    -- -- left end - side 3
                     local pos = vec3.new(i * platformWidth + 2.5, j * platformLength - 0.5 * platformLength - 12.5, 0)
                     local tf = transf.rotZTransl(math.rad(90), pos)
 
@@ -967,9 +883,7 @@ function data()
                         AddSlot(id + 7, tf, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
                     end
 
-                    local mod =
-                        params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or
-                        params.modules[id + 7]
+                    local mod = params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or params.modules[id + 7]
                     if mod ~= nil then
                         local data = {mod, j}
                         local size = mod.metadata.span[2] - mod.metadata.span[1]
@@ -978,11 +892,11 @@ function data()
                         end
                         result.mainBuildingCoord[id] = {true, true, i, j}
                     end
-                    local pos = vec3.new(i * platformWidth + 2.5, j * platformLength + 0.5 * platformLength + 12.5, 0)
 
+                    -- -- right end - side 4
+                    local pos = vec3.new(i * platformWidth + 2.5, j * platformLength + 0.5 * platformLength + 12.5, 0)
                     local tf = transf.rotZTransl(math.rad(-90), pos)
 
-                    -- -- right end
                     -- Allow shifting by removing 20 offset
                     local id = GetId(mainBuildingTag, headRightTag, i, j)
 
@@ -1017,9 +931,7 @@ function data()
                         AddSlot(id + 7, tf, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
                     end
 
-                    local mod =
-                        params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or
-                        params.modules[id + 7]
+                    local mod = params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or params.modules[id + 7]
                     if mod ~= nil then
                         local data = {mod, j}
                         local size = mod.metadata.span[2] - mod.metadata.span[1]
@@ -1032,36 +944,81 @@ function data()
             end
 
             -- Add stairs
+            -- side stairs
             for j = jMin, jMax do
+                -- along the tracks, south side - side 2
                 if maxS[j] ~= nil then
                     local last = result.GetModuleAt(maxS[j], j)
-                    if
-                        last and not last.metadata.track and not result.occupied[2][(j - jMin) * 4 + 1] and
-                            not result.occupied[2][(j - jMin) * 4 + 2]
-                     then
+                    if last and not last.metadata.track and not result.occupied[2][(j - jMin) * 4 + 1] and not result.occupied[2][(j - jMin) * 4 + 2] then
+                        local id = stairsSlotId + 10 * j + 1 -- add 1 so it won't overwrite its opposite twin
                         AddSlot(
-                            stairsSlotId + 10 * j + 1,
-                            transf.rotZYXTransl(
-                                transf.degToRad(0.0, 0.0, 0.0),
-                                vec3.new(maxS[j] * platformWidth + 2.5, j * platformLength, 0)
-                            ),
+                            id,
+                            transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(maxS[j] * platformWidth + 2.5, j * platformLength, 0)),
                             'elevated_rail_stairs',
                             {0, 0, 0, 0}
                         )
-                    end
+--[[                         local thisModule = params.modules[id]
+                        if thisModule ~= nil then
+                            result.occupied[2][(j - jMin) * 4 + 1] = {thisModule, maxS[j]}
+                            result.occupied[2][(j - jMin) * 4 + 2] = {thisModule, maxS[j]}
+                        end
+ ]]                    end
                 end
+                -- along the tracks, north side - side 1
                 if minS[j] ~= nil then
                     local first = result.GetModuleAt(minS[j], j)
-                    if
-                        first and not first.metadata.track and not result.occupied[1][(j - jMin) * 4 + 1] and
-                            not result.occupied[1][(j - jMin) * 4 + 2]
-                     then
+                    if first and not first.metadata.track and not result.occupied[1][(j - jMin) * 4 + 1] and not result.occupied[1][(j - jMin) * 4 + 2] then
+                        local id = stairsSlotId + 10 * j
                         AddSlot(
-                            stairsSlotId + 10 * j,
-                            transf.rotZYXTransl(
-                                transf.degToRad(180.0, 0.0, 0.0),
-                                vec3.new(minS[j] * platformWidth - 2.5, j * platformLength, 0)
-                            ),
+                            id,
+                            transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(minS[j] * platformWidth - 2.5, j * platformLength, 0)),
+                            'elevated_rail_stairs',
+                            {0, 0, 0, 0}
+                        )
+                        --[[ local thisModule = params.modules[id]
+                        if thisModule ~= nil then
+                            result.occupied[1][(j - jMin) * 4 + 1] = {thisModule, minS[j]}
+                            result.occupied[1][(j - jMin) * 4 + 2] = {thisModule, minS[j]}
+                        end ]]
+                    end
+                end
+            end
+            -- head stairs
+            print('LOLLO set slots for head stairs')
+            for i = -backwardDist, forwardDist do
+                -- left end - side 3
+                if leftW[i] ~= nil then
+                    print('LOLLO leftW[i] = ', leftW[i])
+                    local last = result.GetModuleAt(i, leftW[i])
+                    print('LOLLO last = ', dump(true)(last))
+                    if last and not last.metadata.track and not result.occupied[3][(leftW[i] - jMin) * 4 + 1] and not result.occupied[3][(leftW[i] - jMin) * 4 + 2]
+                    then
+                        local id = stairsSlotId + 1000 * i + 10 * leftW[i] + 2 -- add 2 so it won't overwrite the last stairs along the track
+                        AddSlot(
+                            id,
+                            transf.rotZYXTransl(transf.degToRad(-90.0, 0.0, 0.0), vec3.new(i * platformWidth, leftW[i] * platformLength - .5 * platformLength, 0)),
+                            'elevated_rail_stairs',
+                            {0, 0, 0, 0}
+                        )
+                        local thisModule = params.modules[id]
+                        if thisModule ~= nil then
+                            local size = thisModule.metadata.span[2] - thisModule.metadata.span[1]
+                            for l = -size - 1, size do
+                                result.occupied[3][i + l] = {thisModule, leftW[i]}
+                            end
+                        end
+                    end
+                end
+                -- right end - side 4
+                if rightW[i] ~= nil then
+                    print('LOLLO rightW[i] = ', rightW[i])
+                    local last = result.GetModuleAt(i, rightW[i])
+                    print('LOLLO last = ', dump(true)(last))
+                    if last and not last.metadata.track and not result.occupied[4][(rightW[i] - jMin) * 4 + 1] and not result.occupied[4][(rightW[i] - jMin) * 4 + 2]
+                    then
+                        AddSlot(
+                            stairsSlotId + 1000 * i + 10 * rightW[i] + 3, -- add 3 so it won't overwrite the last stairs along the track
+                            transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(i * platformWidth, rightW[i] * platformLength + .5 * platformLength, 0)),
                             'elevated_rail_stairs',
                             {0, 0, 0, 0}
                         )
@@ -1116,10 +1073,7 @@ function data()
                             result.models[#result.models + 1] = {
                                 --id = 'station/rail/era_' .. era .. '/perron_5_end.mdl',
                                 id = 'era_' .. era .. '/perron_5_end.mdl',
-                                transf = transf.rotZTransl(
-                                    math.rad(0),
-                                    vec3.new(coordI * 5 + 2.5, coordJ * platformLength - 17.5 + l * 5, 0)
-                                ),
+                                transf = transf.rotZTransl(math.rad(0), vec3.new(coordI * 5 + 2.5, coordJ * platformLength - 17.5 + l * 5, 0)),
                                 tag = ''
                             }
                         end
@@ -1127,10 +1081,7 @@ function data()
                             result.models[#result.models + 1] = {
                                 --id = 'station/rail/era_' .. era .. '/perron_5_end.mdl',
                                 id = 'era_' .. era .. '/perron_5_end.mdl',
-                                transf = transf.rotZTransl(
-                                    math.rad(180),
-                                    vec3.new(coordI * 5 - 2.5, coordJ * platformLength - 17.5 + l * 5, 0)
-                                ),
+                                transf = transf.rotZTransl(math.rad(180), vec3.new(coordI * 5 - 2.5, coordJ * platformLength - 17.5 + l * 5, 0)),
                                 tag = ''
                             }
                         end
@@ -1139,31 +1090,23 @@ function data()
                         offsetY = -2.5
                         if
                             result.connector[1000 * (coordI) + 100 * coordJ + l - 1] == nil and
-                                (not result.GetModuleAt(coordI, coordJ - 1) or
-                                    not result.GetModuleAt(coordI, coordJ - 1).metadata.platform)
+                                (not result.GetModuleAt(coordI, coordJ - 1) or not result.GetModuleAt(coordI, coordJ - 1).metadata.platform)
                          then
                             result.models[#result.models + 1] = {
                                 --id = 'station/rail/era_' .. era .. '/perron_5_end.mdl',
                                 id = 'era_' .. era .. '/perron_5_end.mdl',
-                                transf = transf.rotZTransl(
-                                    math.rad(-90),
-                                    vec3.new(coordI * 5, coordJ * platformLength - 17.5 + l * 5 - 2.5, 0)
-                                ),
+                                transf = transf.rotZTransl(math.rad(-90), vec3.new(coordI * 5, coordJ * platformLength - 17.5 + l * 5 - 2.5, 0)),
                                 tag = ''
                             }
                         end
                         if
                             result.connector[1000 * (coordI) + 100 * coordJ + l + 1] == nil and
-                                (not result.GetModuleAt(coordI, coordJ + 1) or
-                                    not result.GetModuleAt(coordI, coordJ + 1).metadata.platform)
+                                (not result.GetModuleAt(coordI, coordJ + 1) or not result.GetModuleAt(coordI, coordJ + 1).metadata.platform)
                          then
                             result.models[#result.models + 1] = {
                                 --id = 'station/rail/era_' .. era .. '/perron_5_end.mdl',
                                 id = 'era_' .. era .. '/perron_5_end.mdl',
-                                transf = transf.rotZTransl(
-                                    math.rad(90),
-                                    vec3.new(coordI * 5, coordJ * platformLength - 17.5 + l * 5 + 2.5, 0)
-                                ),
+                                transf = transf.rotZTransl(math.rad(90), vec3.new(coordI * 5, coordJ * platformLength - 17.5 + l * 5 + 2.5, 0)),
                                 tag = ''
                             }
                         end
@@ -1171,14 +1114,7 @@ function data()
 
                     result.models[#result.models + 1] = {
                         id = id,
-                        transf = transf.rotZTransl(
-                            math.rad(angle),
-                            vec3.new(
-                                coordI * 5 + offsetX,
-                                coordJ * platformLength - 15 + l * 5 + offsetY,
-                                trainstationutil.getZed(params)
-                            )
-                        ),
+                        transf = transf.rotZTransl(math.rad(angle), vec3.new(coordI * 5 + offsetX, coordJ * platformLength - 15 + l * 5 + offsetY, trainstationutil.getZed(params))),
                         tag = ''
                     }
 
@@ -1209,10 +1145,7 @@ function data()
                     )
 
                     -- LOLLO this seems useless
-                    table.insert(
-                        result.colliders,
-                        colliderutil.createBox({coordI * 5, coordJ * platformLength - 17.5 + l * 5, 0.0}, {2.5, 2.5, 2})
-                    )
+                    table.insert(result.colliders, colliderutil.createBox({coordI * 5, coordJ * platformLength - 17.5 + l * 5, 0.0}, {2.5, 2.5, 2}))
                 end
 
                 local tgLeft = nil
@@ -1238,11 +1171,7 @@ function data()
                     for j = jMin, jMax do
                         local moduleHere = result.GetModuleAt(i, j)
                         local j1l = 0
-                        if
-                            moduleHere and moduleHere.metadata.track and
-                                (result.trackCoord2models[i][j].left ~= nil or
-                                    result.trackCoord2models[i][j].right ~= nil)
-                         then
+                        if moduleHere and moduleHere.metadata.track and (result.trackCoord2models[i][j].left ~= nil or result.trackCoord2models[i][j].right ~= nil) then
                             local left = result.GetModuleAt(i - 1, j)
                             local prevT = result.GetModuleAt(i, j - 1)
                             table.insert(startIndexL, j)
@@ -1250,11 +1179,7 @@ function data()
                             local continueLeft = false
                             if prevT and prevT.metadata.track then
                                 local prevL = result.GetModuleAt(i - 1, j - 1)
-                                if
-                                    prevL and left and
-                                        ((prevL.metadata.cargo_platform and left.metadata.cargo_platform) or
-                                            (prevL.metadata.passenger_platform and left.metadata.passenger_platform))
-                                 then
+                                if prevL and left and ((prevL.metadata.cargo_platform and left.metadata.cargo_platform) or (prevL.metadata.passenger_platform and left.metadata.passenger_platform)) then
                                     for k, v in pairs(result.trackCoord2models[i][j].left) do
                                         table.insert(tgLeft.terminals, v)
                                         table.insert(
@@ -1264,12 +1189,8 @@ function data()
                                             end
                                         )
                                     end
-                                    local vno =
-                                        result.trackCoord2models[i][j].nodeLeft[2] +
-                                        cumsum[result.trackCoord2models[i][j].nodeLeft[1]]
-                                    local vnoCenter =
-                                        result.trackCoord2models[i][j].nodeCenterLeft[2] +
-                                        cumsum[result.trackCoord2models[i][j].nodeCenterLeft[1]]
+                                    local vno = result.trackCoord2models[i][j].nodeLeft[2] + cumsum[result.trackCoord2models[i][j].nodeLeft[1]]
+                                    local vnoCenter = result.trackCoord2models[i][j].nodeCenterLeft[2] + cumsum[result.trackCoord2models[i][j].nodeCenterLeft[1]]
                                     table.insert(tgLeft.vehicleNodeOverrideList, vno)
                                     table.insert(tgLeft.vehicleNodeOverrideListCenter, vnoCenter)
                                     continueLeft = true
@@ -1288,10 +1209,7 @@ function data()
                                     end
 
                                     if #tgLeft.vehicleNodeOverrideListCenter % 2 == 0 and not headStart and not headEnd then
-                                        tgLeft.vehicleNodeOverride =
-                                            tgLeft.vehicleNodeOverrideListCenter[
-                                            #tgLeft.vehicleNodeOverrideListCenter / 2 + 1
-                                        ]
+                                        tgLeft.vehicleNodeOverride = tgLeft.vehicleNodeOverrideListCenter[#tgLeft.vehicleNodeOverrideListCenter / 2 + 1]
                                     else
                                         tgLeft.vehicleNodeOverride = tgLeft.vehicleNodeOverrideList[index]
                                     end
@@ -1307,12 +1225,8 @@ function data()
                                     j1l = j1l + 1
                                 end
                                 if left and (left.metadata.cargo_platform or left.metadata.passenger_platform) then
-                                    local vno =
-                                        result.trackCoord2models[i][j].nodeLeft[2] +
-                                        cumsum[result.trackCoord2models[i][j].nodeLeft[1]]
-                                    local vnoCenter =
-                                        result.trackCoord2models[i][j].nodeCenterLeft[2] +
-                                        cumsum[result.trackCoord2models[i][j].nodeCenterLeft[1]]
+                                    local vno = result.trackCoord2models[i][j].nodeLeft[2] + cumsum[result.trackCoord2models[i][j].nodeLeft[1]]
+                                    local vnoCenter = result.trackCoord2models[i][j].nodeCenterLeft[2] + cumsum[result.trackCoord2models[i][j].nodeCenterLeft[1]]
                                     tgLeft = {
                                         callbacks = {
                                             function(n, station)
@@ -1332,11 +1246,8 @@ function data()
                     end
 
                     if tgLeft ~= nil then
-                        local headStart =
-                            startIndexL[1] and result.connector[1000 * (i) + 100 * (startIndexL[1] - 2) + 7]
-                        local headEnd =
-                            startIndexL[#startIndexL] and
-                            result.connector[1000 * (i) + 100 * (startIndexL[#startIndexL] + 1) + 0]
+                        local headStart = startIndexL[1] and result.connector[1000 * (i) + 100 * (startIndexL[1] - 2) + 7]
+                        local headEnd = startIndexL[#startIndexL] and result.connector[1000 * (i) + 100 * (startIndexL[#startIndexL] + 1) + 0]
 
                         local index = math.ceil(#tgLeft.vehicleNodeOverrideList / 2)
                         if headStart then
@@ -1346,8 +1257,7 @@ function data()
                         end
 
                         if #tgLeft.vehicleNodeOverrideListCenter % 2 == 0 and not headStart and not headEnd then
-                            tgLeft.vehicleNodeOverride =
-                                tgLeft.vehicleNodeOverrideListCenter[#tgLeft.vehicleNodeOverrideListCenter / 2 + 1]
+                            tgLeft.vehicleNodeOverride = tgLeft.vehicleNodeOverrideListCenter[#tgLeft.vehicleNodeOverrideListCenter / 2 + 1]
                         else
                             tgLeft.vehicleNodeOverride = tgLeft.vehicleNodeOverrideList[index]
                         end
@@ -1366,11 +1276,7 @@ function data()
                     for j = jMin, jMax do
                         local moduleHere = result.GetModuleAt(i, j)
                         local j1r = 0
-                        if
-                            moduleHere and moduleHere.metadata.track and
-                                (result.trackCoord2models[i][j].left ~= nil or
-                                    result.trackCoord2models[i][j].right ~= nil)
-                         then
+                        if moduleHere and moduleHere.metadata.track and (result.trackCoord2models[i][j].left ~= nil or result.trackCoord2models[i][j].right ~= nil) then
                             local right = result.GetModuleAt(i + 1, j)
                             local prevT = result.GetModuleAt(i, j - 1)
                             table.insert(startIndexR, j)
@@ -1378,11 +1284,7 @@ function data()
                             local continueRight = false
                             if prevT and prevT.metadata.track then
                                 local prevR = result.GetModuleAt(i + 1, j - 1)
-                                if
-                                    prevR and right and
-                                        ((prevR.metadata.cargo_platform and right.metadata.cargo_platform) or
-                                            (prevR.metadata.passenger_platform and right.metadata.passenger_platform))
-                                 then
+                                if prevR and right and ((prevR.metadata.cargo_platform and right.metadata.cargo_platform) or (prevR.metadata.passenger_platform and right.metadata.passenger_platform)) then
                                     for k, v in pairs(result.trackCoord2models[i][j].right) do
                                         table.insert(tgRight.terminals, v)
                                         table.insert(
@@ -1392,12 +1294,8 @@ function data()
                                             end
                                         )
                                     end
-                                    local vno =
-                                        result.trackCoord2models[i][j].nodeRight[2] +
-                                        cumsum[result.trackCoord2models[i][j].nodeRight[1]]
-                                    local vnoCenter =
-                                        result.trackCoord2models[i][j].nodeCenterRight[2] +
-                                        cumsum[result.trackCoord2models[i][j].nodeCenterRight[1]]
+                                    local vno = result.trackCoord2models[i][j].nodeRight[2] + cumsum[result.trackCoord2models[i][j].nodeRight[1]]
+                                    local vnoCenter = result.trackCoord2models[i][j].nodeCenterRight[2] + cumsum[result.trackCoord2models[i][j].nodeCenterRight[1]]
                                     table.insert(tgRight.vehicleNodeOverrideList, vno)
                                     table.insert(tgRight.vehicleNodeOverrideListCenter, vnoCenter)
                                     continueRight = true
@@ -1416,10 +1314,7 @@ function data()
                                     end
 
                                     if #tgRight.vehicleNodeOverrideListCenter % 2 == 0 and not headStart and not headEnd then
-                                        tgRight.vehicleNodeOverride =
-                                            tgRight.vehicleNodeOverrideListCenter[
-                                            #tgRight.vehicleNodeOverrideListCenter / 2
-                                        ]
+                                        tgRight.vehicleNodeOverride = tgRight.vehicleNodeOverrideListCenter[#tgRight.vehicleNodeOverrideListCenter / 2]
                                     else
                                         tgRight.vehicleNodeOverride = tgRight.vehicleNodeOverrideList[index]
                                     end
@@ -1435,12 +1330,8 @@ function data()
                                     j1r = j1r + 1
                                 end
                                 if right and (right.metadata.cargo_platform or right.metadata.passenger_platform) then
-                                    local vno =
-                                        result.trackCoord2models[i][j].nodeRight[2] +
-                                        cumsum[result.trackCoord2models[i][j].nodeRight[1]]
-                                    local vnoCenter =
-                                        result.trackCoord2models[i][j].nodeCenterRight[2] +
-                                        cumsum[result.trackCoord2models[i][j].nodeCenterRight[1]]
+                                    local vno = result.trackCoord2models[i][j].nodeRight[2] + cumsum[result.trackCoord2models[i][j].nodeRight[1]]
+                                    local vnoCenter = result.trackCoord2models[i][j].nodeCenterRight[2] + cumsum[result.trackCoord2models[i][j].nodeCenterRight[1]]
                                     tgRight = {
                                         callbacks = {
                                             function(n, station)
@@ -1460,11 +1351,8 @@ function data()
                     end
 
                     if tgRight ~= nil then
-                        local headStart =
-                            startIndexR[1] and result.connector[1000 * (i) + 100 * (startIndexR[1] - 2) + 7]
-                        local headEnd =
-                            startIndexR[#startIndexR] and
-                            result.connector[1000 * (i) + 100 * (startIndexR[#startIndexR] + 1) + 0]
+                        local headStart = startIndexR[1] and result.connector[1000 * (i) + 100 * (startIndexR[1] - 2) + 7]
+                        local headEnd = startIndexR[#startIndexR] and result.connector[1000 * (i) + 100 * (startIndexR[#startIndexR] + 1) + 0]
 
                         local index = math.ceil(#tgRight.vehicleNodeOverrideList / 2)
                         if headStart then
@@ -1474,8 +1362,7 @@ function data()
                         end
 
                         if #tgRight.vehicleNodeOverrideListCenter % 2 == 0 and not headStart and not headEnd then
-                            tgRight.vehicleNodeOverride =
-                                tgRight.vehicleNodeOverrideListCenter[#tgRight.vehicleNodeOverrideListCenter / 2]
+                            tgRight.vehicleNodeOverride = tgRight.vehicleNodeOverrideListCenter[#tgRight.vehicleNodeOverrideListCenter / 2]
                         else
                             tgRight.vehicleNodeOverride = tgRight.vehicleNodeOverrideList[index]
                         end
@@ -1504,7 +1391,7 @@ function data()
                         c = c + 1
                         table.insert(result.stations, station)
                     end
-                    --[[ if #cargoGroups > 0 then
+                --[[ if #cargoGroups > 0 then
                         local station = {terminals = {}, tag = 1}
                         for i = 1, #cargoGroups do
                             table.insert(station.terminals, cargoGroups[i])
