@@ -7,7 +7,7 @@ local colliderutil = require 'colliderutil'
 --local modulesutil = require 'modulesutil'
 local trainstationutil = require 'modules/elevated_trainstationutil'
 local lolloConstants = require('lolloConstants')
-
+local inspect = require('inspect')
 local dump = require('luadump')
 --local zed = 20
 
@@ -988,11 +988,8 @@ function data()
             for i = -backwardDist, forwardDist do
                 -- left end - side 3
                 if leftW[i] ~= nil then
-                    print('LOLLO leftW[i] = ', leftW[i])
                     local last = result.GetModuleAt(i, leftW[i])
-                    print('LOLLO last = ', dump(true)(last))
-                    if last and not last.metadata.track and not result.occupied[3][(leftW[i] - jMin) * 4 + 1] and not result.occupied[3][(leftW[i] - jMin) * 4 + 2]
-                    then
+                    if last and not last.metadata.track and not result.occupied[3][i] then
                         local id = stairsSlotId + 1000 * i + 10 * leftW[i] + 2 -- add 2 so it won't overwrite the last stairs along the track
                         AddSlot(
                             id,
@@ -1001,27 +998,34 @@ function data()
                             {0, 0, 0, 0}
                         )
                         local thisModule = params.modules[id]
+                        --require("debugger")()
                         if thisModule ~= nil then
-                            local size = thisModule.metadata.span[2] - thisModule.metadata.span[1]
-                            for l = -size - 1, size do
-                                result.occupied[3][i + l] = {thisModule, leftW[i]}
+                            --local size = thisModule.metadata.span[2] - thisModule.metadata.span[1] -- we hard-code it for now
+                            for neighbourIndex = -2, 2 do
+                                result.occupied[3][i + neighbourIndex] = {thisModule, leftW[i]}
                             end
                         end
                     end
                 end
                 -- right end - side 4
                 if rightW[i] ~= nil then
-                    print('LOLLO rightW[i] = ', rightW[i])
                     local last = result.GetModuleAt(i, rightW[i])
-                    print('LOLLO last = ', dump(true)(last))
-                    if last and not last.metadata.track and not result.occupied[4][(rightW[i] - jMin) * 4 + 1] and not result.occupied[4][(rightW[i] - jMin) * 4 + 2]
-                    then
+                    if last and not last.metadata.track and not result.occupied[4][i] then
+                        local id = stairsSlotId + 1000 * i + 10 * rightW[i] + 3 -- add 3 so it won't overwrite the last stairs along the track
                         AddSlot(
-                            stairsSlotId + 1000 * i + 10 * rightW[i] + 3, -- add 3 so it won't overwrite the last stairs along the track
+                            id,
                             transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(i * platformWidth, rightW[i] * platformLength + .5 * platformLength, 0)),
                             'elevated_rail_stairs',
                             {0, 0, 0, 0}
                         )
+                        local thisModule = params.modules[id]
+                        --require("debugger")()
+                        if thisModule ~= nil then
+                            --local size = thisModule.metadata.span[2] - thisModule.metadata.span[1] -- we hard-code it for now
+                            for neighbourIndex = -2, 2 do
+                                result.occupied[4][i + neighbourIndex] = {thisModule, rightW[i]}
+                            end
+                        end
                     end
                 end
             end
