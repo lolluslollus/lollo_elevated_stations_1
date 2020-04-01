@@ -1118,7 +1118,6 @@ function data()
                         {coordI * 5 - 2.5, coordJ * platformLength - 15 + l * 5, trainstationutil.getZed(params)},
                         {coordI * 5 - 2.5, coordJ * platformLength - 20 + l * 5, trainstationutil.getZed(params)}
                     }
-
                     table.insert(
                         result.terrainAlignmentLists,
                         {
@@ -1128,7 +1127,6 @@ function data()
                             slopeLow = 0 --LOLLO added this
                         }
                     )
-
                     table.insert(
                         result.groundFaces,
                         {

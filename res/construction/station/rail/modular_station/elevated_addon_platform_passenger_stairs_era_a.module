@@ -1,208 +1,207 @@
-local transf = require "transf"
-local vec3 = require "vec3"
-local modulesutil = require "modulesutil"
-local constructionutil = require "constructionutil"
+local transf = require 'transf'
+local vec3 = require 'vec3'
+local modulesutil = require 'modulesutil'
+local constructionutil = require 'constructionutil'
 
 --Begin Generated
 --End Generated
 
 -- era_a assets list
 local generatedData_era_a = {
-	["era_a_1"] = {
-		models = {
-			["station/rail/asset/era_a_perron_number.mdl"] = {
-				{ -0.00000, 1.00000, 0.00000, 0.00000, -1.00000, -0.00000, -0.00000, 0.00000, 0.00000, -0.00000, 1.00000, 0.00000, 34.00000, -1.96248, 3.55500, 1.00000 },
-				{ -0.00000, 1.00000, 0.00000, 0.00000, -1.00000, -0.00000, -0.00000, 0.00000, 0.00000, -0.00000, 1.00000, 0.00000, 14.00000, -1.96248, 3.55500, 1.00000 },
-			},
-		},
-	},
-	["era_a_2"] = {
-		models = {
-			["station/rail/asset/era_a_perron_number.mdl"] = {
-				{ -0.00000, -1.00000, -0.00000, 0.00000, 1.00000, -0.00000, -0.00000, 0.00000, 0.00000, -0.00000, 1.00000, 0.00000, 34.00000, 1.99000, 3.55500, 1.00000 },
-				{ -0.00000, -1.00000, -0.00000, 0.00000, 1.00000, -0.00000, -0.00000, 0.00000, 0.00000, -0.00000, 1.00000, 0.00000, 14.00000, 1.99000, 3.55500, 1.00000 },
-			},
-		},
-	},
-	["era_a_name"] = {
-		models = {
-			["station/rail/asset/era_a_station_name.mdl"] = {
-				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 29.00000, 0.00000, 0.80000, 1.00000 },
-				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 9.95441, 0.00000, 0.80000, 1.00000 },
-			},
-		},
-	},
-	["era_a_perron_underpass_assets"] = {
-		models = {
-			["station/rail/asset/era_a_double_chair.mdl"] = {
-				{ -0.00000, -1.00000, 0.00000, 0.00000, 1.00000, -0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 20.11818, 0.00000, 0.80000, 1.00000 },
-				{ -0.00000, -1.00000, 0.00000, 0.00000, 1.00000, -0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 36.00000, 0.00000, 0.80000, 1.00000 },
-				{ -0.00000, -1.00000, 0.00000, 0.00000, 1.00000, -0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 3.00000, 0.00000, 0.80000, 1.00000 },
-			},
-			["station/rail/asset/era_a_holder_wall.mdl"] = {
-				{ -0.00000, 0.80000, 0.00000, 0.00000, -0.80000, -0.00000, -0.00000, 0.00000, 0.00000, -0.00000, 0.80000, 0.00000, 20.00000, -1.98000, 3.52000, 1.00000 },
-			},
-			["station/rail/asset/era_a_perron_pillar.mdl"] = {
-				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 20.00000, -2.03207, 0.80000, 1.00000 },
-				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 14.00000, -2.03207, 0.80000, 1.00000 },
-				{ -1.00000, 0.00000, 0.00000, 0.00000, -0.00000, -1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 14.00000, 2.03207, 0.80000, 1.00000 },
-				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 34.00000, -2.03207, 0.80000, 1.00000 },
-				{ -1.00000, 0.00000, 0.00000, 0.00000, -0.00000, -1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 34.00000, 2.03207, 0.80000, 1.00000 },
-			},
-			["station/rail/asset/era_a_small_clock.mdl"] = {
-				{ -0.00000, 0.80000, 0.00000, 0.00000, -0.80000, -0.00000, -0.00000, 0.00000, 0.00000, -0.00000, 0.80000, 0.00000, 20.00000, -0.98800, 3.16800, 1.00000 },
-			},
-			["street/street_asset_mix/trash_standing_a.mdl"] = {
-				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 5.00000, 0.00000, 0.80000, 1.00000 },
-				{ 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 34.00000, 0.00000, 0.80000, 1.00000 },
-			},
-		},
-	},
+    ['era_a_1'] = {
+        models = {
+            ['station/rail/asset/era_a_perron_number.mdl'] = {
+                {-0.00000, 1.00000, 0.00000, 0.00000, -1.00000, -0.00000, -0.00000, 0.00000, 0.00000, -0.00000, 1.00000, 0.00000, 34.00000, -1.96248, 3.55500, 1.00000},
+                {-0.00000, 1.00000, 0.00000, 0.00000, -1.00000, -0.00000, -0.00000, 0.00000, 0.00000, -0.00000, 1.00000, 0.00000, 14.00000, -1.96248, 3.55500, 1.00000}
+            }
+        }
+    },
+    ['era_a_2'] = {
+        models = {
+            ['station/rail/asset/era_a_perron_number.mdl'] = {
+                {-0.00000, -1.00000, -0.00000, 0.00000, 1.00000, -0.00000, -0.00000, 0.00000, 0.00000, -0.00000, 1.00000, 0.00000, 34.00000, 1.99000, 3.55500, 1.00000},
+                {-0.00000, -1.00000, -0.00000, 0.00000, 1.00000, -0.00000, -0.00000, 0.00000, 0.00000, -0.00000, 1.00000, 0.00000, 14.00000, 1.99000, 3.55500, 1.00000}
+            }
+        }
+    },
+    ['era_a_name'] = {
+        models = {
+            ['station/rail/asset/era_a_station_name.mdl'] = {
+                {1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 29.00000, 0.00000, 0.80000, 1.00000},
+                {1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 9.95441, 0.00000, 0.80000, 1.00000}
+            }
+        }
+    },
+    ['era_a_perron_underpass_assets'] = {
+        models = {
+            ['station/rail/asset/era_a_double_chair.mdl'] = {
+                {-0.00000, -1.00000, 0.00000, 0.00000, 1.00000, -0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 20.11818, 0.00000, 0.80000, 1.00000},
+                {-0.00000, -1.00000, 0.00000, 0.00000, 1.00000, -0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 36.00000, 0.00000, 0.80000, 1.00000},
+                {-0.00000, -1.00000, 0.00000, 0.00000, 1.00000, -0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 3.00000, 0.00000, 0.80000, 1.00000}
+            },
+            ['station/rail/asset/era_a_holder_wall.mdl'] = {
+                {-0.00000, 0.80000, 0.00000, 0.00000, -0.80000, -0.00000, -0.00000, 0.00000, 0.00000, -0.00000, 0.80000, 0.00000, 20.00000, -1.98000, 3.52000, 1.00000}
+            },
+            ['station/rail/asset/era_a_perron_pillar.mdl'] = {
+                {1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 20.00000, -2.03207, 0.80000, 1.00000},
+                {1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 14.00000, -2.03207, 0.80000, 1.00000},
+                {-1.00000, 0.00000, 0.00000, 0.00000, -0.00000, -1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 14.00000, 2.03207, 0.80000, 1.00000},
+                {1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 34.00000, -2.03207, 0.80000, 1.00000},
+                {-1.00000, 0.00000, 0.00000, 0.00000, -0.00000, -1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 34.00000, 2.03207, 0.80000, 1.00000}
+            },
+            ['station/rail/asset/era_a_small_clock.mdl'] = {
+                {-0.00000, 0.80000, 0.00000, 0.00000, -0.80000, -0.00000, -0.00000, 0.00000, 0.00000, -0.00000, 0.80000, 0.00000, 20.00000, -0.98800, 3.16800, 1.00000}
+            },
+            ['street/street_asset_mix/trash_standing_a.mdl'] = {
+                {1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 5.00000, 0.00000, 0.80000, 1.00000},
+                {1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 34.00000, 0.00000, 0.80000, 1.00000}
+            }
+        }
+    }
 }
 
 function data()
+    local function GetModelsConfig()
+        return {
+            --perron = "station/rail/era_a/perron_5_underpass.mdl",
+            perron = 'era_a/perron_5_underpass.mdl',
+            --endPerron = "station/rail/era_a/perron_5_end.mdl",
+            endPerron = 'era_a/perron_5_end.mdl',
+            perronRoof = 'station/rail/era_a/perron_5_roof.mdl',
+            endPerronRoof = 'station/rail/era_a/perron_5_roof_end.mdl',
+            era = 0
+        }
+    end
 
-local function GetModelsConfig() 
-	return {
-		--perron = "station/rail/era_a/perron_5_underpass.mdl",
-		perron = "era_a/perron_5_underpass.mdl",
-		--endPerron = "station/rail/era_a/perron_5_end.mdl",
-		endPerron = "era_a/perron_5_end.mdl",
-		perronRoof = "station/rail/era_a/perron_5_roof.mdl",
-		endPerronRoof = "station/rail/era_a/perron_5_roof_end.mdl",
-		era = 0,
-	}
-end
-
-return { 
-	availability = {
-		yearFrom = 65535,
-		yearTo = 65535,
-	},
-	cost = {
-		price = 0,
-	},
-	category = {
-		categories = { "elevated platforms", },
-	},
-	description = {
-		name = _("Elevated passenger station"),
-		description = _("Elevated passenger station."),
-		icon = "ui/construction/station/rail/modular_station/platform_passenger_stairs_era_a.tga"
-	},
-	type = "passenger_platform_addon",
-	order = {
-		value = 711,
-	},
-	-- buildMode = "MULTI",
-	metadata = {
-		--platform = true,
-		--passenger_platform = true,
-		underground = true,
-	},
-	
-	updateFn = function(result, transform, tag, slotId, addModelFn)
-		
-		local hole = {
-			{1.6,  -10.0, 0.0, 1.0},
-			{1.6,  10.0,  0.0, 1.0},
-			{-1.6, 10.0,  0.0, 1.0},
-			{-1.6, -10.0, 0.0, 1.0},
-		}
-		modulesutil.TransformFaces(transform, hole)
-		--LOLLO commented out this
---[[ 		table.insert(result.groundFaces, {  
-			face = hole,
-			modes = {
-				{
-					type = "FILL",
-					key = "hole.lua"
+    return {
+        availability = {
+            yearFrom = 65535,
+            yearTo = 65535
+        },
+        cost = {
+            price = 0
+        },
+        category = {
+            categories = {'elevated platforms'}
+        },
+        description = {
+            name = _('Elevated passenger station'),
+            description = _('Elevated passenger station.'),
+            icon = 'ui/construction/station/rail/modular_station/platform_passenger_stairs_era_a.tga'
+        },
+        type = 'passenger_platform_addon',
+        order = {
+            value = 711
+        },
+        -- buildMode = "MULTI",
+        metadata = {
+            --platform = true,
+            --passenger_platform = true,
+            underground = true
+        },
+        updateFn = function(result, transform, tag, slotId, addModelFn)
+            --LOLLO commented out this
+            --[[
+			local hole = {
+                {1.6, -10.0, 0.0, 1.0},
+                {1.6, 10.0, 0.0, 1.0},
+                {-1.6, 10.0, 0.0, 1.0},
+                {-1.6, -10.0, 0.0, 1.0}
+            }
+            modulesutil.TransformFaces(transform, hole)
+            table.insert(result.groundFaces, {
+				face = hole,
+				modes = {
+					{
+						type = "FILL",
+						key = "hole.lua"
+					}
 				}
-			}
-		})
- ]]		
-		local coords = result.GetCoord(slotId)
-		local i = coords[1]
-		local j = coords[2]
-		result.models[#result.models + 1] = { 
-			--id = "station/rail/era_a/tn_underground_connection.mdl",
-			id = "tn_underground_connection.mdl",
-			transf = transf.mul(transform, transf.transl(vec3.new(0, 0, -2))),
-			tag = tag
-		}
-		
-		local modelsConfig = GetModelsConfig()
-		addModelFn(modelsConfig.perron, transf.rotZTransl(math.rad(90), vec3.new(0, -20, -2)), "perron" .. i .. "_" .. j)
-		--addModelFn(modelsConfig.perronRoof, transf.rotZTransl(math.rad(90), vec3.new(0, -20, 0)))
-		
-		local tran = transf.mul(transform, transf.rotZTransl(math.rad(90), vec3.new(0, -20, -2)))
-		
-		local num1 = #result.models
-		result.addPlatformCallback(i, j, function(left, n, station)
-			local ns = tostring(n)
-			if left then
-				result.labelText[num1 + 1] = {ns,ns}
-				result.labelText[num1 + 0] = {ns,ns}
-			else
-				result.labelText[num1 + 2] = {ns,ns}
-				result.labelText[num1 + 3] = {ns,ns}
-			end
-			local stationS = tostring(station)
-			result.labelText[num1 + 4] = {stationS,stationS}
-			result.labelText[num1 + 5] = {stationS,stationS}
-		end)
-		constructionutil.addModels(generatedData_era_a["era_a_1"], result.models, tran, tag)
-		constructionutil.addModels(generatedData_era_a["era_a_2"], result.models, tran, tag)
-		constructionutil.addModels(generatedData_era_a["era_a_name"], result.models, tran, tag)
-		constructionutil.addModels(generatedData_era_a["era_a_perron_underpass_assets"], result.models, tran, tag)
+			})
+			]]
+            local coords = result.GetCoord(slotId)
+            local i = coords[1]
+            local j = coords[2]
+            result.models[#result.models + 1] = {
+                --id = "station/rail/era_a/tn_underground_connection.mdl",
+                id = 'tn_underground_connection.mdl',
+                transf = transf.mul(transform, transf.transl(vec3.new(0, 0, -2))),
+                tag = tag
+            }
 
-		
-		local nextM = result.GetModuleAt(i,j-1)
-		local ca =  (nextM and (nextM.metadata.passenger_platform or nextM.metadata.cargo_platform)) or  result.connector[1000 * i + 100 * (j-1) + 7]
-		if not ca then
-			addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, -2)))
-			--addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0)))
-		end
-		local prevM = result.GetModuleAt(i,j+1)
-		local cb = (prevM and (prevM.metadata.passenger_platform or prevM.metadata.cargo_platform)) or  result.connector[1000 * i + 100 * (j+1) + 0]
-		if not cb then
-			addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(90), vec3.new(0, 20, -2)))
-			--addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0)))
-		end
-	end,
-	
-	getModelsFn = function()
-		local modelsConfig = GetModelsConfig()
-		
-		local result = {
-			{ 
-				id = modelsConfig.perron,
-				transf = transf.rotZTransl(math.rad(90), vec3.new(0,-20,0)),
-			},
-			{ 
-				id = modelsConfig.endPerron,
-				transf = transf.rotZTransl(math.rad(-90), vec3.new(0,-20,0)),
-			},
-			{ 
-				id = modelsConfig.endPerron,
-				transf = transf.rotZTransl(math.rad(90), vec3.new(0,20,0)),
-			},
-			-- { 
-				-- id = modelsConfig.perronRoof,
-				-- transf = transf.rotZTransl(math.rad(90), vec3.new(0,-20,0)),
-			-- },
-			-- { 
-				-- id = modelsConfig.endPerronRoof,
-				-- transf = transf.rotZTransl(math.rad(-90), vec3.new(0,-20,0)),
-			-- },
-			-- { 
-				-- id = modelsConfig.endPerronRoof,
-				-- transf = transf.rotZTransl(math.rad(90), vec3.new(0,20,0)),
-			-- },
-		}
-		
-		return result
-	end
-}
+            local modelsConfig = GetModelsConfig()
+            addModelFn(modelsConfig.perron, transf.rotZTransl(math.rad(90), vec3.new(0, -20, -2)), 'perron' .. i .. '_' .. j)
+            --addModelFn(modelsConfig.perronRoof, transf.rotZTransl(math.rad(90), vec3.new(0, -20, 0)))
 
+            local tran = transf.mul(transform, transf.rotZTransl(math.rad(90), vec3.new(0, -20, -2)))
+
+            local num1 = #result.models
+            result.addPlatformCallback(
+                i,
+                j,
+                function(left, n, station)
+                    local ns = tostring(n)
+                    if left then
+                        result.labelText[num1 + 1] = {ns, ns}
+                        result.labelText[num1 + 0] = {ns, ns}
+                    else
+                        result.labelText[num1 + 2] = {ns, ns}
+                        result.labelText[num1 + 3] = {ns, ns}
+                    end
+                    local stationS = tostring(station)
+                    result.labelText[num1 + 4] = {stationS, stationS}
+                    result.labelText[num1 + 5] = {stationS, stationS}
+                end
+            )
+            constructionutil.addModels(generatedData_era_a['era_a_1'], result.models, tran, tag)
+            constructionutil.addModels(generatedData_era_a['era_a_2'], result.models, tran, tag)
+            constructionutil.addModels(generatedData_era_a['era_a_name'], result.models, tran, tag)
+            constructionutil.addModels(generatedData_era_a['era_a_perron_underpass_assets'], result.models, tran, tag)
+
+            local nextM = result.GetModuleAt(i, j - 1)
+            local ca = (nextM and (nextM.metadata.passenger_platform or nextM.metadata.cargo_platform)) or result.connector[1000 * i + 100 * (j - 1) + 7]
+            if not ca then
+                addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, -2)))
+            --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0)))
+            end
+            local prevM = result.GetModuleAt(i, j + 1)
+            local cb = (prevM and (prevM.metadata.passenger_platform or prevM.metadata.cargo_platform)) or result.connector[1000 * i + 100 * (j + 1) + 0]
+            if not cb then
+                addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(90), vec3.new(0, 20, -2)))
+            --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0)))
+            end
+        end,
+        getModelsFn = function()
+            local modelsConfig = GetModelsConfig()
+
+            local result = {
+                {
+                    id = modelsConfig.perron,
+                    transf = transf.rotZTransl(math.rad(90), vec3.new(0, -20, 0))
+                },
+                {
+                    id = modelsConfig.endPerron,
+                    transf = transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0))
+                },
+                {
+                    id = modelsConfig.endPerron,
+                    transf = transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0))
+                }
+                -- {
+                -- id = modelsConfig.perronRoof,
+                -- transf = transf.rotZTransl(math.rad(90), vec3.new(0,-20,0)),
+                -- },
+                -- {
+                -- id = modelsConfig.endPerronRoof,
+                -- transf = transf.rotZTransl(math.rad(-90), vec3.new(0,-20,0)),
+                -- },
+                -- {
+                -- id = modelsConfig.endPerronRoof,
+                -- transf = transf.rotZTransl(math.rad(90), vec3.new(0,20,0)),
+                -- },
+            }
+
+            return result
+        end
+    }
 end
