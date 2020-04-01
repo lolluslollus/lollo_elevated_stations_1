@@ -56,7 +56,7 @@ function data()
                     modes = {
                         {
                             type = 'FILL',
-                            key = 'shared/asphalt_01.gtex.lua'
+                            key = 'shared/asphalt_01.gtex.lua', --'shared/asphalt_01.gtex.lua'
                         },
                         {
                             type = 'STROKE_OUTER',
