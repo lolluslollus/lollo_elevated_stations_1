@@ -234,7 +234,7 @@ function trainstationutil.MakeMainBuildingModule(result, transform, tag, slotId,
                     {config.extend[2], config.extend[4], 0.0, 1.0}
                 }
             },
-            slopeHigh = 99, --LOLLO added this
+            slopeHigh = 999, --LOLLO added this
             slopeLow = 0 --LOLLO added this
         }
     }
@@ -273,9 +273,13 @@ function trainstationutil.MakeMainBuildingModule(result, transform, tag, slotId,
                     type = 'FILL',
                     key = 'shared/asphalt_01.gtex.lua' --'shared/asphalt_01.gtex.lua'
                 },
-                {
+--[[                 {
+                    type = 'STROKE_INNER',
+                    key = 'shared/asphalt_01.gtex.lua',
+                },
+ ]]                {
                     type = 'STROKE_OUTER',
-                    key = 'street_border.lua'
+                    key = 'shared/asphalt_01.gtex.lua', --'street_border.lua'
                 }
             }
         }
@@ -289,9 +293,13 @@ function trainstationutil.MakeMainBuildingModule(result, transform, tag, slotId,
                     type = 'FILL',
                     key = 'shared/asphalt_01.gtex.lua' --'shared/gravel_03.gtex.lua'
                 },
-                {
+--[[                 {
+                    type = 'STROKE_INNER',
+                    key = 'shared/asphalt_01.gtex.lua',
+                },
+ ]]                {
                     type = 'STROKE_OUTER',
-                    key = 'street_border.lua'
+                    key = 'shared/asphalt_01.gtex.lua', --'street_border.lua'
                 }
             }
         }

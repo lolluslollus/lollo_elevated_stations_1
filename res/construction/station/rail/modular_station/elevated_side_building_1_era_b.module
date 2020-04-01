@@ -69,6 +69,18 @@ return {
 	
 		local tran = trainstationutil.MakeMainBuildingModule(result, transform, tag, slotId, addModuleFn, params, config)
 		constructionutil.addModels(generatedData["era_b_station_1_assets_1"], result.models, tran, tag)
+		constructionutil.addModels(
+            {
+                models = {
+                    ['lift_size_1_side.mdl'] = {
+                        {1.0000, 0.00000, 0.00000, 0.00000, 0.00000, 1.0000, 0.00000, 0.00000, 0.00000, 0.00000, 1.0000, 0.00000, 0.00000, -0.000, 0.000, 1.00000}
+                    }
+                }
+            },
+            result.models,
+            tran,
+            tag
+        )
 	end,
 	
 	getModelsFn = function()

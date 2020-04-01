@@ -1,7 +1,4 @@
 local underpassZed = require('lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep and we cover it from sight
-
-local leftWallTransf = {4.0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.2, 0, 20, 2.25, -3.2, 1}
-local rightWallTransf = {4.0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.2, 0, 20, -2.25, -3.2, 1}
 local idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 
 function data()
@@ -33,30 +30,6 @@ function data()
                             name = 'perron_5_underpass',
                             transf = idTransf
                         },
---[[                         {
-                            -- left wall
-                            --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
-                            --materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
-                            --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
-                            --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
-                            --materials = { 'bridge/cement.mtl', },
-                            materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
-                            mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
-                            name = 'oil_refinery_wall_large',
-                            transf = leftWallTransf
-                        },
-                        {
-                            -- right wall
-                            --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
-                            --materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
-                            --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
-                            --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
-                            --materials = { 'bridge/cement.mtl', },
-                            materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
-                            mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
-                            name = 'oil_refinery_wall_large',
-                            transf = rightWallTransf
-                        }, ]]
                     },
                     --children = {},
                     name = 'RootNode',
@@ -81,30 +54,6 @@ function data()
                             name = 'perron_5_underpass',
                             transf = idTransf
                         },
---[[                         {
-                            -- left wall
-                            --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
-                            --materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
-                            --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
-                            --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
-                            --materials = { 'bridge/cement.mtl', },
-                            materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
-                            mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
-                            name = 'oil_refinery_wall_large',
-                            transf = leftWallTransf
-                        },
-                        {
-                            -- right wall
-                            --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
-                            --materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
-                            --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
-                            --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
-                            --materials = { 'bridge/cement.mtl', },
-                            materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
-                            mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
-                            name = 'oil_refinery_wall_large',
-                            transf = rightWallTransf
-                        }, ]]
                     },
                     name = 'RootNode',
                     transf = idTransf
@@ -128,30 +77,6 @@ function data()
                             name = 'perron_5_underpass',
                             transf = idTransf
                         },
---[[                         {
-                            -- left wall
-                            --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
-                            --materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
-                            --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
-                            --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
-                            --materials = { 'bridge/cement.mtl', },
-                            materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
-                            mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
-                            name = 'oil_refinery_wall_large',
-                            transf = leftWallTransf
-                        },
-                        {
-                            -- right wall
-                            --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
-                            --materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
-                            --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
-                            --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
-                            --materials = { 'bridge/cement.mtl', },
-                            materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
-                            mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
-                            name = 'oil_refinery_wall_large',
-                            transf = rightWallTransf
-                        }, ]]
                     },
                     name = 'RootNode',
                     transf = idTransf

@@ -105,7 +105,21 @@ return {
 	
 		local tran = trainstationutil.MakeMainBuildingModule(result, transform, tag, slotId, addModuleFn, params, config)
 		constructionutil.addModels(generatedData["clock"], result.models, tran, tag)
-		constructionutil.addModels(generatedData["assets"], result.models, tran, tag)
+        constructionutil.addModels(generatedData["assets"], result.models, tran, tag)
+        constructionutil.addModels(
+            {
+                models = {
+                    ['lift_size_1_main.mdl'] = {
+                        {1.0000, 0.00000, 0.00000, 0.00000, 0.00000, 1.0000, 0.00000, 0.00000, 0.00000, 0.00000, 1.0000, 0.00000, 0.00000, -0.000, 0.000, 1.00000}
+                    }
+                }
+            },
+            result.models,
+            tran,
+            tag
+        )
+        print('LOLLO new module = ')
+        require('luadump')(true)(result.models[#result.models])
 	end,
 	
 	getModelsFn = function()

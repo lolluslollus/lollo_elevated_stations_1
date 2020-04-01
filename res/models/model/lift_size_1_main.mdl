@@ -1,0 +1,126 @@
+function data()
+    local underpassZed = require('lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
+    local lolloLaneUtils = require('lolloLaneUtils')
+    -- the axes are straight and upright when looking at the station from the top, with the tracks above
+    local xm1 = -9.5 -- -10 causes a duplicate edge error when placing two units beside
+    local x0 = 0.0
+    local xp1 = 9.5 -- +10 causes a duplicate edge error when placing two units beside
+    local ym1 = -14.0
+    local y0 = -2.5 -- y axis is across the tracks
+    local yp1 = 2.5 -- y grows when I look inside the station
+
+    return {
+        boundingInfo = {
+            bbMax = {5.5, -5.0, -59.0},
+            bbMin = {-5.5, 1.0, -1.0}
+        },
+        collider = {
+            params = {},
+            transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+            type = 'NONE'
+        },
+        lods = {
+--[[             {
+                node = {
+                    children = {
+                        {
+                            animations = {
+                                forever = {
+                                    forward = true,
+                                    params = {
+                                        keyframes = {
+                                            {
+                                                rot = {0, 0, 0},
+                                                time = 0,
+                                                transl = {0, 0, 0}
+                                            },
+                                            {
+                                                rot = {0, 0, 0},
+                                                time = 4000,
+                                                transl = {0, 0, -22}
+                                            },
+                                            {
+                                                rot = {0, 0, 0},
+                                                time = 6000,
+                                                transl = {0, 0, -22}
+                                            },
+                                            {
+                                                rot = {0, 0, 0},
+                                                time = 10000,
+                                                transl = {0, 0, 0}
+                                            },
+                                            {
+                                                rot = {0, 0, 0},
+                                                time = 12000,
+                                                transl = {0, 0, 0}
+                                            }
+                                        },
+                                        origin = {0, 0, 0}
+                                    },
+                                    type = 'KEYFRAME'
+                                }
+                            },
+                            materials = {'industry/construction_material/trim_2.mtl'},
+                            mesh = 'industry/construction_material/lod_0_building_2_elevator.msh',
+                            transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, xm1 - 3, ym1, .9, 1}
+                        },
+                        {
+							animations = {
+								forever = {
+									forward = false,
+									params = {
+										keyframes = {
+											{
+												rot = { 0, 0, 0, },
+												time = 0,
+												transl = { 0, 0, 1, },
+											},
+											{
+												rot = { 0, 0, 0, },
+												time = 4000,
+												transl = { 0, 0, -25, },
+											},
+											{
+												rot = { 0, 0, 0, },
+												time = 6000,
+												transl = { 0, 0, -25, },
+											},
+											{
+												rot = { 0, 0, 0, },
+												time = 10000,
+												transl = { 0, 0, 1, },
+											},
+											{
+												rot = { 0, 0, 0, },
+												time = 12000,
+												transl = { 0, 0, 1, },
+											},
+										},
+										origin = { 0, 0, 0, },
+									},
+									type = "KEYFRAME",
+								},
+							},
+							materials = { "industry/construction_material/trim_2.mtl", },
+							mesh = "industry/construction_material/lod_0_building_2_elevator.msh",
+                            transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, xp1 + 2, ym1, -.3, 1},
+                        }
+                    },
+                    name = 'RootNode',
+                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
+                },
+                static = false,
+                visibleFrom = 0,
+                visibleTo = 100
+            } ]]
+        },
+        metadata = {
+            transportNetworkProvider = {
+                laneLists = lolloLaneUtils.getLaneLists(xm1, x0, xp1, ym1, y0, yp1, underpassZed),
+                runways = {},
+                terminals = {}
+            }
+        },
+        version = 1
+    }
+end
