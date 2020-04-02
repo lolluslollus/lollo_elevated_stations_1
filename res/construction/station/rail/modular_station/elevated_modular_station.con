@@ -958,7 +958,7 @@ function data()
                 end
                 return false
             end
-            -- side stairs
+            -- side stations
             for j = jMin, jMax do
                 -- along the tracks, south side - side 2
                 if maxS[j] ~= nil then
@@ -988,10 +988,8 @@ function data()
                     end
                 end
             end
-            -- head stairs
-            -- LOLLO TODO check out the distance between vertical lanes and phsical edges,
-            -- so stock stations do not look stupid with the passengers raising through the mountain edge when entering the station
 
+            -- head stations
             -- left end - side 3
             if not isStockStationOnSide(3, result.occupied) then
                 --print('LOLLO side 3 has no stock stations')
