@@ -108,7 +108,8 @@ return {
 		era = 2,
 		level = 3,
 		span = {0, 3},
-		has_roof = true
+		has_roof = true,
+		stock_station = true,
 	},
 	
 	updateFn = function(result, transform, tag, slotId, addModuleFn, params)

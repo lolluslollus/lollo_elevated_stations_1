@@ -26,7 +26,8 @@ function data()
         metadata = {
             -- era = 1,
             -- level = 1,
-            span = {1, 2}
+            span = {1, 2},
+            stock_station = false,
         },
         type = 'elevated_rail_stairs',
         order = {

@@ -72,7 +72,8 @@ return {
 	metadata = {
 		era = 0,
 		level = 3,
-		span = {1, 2}
+		span = {1, 2},
+		stock_station = true,
 	},
 	
 	updateFn = function(result, transform, tag, slotId, addModuleFn, params)
