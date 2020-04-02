@@ -989,7 +989,6 @@ function data()
                 end
             end
             -- head stairs
-            -- LOLLO TODO bar head station overlaying tracks or platforms (seems done)
             -- LOLLO TODO check out the distance between vertical lanes and phsical edges,
             -- so stock stations do not look stupid with the passengers raising through the mountain edge when entering the station
 
