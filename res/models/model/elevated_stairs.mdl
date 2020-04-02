@@ -26,15 +26,19 @@ function data()
     --print('- underpassZed = ', underpassZed)
     return {
         boundingInfo = {
-            bbMax = {5.5, -5.0, -59.0},
-            bbMin = {-5.5, 1.0, -1.0}
+            bbMax = {5.8, 1.0, 5.0},
+            bbMin = {-5.8, -5.0, -60}
         },
+        -- LOLLO NOTE the collider here seems to have no effect.
+        -- We already get it in elevated_stairs.module, so never mind
         collider = {
-            params = {
-                halfExtents = {4.4999990463257, 0.50002193450928, 0.31999999284744}
+            --[[             params = {
+                halfExtents = {5.8, 3.0, 32.5}
             },
             transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
             type = 'BOX'
+ ]]
+            type = 'NONE'
         },
         lods = {
             {

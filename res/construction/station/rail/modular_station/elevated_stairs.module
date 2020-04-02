@@ -3,13 +3,12 @@ local vec3 = require 'vec3'
 local vec4 = require 'vec4'
 local modulesutil = require 'modulesutil'
 local trainstationutil = require 'modules/elevated_trainstationutil'
-local dump = require("luadump")
-local lolloConstants = require("lolloConstants")
+local lolloConstants = require('lolloConstants')
 
 function data()
     return {
         availability = {
-            yearFrom = lolloConstants().availableFrom, -- was 0
+            yearFrom = lolloConstants().availableFrom -- was 0
             --yearTo = -1 -- no!
         },
         cost = {
@@ -19,7 +18,7 @@ function data()
             name = _('Elevated station'),
             description = _('Elevated station for passengers with street access.'),
             --icon = 'ui/construction/station/rail/modular_station/stairs.tga'
-       		icon = "ui/elevated_stairs.tga"
+            icon = 'ui/elevated_stairs.tga'
         },
         category = {
             categories = {'elevated passenger buildings'}
@@ -42,16 +41,28 @@ function data()
                 {5.0, -5.8, 0.0, 1.0},
                 {5.0, 5.8, 0.0, 1.0},
                 {-1.0, 5.8, 0.0, 1.0},
-                {-1.0, -5.8, 0.0, 1.0},
+                {-1.0, -5.8, 0.0, 1.0}
             }
             modulesutil.TransformFaces(transform, faces)
-			local faces2 = {
-				type = 'EQUAL',
-				faces = {faces},
-				slopeHigh = 999, --LOLLO added this
-				slopeLow = 0, --LOLLO added this
-			}
+            local faces2 = {
+                type = 'EQUAL',
+                faces = {faces},
+                slopeHigh = 999, --LOLLO added this
+                slopeLow = 0 --LOLLO added this
+            }
             table.insert(result.terrainAlignmentLists, faces2)
+            -- LOLLO NOTE insert colliders here, coz those in the model do not pull.
+            -- These values are calculated with trial and error. They are not, as often seen, half of the bounding box sizes.
+            table.insert(
+                result.colliders,
+                {
+                    type = 'BOX',
+                    transf = transform,
+                    params = {
+                        halfExtents = {5.8, 6.7, trainstationutil.getZed(params) + 9}
+                    }
+                }
+            )
 
             table.insert(
                 result.groundFaces,
@@ -60,25 +71,25 @@ function data()
                     modes = {
                         {
                             type = 'FILL',
-                            key = 'shared/asphalt_01.gtex.lua', --'shared/asphalt_01.gtex.lua'
+                            key = 'shared/asphalt_01.gtex.lua' --'shared/asphalt_01.gtex.lua'
                         },
---[[                         {
+                        --[[                         {
                             type = 'STROKE_INNER',
                             key = 'shared/asphalt_01.gtex.lua',
                         },
- ]]                        {
+ ]] {
                             type = 'STROKE_OUTER',
-                            key = 'shared/asphalt_01.gtex.lua', --'street_border.lua'
+                            key = 'shared/asphalt_01.gtex.lua' --'street_border.lua'
                         }
                     }
                 }
             )
 
-			--addModuleFn('station/rail/era_a/stairs.mdl', transf.rotZTransl(math.rad(90), vec3.new(0, 0, trainstationutil.getZed(params))))
-			--addModuleFn('elevated_stairs.mdl', transf.rotZTransl(math.rad(90), vec3.new(0, 0, trainstationutil.getZed(params))))
+            --addModuleFn('station/rail/era_a/stairs.mdl', transf.rotZTransl(math.rad(90), vec3.new(0, 0, trainstationutil.getZed(params))))
+            --addModuleFn('elevated_stairs.mdl', transf.rotZTransl(math.rad(90), vec3.new(0, 0, trainstationutil.getZed(params))))
 
-			local transf1 = transf.rotZTransl(math.rad(90), vec3.new(0, 0, trainstationutil.getZed(params)))
-			addModuleFn('elevated_stairs.mdl', transf1)
+            local transf1 = transf.rotZTransl(math.rad(90), vec3.new(0, 0, trainstationutil.getZed(params)))
+            addModuleFn('elevated_stairs.mdl', transf1)
         end,
         getModelsFn = function()
             local result = {
