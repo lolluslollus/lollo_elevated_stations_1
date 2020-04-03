@@ -169,7 +169,7 @@ lolloLaneUtils.getLaneLists = function(xm1, x0, xp1, ym1, y0, yp1, underpassZed)
             speedLimit = 20,
             transportModes = {'PERSON'}
         },
-        {
+        --[[ {
             -- horizontally into the underpass - diagonal right going in
             --linkable = true,
             nodes = {
@@ -206,30 +206,30 @@ lolloLaneUtils.getLaneLists = function(xm1, x0, xp1, ym1, y0, yp1, underpassZed)
             },
             speedLimit = 20,
             transportModes = {'PERSON'}
-        },
+        }, ]]
         {
-            -- vertically down, inner side, centre
+            -- straight down, inner side, centre
             linkable = true,
             nodes = lolloLaneUtils.getVerticalLane(x0, yp1, underpassZed),
             speedLimit = 20,
             transportModes = {'PERSON'}
         },
         {
-            -- vertically down, outer side, centre
+            -- straight down, outer side, centre
             linkable = true,
             nodes = lolloLaneUtils.getVerticalLane(x0, ym1, underpassZed),
             speedLimit = 20,
             transportModes = {'PERSON'}
         },
         {
-            -- vertically down, outer side, left
+            -- straight down, outer side, left
             linkable = true,
             nodes = lolloLaneUtils.getVerticalLane(xm1, ym1, underpassZed),
             speedLimit = 20,
             transportModes = {'PERSON'}
         },
         {
-            -- vertically down, outer side, right
+            -- straight down, outer side, right
             linkable = true,
             nodes = lolloLaneUtils.getVerticalLane(xp1, ym1, underpassZed),
             speedLimit = 20,

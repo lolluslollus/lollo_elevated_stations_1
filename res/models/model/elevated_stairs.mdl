@@ -698,6 +698,60 @@ function data()
             transportNetworkProvider = {
                 laneLists = {
                     {
+                        -- horizontally into the platform, left
+                        nodes = {
+                            {
+                                {-0.5, 1.5, 0.80000001192093},
+                                {-2.5, 0, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {-0.5, 1.0, 0.80000001192093},
+                                {.5, -1, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {-0.5, 1.0, 0.80000001192093},
+                                {.5, -1, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {0, 0, 0.80000001192093},
+                                {0, -2.5, 0},
+                                2.4000000953674
+                            },
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+                    },
+                    {
+                        -- horizontally into the platform, right
+                        nodes = {
+                            {
+                                {0.5, 1.5, 0.80000001192093},
+                                {2.5, 0, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {0.5, 1.0, 0.80000001192093},
+                                {-.5, -1, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {0.5, 1.0, 0.80000001192093},
+                                {-.5, -1, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {0, 0, 0.80000001192093},
+                                {0, -2.5, 0},
+                                2.4000000953674
+                            },
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+                    },
+                    {
                         -- down the stairs
                         linkable = true, -- LOLLO was false
                         nodes = {
@@ -715,36 +769,42 @@ function data()
                         speedLimit = 20,
                         transportModes = {'PERSON'}
                     },
-                    --[[                     {
-						-- along the steps, below
-                        linkable = true,
+                    {
+                        -- horizontally into the along underpass, left
                         nodes = {
                             {
-                                {-5, -2.5, 0},
-                                {5, 0, 0},
+                                {-2, 2.5, underpassZed},
+                                {1, -1, 0},
                                 2.4000000953674
                             },
                             {
+                                {0, 0, underpassZed},
                                 {0, -2.5, 0},
-                                {5, 0, 0},
                                 2.4000000953674
                             },
-                            {
-                                {0, -2.5, 0},
-                                {5, 0, 0},
-                                2.4000000953674
-                            },
-                            {
-                                {5, -2.5, 0},
-                                {5, 0, 0},
-                                2.4000000953674
-                            }
                         },
                         speedLimit = 20,
                         transportModes = {'PERSON'}
-					}, ]]
+                    },
                     {
-                        -- horizontally into the underpass
+                        -- horizontally into the along underpass, right
+                        nodes = {
+                            {
+                                {2, 2.5, underpassZed},
+                                {-1, -1, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {0, 0, underpassZed},
+                                {0, -2.5, 0},
+                                2.4000000953674
+                            },
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+                    },
+                    {
+                        -- horizontally into the across underpass
                         linkable = true,
                         nodes = {
                             {
@@ -762,7 +822,7 @@ function data()
                         transportModes = {'PERSON'}
                     },
                     {
-                        -- vertically down
+                        -- straight down
                         -- LOLLO NOTE alter the sequence if underpassZed changes!
                         linkable = true,
                         nodes = {
