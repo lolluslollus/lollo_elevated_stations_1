@@ -6,6 +6,9 @@ local groundRoofTransf = {.4, 0, 0, 0, 0, .8, 0, 0, 0, 0, .05, 0, 0, 1, zedShift
 local zedShift4GroundFloor = -height - .79
 local groundFloorPavingTransf = {1.024, 0, 0, 0, 0, 1.30, 0, 0, 0, 0, 1, 0, 0, 1.25, zedShift4GroundFloor, 1}
 
+local lampLeftTransf = { 1, 1, 0, 0, 1, -1, 0, 0, 0, 0, 1, 0, -9, -4.5, 0, 1, }
+local lampRightTransf = { -1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 9, -4.5, 0, 1, }
+
 local pillarTransf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.1, 0, 0, -4.1, 0, 1, }
 local clockTransf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -4.1, 4.55, 1, }
 local idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
@@ -60,13 +63,13 @@ function data()
                                     -- lamp left
                                     materials = { "asset/lamp_new.mtl", },
                                     mesh = "asset/lamp_new_lod_0.msh",
-                                    transf = { 1, -1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, -9, 0, 0, 1, },
+                                    transf = lampLeftTransf
                                 },
                                 {
                                     -- lamp right
                                     materials = { "asset/lamp_new.mtl", },
                                     mesh = "asset/lamp_new_lod_0.msh",
-                                    transf = { -1, -1, 0, 0, 1, -1, 0, 0, 0, 0, 1, 0, 8, 0, 0, 1, },
+                                    transf = lampRightTransf
                                 },
                                 {
                                     -- pillar
@@ -225,13 +228,13 @@ function data()
                                     -- lamp left
                                     materials = { "asset/lamp_new.mtl", },
                                     mesh = "asset/lamp_new_lod_1.msh",
-                                    transf = { 1, -1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, -9, 0, 0, 1, },
+                                    transf = lampLeftTransf
                                 },
                                 {
                                     -- lamp right
                                     materials = { "asset/lamp_new.mtl", },
                                     mesh = "asset/lamp_new_lod_1.msh",
-                                    transf = { -1, -1, 0, 0, 1, -1, 0, 0, 0, 0, 1, 0, 8, 0, 0, 1, },
+                                    transf = lampRightTransf
                                 },
                                 {
                                     -- pillar
@@ -396,7 +399,7 @@ function data()
                         fitting = 'SCALE',
                         nLines = 1,
                         size = {5.2, .6},
-                        transf = {1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, -2.6, -4.333, 3.63, 1},
+                        transf = {1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, -2.6, -5.333, 3.63, 1},
                         type = 'STATION_NAME',
                         verticalAlignment = 'CENTER'
                     }
