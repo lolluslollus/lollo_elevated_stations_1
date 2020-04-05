@@ -11,12 +11,11 @@ function data()
             --yearTo = -1 -- no!
         },
         cost = {
-            price = 2000
+            price = 1000
         },
         description = {
             name = _('Station Square'),
             description = _('Small square to be placed in front of a station, with street access.'),
-            --icon = 'ui/construction/station/rail/modular_station/stairs.tga'
             icon = 'ui/station_square.tga'
         },
         category = {
