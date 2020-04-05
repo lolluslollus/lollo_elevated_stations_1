@@ -413,8 +413,8 @@ function data()
                         transportModes = {'PERSON'}
                     },
                     {
-                        -- down the stairs
-                        linkable = true, -- LOLLO was false
+                        -- down the stairs and out
+                        linkable = true,
                         nodes = {
                             {
                                 {0, 0, 0.80000001192093},
@@ -440,107 +440,6 @@ function data()
                         speedLimit = 20,
                         transportModes = {'PERSON'}
                     },
-                    {
-                        -- horizontally into the along underpass, left
-                        nodes = {
-                            {
-                                {-2, 2.5, underpassZed},
-                                {1, -1, 0},
-                                2.4000000953674
-                            },
-                            {
-                                {0, 0, underpassZed},
-                                {0, -2.5, 0},
-                                2.4000000953674
-                            }
-                        },
-                        speedLimit = 20,
-                        transportModes = {'PERSON'}
-                    },
-                    {
-                        -- horizontally into the along underpass, right
-                        nodes = {
-                            {
-                                {2, 2.5, underpassZed},
-                                {-1, -1, 0},
-                                2.4000000953674
-                            },
-                            {
-                                {0, 0, underpassZed},
-                                {0, -2.5, 0},
-                                2.4000000953674
-                            }
-                        },
-                        speedLimit = 20,
-                        transportModes = {'PERSON'}
-                    },
-                    {
-                        -- horizontally into the across underpass
-                        linkable = true,
-                        nodes = {
-                            {
-                                {0, -0, underpassZed},
-                                {0, -2.5, 0},
-                                2.4000000953674
-                            },
-                            {
-                                {0, -2.5, underpassZed},
-                                {0, -2.5, 0},
-                                2.4000000953674
-                            }
-                        },
-                        speedLimit = 20,
-                        transportModes = {'PERSON'}
-                    },
-                    height > 0 and
-                        {
-                            -- straight down
-                            -- LOLLO NOTE alter the sequence if underpassZed changes!
-                            linkable = true,
-                            nodes = {
-                                {
-                                    {0, -2.5, 0},
-                                    {0, 0, -1}, -- 0, 0, 0 crashes, 0, 0, -1 and 0, 0, 1 hide the people, 0, 1, 0 and 1, 0, 0 have them walk while being lifted
-                                    2.4
-                                },
-                                {
-                                    {0, -2.5, underpassZed},
-                                    {0, 0, -1},
-                                    2.4
-                                },
-                                {
-                                    {0, -2.5, underpassZed},
-                                    {0, 0, -1},
-                                    2.4
-                                },
-                                {
-                                    {0, -2.5, -height},
-                                    {0, 0, -1},
-                                    2.4
-                                }
-                            },
-                            speedLimit = 20,
-                            transportModes = {'PERSON'}
-                        } or
-                        {
-                            -- straight down
-                            -- LOLLO NOTE alter the sequence if underpassZed changes!
-                            linkable = true,
-                            nodes = {
-                                {
-                                    {0, -2.5, 0},
-                                    {0, 0, -1}, -- 0, 0, 0 crashes, 0, 0, -1 and 0, 0, 1 hide the people, 0, 1, 0 and 1, 0, 0 have them walk while being lifted
-                                    2.4
-                                },
-                                {
-                                    {0, -2.5, underpassZed},
-                                    {0, 0, -1},
-                                    2.4
-                                }
-                            },
-                            speedLimit = 20,
-                            transportModes = {'PERSON'}
-                        }
                 },
                 runways = {},
                 terminals = {}
