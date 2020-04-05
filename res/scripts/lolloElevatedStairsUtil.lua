@@ -862,7 +862,7 @@ return function(height)
                         transportModes = {'PERSON'}
                     },
                     height > 0 and {
-                        -- straight down
+                        -- straight down and then out
                         -- LOLLO NOTE alter the sequence if underpassZed changes!
                         linkable = true,
                         nodes = {
@@ -884,6 +884,16 @@ return function(height)
                             {
                                 {0, -2.5, -height},
                                 {0, 0, -1},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -height},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -5, -height},
+                                {0, -1, 0},
                                 2.4
                             }
                         },

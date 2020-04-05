@@ -18,6 +18,7 @@ function data()
     local stairsSlotId = 9400000
     local passengerPlatformRoofSlotId = 10400000
     local passengerPlatformAddonSlotId = 10800000
+    local squareSlotId = 11200000
 
     local platformLength = 40
     local platformWidth = 5
@@ -988,6 +989,7 @@ function data()
                 end
                 return false
             end
+
             -- side stations
             for j = jMin, jMax do
                 local finerThanJ = (j - jMin) * 4 + 1
@@ -1094,6 +1096,77 @@ function data()
                                     end
                                 end
                             end
+                        end
+                    end
+                end
+            end
+
+            -- side station squares
+            for j = jMin, jMax do
+                -- along the tracks, south side - side 2
+                if maxS[j] ~= nil then
+                    for k = -1, 1 do
+                        local adjacentStation = params.modules[stairsSlotId + 40 * j + 12 * k + 1]
+                        if adjacentStation ~= nil then
+                            local id = squareSlotId + 40 * j + 12 * k + 1
+                            AddSlot(
+                                id,
+                                transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(maxS[j] * platformWidth + 2.5 + 6, j * platformLength + k * 12, 0)),
+                                'station_square',
+                                {0, 0, 0, 0}
+                            )
+                        end
+                    end
+                end
+                -- along the tracks, north side - side 1
+                if minS[j] ~= nil then
+                    for k = -1, 1 do
+                        local adjacentStation = params.modules[stairsSlotId + 40 * j + 12 * k]
+                        if adjacentStation ~= nil then
+                            local id = squareSlotId + 40 * j + 12 * k
+                            AddSlot(
+                                id, 
+                                transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(minS[j] * platformWidth - 2.5 - 6, j * platformLength + k * 12, 0)), 
+                                'station_square', 
+                                {0, 0, 0, 0}
+                            )
+                        end
+                    end
+                end
+            end
+
+            -- head station squares
+            -- left end - side 3
+            if not isStockStationOnHead(3, result.occupied) then
+                for i = -backwardDist, forwardDist do
+                    if leftW[i] ~= nil then
+                        local adjacentStation = params.modules[stairsSlotId + 1000 * i + 10 * leftW[i] + 2]
+                        if adjacentStation ~= nil then
+                            local id = squareSlotId + 1000 * i + 10 * leftW[i] + 2
+                            AddSlot(
+                                id, 
+                                transf.rotZYXTransl(transf.degToRad(-90.0, 0.0, 0.0), vec3.new(i * platformWidth, leftW[i] * platformLength - .5 * platformLength - 6, 0)),
+                                'station_square', 
+                                {0, 0, 0, 0}
+                            )
+                        end
+                    end
+                end
+            end
+
+            -- right end - side 4
+            if not isStockStationOnHead(4, result.occupied) then
+                for i = -backwardDist, forwardDist do
+                    if rightW[i] ~= nil then
+                        local adjacentStation = params.modules[stairsSlotId + 1000 * i + 10 * rightW[i] + 3]
+                        if adjacentStation ~= nil then
+                            local id = squareSlotId + 1000 * i + 10 * rightW[i] + 3
+                            AddSlot(
+                                id,
+                                transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(i * platformWidth, rightW[i] * platformLength + .5 * platformLength + 6, 0)),
+                                'station_square', 
+                                {0, 0, 0, 0}
+                            )
                         end
                     end
                 end

@@ -1,0 +1,103 @@
+local transf = require 'transf'
+local vec3 = require 'vec3'
+local vec4 = require 'vec4'
+local modulesutil = require 'modulesutil'
+local lolloConstants = require('lolloConstants')
+
+function data()
+    return {
+        availability = {
+            yearFrom = lolloConstants().availableFrom -- was 0
+            --yearTo = -1 -- no!
+        },
+        cost = {
+            price = 2000
+        },
+        description = {
+            name = _('Station Square'),
+            description = _('Small square to be placed in front of a station, with street access.'),
+            --icon = 'ui/construction/station/rail/modular_station/stairs.tga'
+            icon = 'ui/station_square.tga'
+        },
+        category = {
+            categories = {'elevated passenger buildings'}
+        },
+        metadata = {
+            -- era = 1,
+            -- level = 1,
+            span = {1, 2},
+            stock_station = false -- LOLLO NOTE use this to override the default station handling
+        },
+        type = 'station_square',
+        order = {
+            value = 700
+        },
+        updateFn = function(result, transform, tag, slotId, addModuleFn, params)
+            local faces = {
+                -- {5.0, -5.0, 0.0, 1.0},
+                -- {5.0, 5.0, 0.0, 1.0},
+                -- {-1.0, 5.0, 0.0, 1.0},
+                -- {-1.0, -5.0, 0.0, 1.0},
+                {5.0, -5.8, 0.0, 1.0},
+                {5.0, 5.8, 0.0, 1.0},
+                {-1.0, 5.8, 0.0, 1.0},
+                {-1.0, -5.8, 0.0, 1.0}
+            }
+            modulesutil.TransformFaces(transform, faces)
+            local faces2 = {
+                type = 'EQUAL',
+                faces = {faces},
+                -- slopeHigh = 999, --LOLLO added this
+                -- slopeLow = 0 --LOLLO added this
+            }
+            table.insert(result.terrainAlignmentLists, faces2)
+            -- LOLLO NOTE insert colliders here, coz those in the model do not pull.
+            -- These values are calculated with trial and error. They are not, as often seen, half of the bounding box sizes.
+            table.insert(
+                result.colliders,
+                {
+                    type = 'BOX',
+                    transf = transform,
+                    params = {
+                        halfExtents = {5.8, 6.7, 9}
+                    }
+                }
+            )
+
+            table.insert(
+                result.groundFaces,
+                {
+                    face = faces,
+                    modes = {
+                        {
+                            type = 'FILL',
+                            key = 'shared/asphalt_01.gtex.lua' --'shared/asphalt_01.gtex.lua'
+                        },
+                        --[[                         {
+                            type = 'STROKE_INNER',
+                            key = 'shared/asphalt_01.gtex.lua',
+                        },
+                        ]]
+                        {
+                            type = 'STROKE_OUTER',
+                            key = 'shared/asphalt_01.gtex.lua' --'street_border.lua'
+                        }
+                    }
+                }
+            )
+
+            local transf1 = transf.rotZTransl(math.rad(90), vec3.new(0, 0, 0))
+            addModuleFn('station_square.mdl', transf1)
+        end,
+        getModelsFn = function()
+            local result = {
+                {
+                    id = 'station_square.mdl',
+                    transf = transf.rotZTransl(math.rad(90), vec3.new(0, 0, 0))
+                }
+            }
+
+            return result
+        end
+    }
+end
