@@ -6,11 +6,11 @@ local groundRoofTransf = {.4, 0, 0, 0, 0, .8, 0, 0, 0, 0, .05, 0, 0, 1, zedShift
 local zedShift4GroundFloor = -height - .79
 local groundFloorPavingTransf = {1.024, 0, 0, 0, 0, 1.30, 0, 0, 0, 0, 1, 0, 0, 1.25, zedShift4GroundFloor, 1}
 
-local lampLeftTransf = { 1, 1, 0, 0, 1, -1, 0, 0, 0, 0, 1, 0, -9, -4.5, 0, 1, }
-local lampRightTransf = { -1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 9, -4.5, 0, 1, }
+local lampLeftTransf = {1, 1, 0, 0, 1, -1, 0, 0, 0, 0, 1, 0, -9, -4.5, 0, 1}
+local lampRightTransf = {-1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 9, -4.5, 0, 1}
 
-local pillarTransf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.1, 0, 0, -4.1, 0, 1, }
-local clockTransf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -4.1, 4.55, 1, }
+local poleTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.1, 0, 0, -4.1, 0, 1}
+local clockTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -4.1, 4.55, 1}
 local idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 local stationMainTransf = {.6, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 
@@ -61,22 +61,64 @@ function data()
                                 },
                                 {
                                     -- lamp left
-                                    materials = { "asset/lamp_new.mtl", },
-                                    mesh = "asset/lamp_new_lod_0.msh",
+                                    materials = {'asset/lamp_new.mtl'},
+                                    mesh = 'asset/lamp_new_lod_0.msh',
                                     transf = lampLeftTransf
                                 },
                                 {
                                     -- lamp right
-                                    materials = { "asset/lamp_new.mtl", },
-                                    mesh = "asset/lamp_new_lod_0.msh",
+                                    materials = {'asset/lamp_new.mtl'},
+                                    mesh = 'asset/lamp_new_lod_0.msh',
                                     transf = lampRightTransf
                                 },
                                 {
-                                    -- pillar
-                                    materials = { "station/rail/era_c/era_c_trainstation_borders_2.mtl", },
-                                    mesh = "station/rail/asset/era_c_perron_pillar/era_c_perron_pillar_lod0.msh",
-                                    name = "era_c_perron_pillar",
-                                    transf = pillarTransf
+                                    -- pole
+                                    materials = {'station/rail/era_c/era_c_trainstation_borders_2.mtl'},
+                                    mesh = 'station/rail/asset/era_c_perron_pillar/era_c_perron_pillar_lod0.msh',
+                                    name = 'era_c_perron_pillar',
+                                    transf = poleTransf
+                                },
+                                {
+                                    -- street pillar 1
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_street_pillar/era_a_street_pillar_lod0.msh',
+                                    name = 'era_a_street_pillar',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -8, -4, 0, 1}
+                                },
+                                {
+                                    -- street pillar 2
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_street_pillar/era_a_street_pillar_lod0.msh',
+                                    name = 'era_a_street_pillar',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -5, -4, 0, 1}
+                                },
+                                {
+                                    -- street pillar 3
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_street_pillar/era_a_street_pillar_lod0.msh',
+                                    name = 'era_a_street_pillar',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -2, -4, 0, 1}
+                                },
+                                {
+                                    -- street pillar 4
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_street_pillar/era_a_street_pillar_lod0.msh',
+                                    name = 'era_a_street_pillar',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, -4, 0, 1}
+                                },
+                                {
+                                    -- street pillar 5
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_street_pillar/era_a_street_pillar_lod0.msh',
+                                    name = 'era_a_street_pillar',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 5, -4, 0, 1}
+                                },
+                                {
+                                    -- street pillar 6
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_street_pillar/era_a_street_pillar_lod0.msh',
+                                    name = 'era_a_street_pillar',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 8, -4, 0, 1}
                                 },
                             },
                             name = 'station_square_1_main_grp',
@@ -88,100 +130,99 @@ function data()
                                     animations = {
                                         hours = {
                                             params = {
-                                                id = "station/rail/asset/era_c_small_clock/hours/era_c_hours_small_1.ani",
+                                                id = 'station/rail/asset/era_c_small_clock/hours/era_c_hours_small_1.ani'
                                             },
-                                            type = "FILE_REF",
-                                        },
+                                            type = 'FILE_REF'
+                                        }
                                     },
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_hours_small_1_lod0.msh",
-                                    name = "era_c_hours_small_1",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_hours_small_1_lod0.msh',
+                                    name = 'era_c_hours_small_1',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
                                 },
                                 {
                                     animations = {
                                         minutes = {
                                             params = {
-                                                id = "station/rail/asset/era_c_small_clock/minutes/era_c_minutes_small_1.ani",
+                                                id = 'station/rail/asset/era_c_small_clock/minutes/era_c_minutes_small_1.ani'
                                             },
-                                            type = "FILE_REF",
-                                        },
+                                            type = 'FILE_REF'
+                                        }
                                     },
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_minutes_small_1_lod0.msh",
-                                    name = "era_c_minutes_small_1",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_minutes_small_1_lod0.msh',
+                                    name = 'era_c_minutes_small_1',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
                                 },
                                 {
                                     animations = {
                                         seconds = {
                                             params = {
-                                                id = "station/rail/asset/era_c_small_clock/seconds/era_c_seconds_small_1.ani",
+                                                id = 'station/rail/asset/era_c_small_clock/seconds/era_c_seconds_small_1.ani'
                                             },
-                                            type = "FILE_REF",
-                                        },
+                                            type = 'FILE_REF'
+                                        }
                                     },
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_seconds_small_1_lod0.msh",
-                                    name = "era_c_seconds_small_1",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_seconds_small_1_lod0.msh',
+                                    name = 'era_c_seconds_small_1',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
                                 },
                                 {
                                     animations = {
                                         hours = {
                                             params = {
-                                                id = "station/rail/asset/era_c_small_clock/hours/era_c_hours_small_2.ani",
+                                                id = 'station/rail/asset/era_c_small_clock/hours/era_c_hours_small_2.ani'
                                             },
-                                            type = "FILE_REF",
-                                        },
+                                            type = 'FILE_REF'
+                                        }
                                     },
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_hours_small_2_lod0.msh",
-                                    name = "era_c_hours_small_2",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_hours_small_2_lod0.msh',
+                                    name = 'era_c_hours_small_2',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
                                 },
                                 {
                                     animations = {
                                         minutes = {
                                             params = {
-                                                id = "station/rail/asset/era_c_small_clock/minutes/era_c_minutes_small_2.ani",
+                                                id = 'station/rail/asset/era_c_small_clock/minutes/era_c_minutes_small_2.ani'
                                             },
-                                            type = "FILE_REF",
-                                        },
+                                            type = 'FILE_REF'
+                                        }
                                     },
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_minutes_small_2_lod0.msh",
-                                    name = "era_c_minutes_small_2",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_minutes_small_2_lod0.msh',
+                                    name = 'era_c_minutes_small_2',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
                                 },
                                 {
                                     animations = {
                                         seconds = {
                                             params = {
-                                                id = "station/rail/asset/era_c_small_clock/seconds/era_c_seconds_small_2.ani",
+                                                id = 'station/rail/asset/era_c_small_clock/seconds/era_c_seconds_small_2.ani'
                                             },
-                                            type = "FILE_REF",
-                                        },
+                                            type = 'FILE_REF'
+                                        }
                                     },
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_seconds_small_2_lod0.msh",
-                                    name = "era_c_seconds_small_2",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_seconds_small_2_lod0.msh',
+                                    name = 'era_c_seconds_small_2',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
                                 },
                                 {
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_trainstation_small_clock_lod0.msh",
-                                    name = "era_c_trainstation_small_clock",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
-                                },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_trainstation_small_clock_lod0.msh',
+                                    name = 'era_c_trainstation_small_clock',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
+                                }
                             },
-                            name = "era_c_small_clock_grp",
+                            name = 'era_c_small_clock_grp',
                             transf = clockTransf
                         },
                         {
                             children = {
-                                children =
-                                {
+                                children = {
                                     materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
                                     mesh = 'station/rail/asset/era_c_station_name/era_c_station_name_lod0.msh',
                                     name = 'era_c_station_name',
@@ -226,23 +267,23 @@ function data()
                                 },
                                 {
                                     -- lamp left
-                                    materials = { "asset/lamp_new.mtl", },
-                                    mesh = "asset/lamp_new_lod_1.msh",
+                                    materials = {'asset/lamp_new.mtl'},
+                                    mesh = 'asset/lamp_new_lod_1.msh',
                                     transf = lampLeftTransf
                                 },
                                 {
                                     -- lamp right
-                                    materials = { "asset/lamp_new.mtl", },
-                                    mesh = "asset/lamp_new_lod_1.msh",
+                                    materials = {'asset/lamp_new.mtl'},
+                                    mesh = 'asset/lamp_new_lod_1.msh',
                                     transf = lampRightTransf
                                 },
                                 {
-                                    -- pillar
-                                    materials = { "station/rail/era_c/era_c_trainstation_borders_2.mtl", },
-                                    mesh = "station/rail/asset/era_c_perron_pillar/era_c_perron_pillar_lod1.msh",
-                                    name = "era_c_perron_pillar",
-                                    transf = pillarTransf
-                                },
+                                    -- pole
+                                    materials = {'station/rail/era_c/era_c_trainstation_borders_2.mtl'},
+                                    mesh = 'station/rail/asset/era_c_perron_pillar/era_c_perron_pillar_lod1.msh',
+                                    name = 'era_c_perron_pillar',
+                                    transf = poleTransf
+                                }
                             },
                             name = 'station_square_1_main_grp',
                             transf = stationMainTransf
@@ -253,94 +294,94 @@ function data()
                                     animations = {
                                         hours = {
                                             params = {
-                                                id = "station/rail/asset/era_c_small_clock/hours/era_c_hours_small_1.ani",
+                                                id = 'station/rail/asset/era_c_small_clock/hours/era_c_hours_small_1.ani'
                                             },
-                                            type = "FILE_REF",
-                                        },
+                                            type = 'FILE_REF'
+                                        }
                                     },
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_hours_small_1_lod1.msh",
-                                    name = "era_c_hours_small_1",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_hours_small_1_lod1.msh',
+                                    name = 'era_c_hours_small_1',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
                                 },
                                 {
                                     animations = {
                                         minutes = {
                                             params = {
-                                                id = "station/rail/asset/era_c_small_clock/minutes/era_c_minutes_small_1.ani",
+                                                id = 'station/rail/asset/era_c_small_clock/minutes/era_c_minutes_small_1.ani'
                                             },
-                                            type = "FILE_REF",
-                                        },
+                                            type = 'FILE_REF'
+                                        }
                                     },
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_minutes_small_1_lod1.msh",
-                                    name = "era_c_minutes_small_1",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_minutes_small_1_lod1.msh',
+                                    name = 'era_c_minutes_small_1',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
                                 },
                                 {
                                     animations = {
                                         seconds = {
                                             params = {
-                                                id = "station/rail/asset/era_c_small_clock/seconds/era_c_seconds_small_1.ani",
+                                                id = 'station/rail/asset/era_c_small_clock/seconds/era_c_seconds_small_1.ani'
                                             },
-                                            type = "FILE_REF",
-                                        },
+                                            type = 'FILE_REF'
+                                        }
                                     },
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_seconds_small_1_lod1.msh",
-                                    name = "era_c_seconds_small_1",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_seconds_small_1_lod1.msh',
+                                    name = 'era_c_seconds_small_1',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
                                 },
                                 {
                                     animations = {
                                         hours = {
                                             params = {
-                                                id = "station/rail/asset/era_c_small_clock/hours/era_c_hours_small_2.ani",
+                                                id = 'station/rail/asset/era_c_small_clock/hours/era_c_hours_small_2.ani'
                                             },
-                                            type = "FILE_REF",
-                                        },
+                                            type = 'FILE_REF'
+                                        }
                                     },
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_hours_small_2_lod1.msh",
-                                    name = "era_c_hours_small_2",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_hours_small_2_lod1.msh',
+                                    name = 'era_c_hours_small_2',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
                                 },
                                 {
                                     animations = {
                                         minutes = {
                                             params = {
-                                                id = "station/rail/asset/era_c_small_clock/minutes/era_c_minutes_small_2.ani",
+                                                id = 'station/rail/asset/era_c_small_clock/minutes/era_c_minutes_small_2.ani'
                                             },
-                                            type = "FILE_REF",
-                                        },
+                                            type = 'FILE_REF'
+                                        }
                                     },
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_minutes_small_2_lod1.msh",
-                                    name = "era_c_minutes_small_2",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_minutes_small_2_lod1.msh',
+                                    name = 'era_c_minutes_small_2',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
                                 },
                                 {
                                     animations = {
                                         seconds = {
                                             params = {
-                                                id = "station/rail/asset/era_c_small_clock/seconds/era_c_seconds_small_2.ani",
+                                                id = 'station/rail/asset/era_c_small_clock/seconds/era_c_seconds_small_2.ani'
                                             },
-                                            type = "FILE_REF",
-                                        },
+                                            type = 'FILE_REF'
+                                        }
                                     },
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_seconds_small_2_lod1.msh",
-                                    name = "era_c_seconds_small_2",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_seconds_small_2_lod1.msh',
+                                    name = 'era_c_seconds_small_2',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
                                 },
                                 {
-                                    materials = { "station/rail/era_c/era_c_trainstation_assets.mtl", },
-                                    mesh = "station/rail/asset/era_c_small_clock/era_c_trainstation_small_clock_lod1.msh",
-                                    name = "era_c_trainstation_small_clock",
-                                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
-                                },
+                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                                    mesh = 'station/rail/asset/era_c_small_clock/era_c_trainstation_small_clock_lod1.msh',
+                                    name = 'era_c_trainstation_small_clock',
+                                    transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
+                                }
                             },
-                            name = "era_c_small_clock_grp",
+                            name = 'era_c_small_clock_grp',
                             transf = clockTransf
                         }
                     },
@@ -375,7 +416,7 @@ function data()
                                     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod2.msh',
                                     name = 'station_1_main_perron',
                                     transf = groundFloorPavingTransf
-                                },
+                                }
                             },
                             name = 'station_square_1_main_grp',
                             transf = stationMainTransf
@@ -406,7 +447,7 @@ function data()
                 }
             },
             transportNetworkProvider = {
-                laneLists = {                    
+                laneLists = {
                     {
                         -- into the station
                         linkable = true,
@@ -420,21 +461,47 @@ function data()
                                 {0, 0, 0},
                                 {0, -1, 0},
                                 2.4000000953674
-                            },
+                            }
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+                    },
+                    {
+                        -- into the street left
+                        linkable = true,
+                        nodes = {
                             {
                                 {0, 0, 0},
-                                {0, -1, 0},
+                                {-1, -1, 0},
                                 2.4000000953674
                             },
                             {
-                                {0, -2, 0},
-                                {0, -1, 0},
+                                {-4, -4, 0},
+                                {-1, -1, 0},
                                 2.4000000953674
                             }
                         },
                         speedLimit = 20,
                         transportModes = {'PERSON'}
                     },
+                    {
+                        -- into the street right
+                        linkable = true,
+                        nodes = {
+                            {
+                                {0, 0, 0},
+                                {1, -1, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {4, -4, 0},
+                                {1, -1, 0},
+                                2.4000000953674
+                            }
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+                    }
                 },
                 runways = {},
                 terminals = {}

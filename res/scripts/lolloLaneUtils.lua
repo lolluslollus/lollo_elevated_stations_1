@@ -109,7 +109,6 @@ lolloLaneUtils.getLaneLists = function(xm1, x0, xp1, ym1, y0, yp1, underpassZed)
     return {
         {
             -- horizontally into the underpass, straight across
-            --linkable = true,
             nodes = {
                 -- inside station
                 {
@@ -140,7 +139,6 @@ lolloLaneUtils.getLaneLists = function(xm1, x0, xp1, ym1, y0, yp1, underpassZed)
         },
         {
             -- horizontally, connected to the underpass, straight along the outer side
-            --linkable = true,
             nodes = {
                 -- outside station left
                 {
@@ -169,44 +167,6 @@ lolloLaneUtils.getLaneLists = function(xm1, x0, xp1, ym1, y0, yp1, underpassZed)
             speedLimit = 20,
             transportModes = {'PERSON'}
         },
-        --[[ {
-            -- horizontally into the underpass - diagonal right going in
-            --linkable = true,
-            nodes = {
-                -- inside
-                {
-                    {10, yp1, underpassZed}, -- no xp1 here!
-                    {-10, 0.0, 0},
-                    2.4000000953674
-                },
-                {
-                    {x0, y0, underpassZed},
-                    {0, 2.5, 0},
-                    2.4000000953674
-                }
-            },
-            speedLimit = 20,
-            transportModes = {'PERSON'}
-        },
-        {
-            -- horizontally into the underpass - diagonal left going in
-            --linkable = true,
-            nodes = {
-                -- inside
-                {
-                    {-10, yp1, underpassZed}, -- no xm1 here!
-                    {10, 0.0, 0},
-                    2.4000000953674
-                },
-                {
-                    {x0, y0, underpassZed},
-                    {0, 2.5, 0},
-                    2.4000000953674
-                }
-            },
-            speedLimit = 20,
-            transportModes = {'PERSON'}
-        }, ]]
         {
             -- straight down, inner side, centre
             linkable = true,

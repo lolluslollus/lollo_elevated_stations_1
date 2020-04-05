@@ -845,7 +845,6 @@ return function(height)
                     },
                     {
                         -- horizontally into the across underpass
-                        linkable = true,
                         nodes = {
                             {
                                 {0, -0, underpassZed},
@@ -900,7 +899,7 @@ return function(height)
                         speedLimit = 20,
                         transportModes = {'PERSON'}
                     } or {
-                        -- straight down
+                        -- straight down and then out
                         -- LOLLO NOTE alter the sequence if underpassZed changes!
                         linkable = true,
                         nodes = {

@@ -70,7 +70,6 @@ return {
 		transportNetworkProvider = {
 			laneLists = {
 				{
-					--linkable = true, -- LOLLO does not help
 					nodes = {
 						-- across the track
 --[[ 						{

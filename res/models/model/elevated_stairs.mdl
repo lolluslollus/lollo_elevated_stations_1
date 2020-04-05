@@ -805,7 +805,6 @@ function data()
                     },
                     {
                         -- horizontally into the across underpass
-                        linkable = true,
                         nodes = {
                             {
                                 {0, -0, underpassZed},
