@@ -7,7 +7,7 @@ return function(height)
 
     local upperLiftShaftTransf = {0, 0, 1, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, -2.5, 4.0, 1}
 
-    local zedZoom4Wall = (-height + 2.5) * .335 -- wallBasicHeight * zoom = - (height - 3.0), approx coz there is an additional shift
+    local zedZoom4Wall = (-height + 2.5) * .333 -- wallBasicHeight * zoom = - (height - 3.0), approx coz there is an additional shift
     local zShift4Wall = 0.7 -- was -59.3
     local leftBelowTransf = {0, .65, 0, 0, 1, 0, 0, 0, 0, 0, zedZoom4Wall, 0, -9.75, -2.0, zShift4Wall, 1}
     local frontBelowTransf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 0, -5, zShift4Wall, 1}
