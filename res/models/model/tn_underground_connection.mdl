@@ -5,7 +5,6 @@ local leftWallTransf = {0, 4.0, 0, 0, 1, 0, 0, 0, 0, 0, 1.450, 0, 2.26, -0.0, -3
 local rightWallTransf = {0, 4.0, 0, 0, 1, 0, 0, 0, 0, 0, 1.450, 0, -2.26, -0.0, -3.6, 1}
 local foreWallTransf = {.49, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.3, 0, 0, -19.8, -3.5, 1}
 local aftWallTransf = {.49, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.3, 0, 0, 19.8, -3.5, 1}
-local topTransf = {0, 4.0, 0, 0, 0, 0, 4, 0, 1.60, 0, 0, 0, -2.40, -0.0, -0.6, 1}
 local idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 
 function data()
@@ -58,14 +57,36 @@ function data()
                             name = 'oil_refinery_wall_large',
                             transf = floorTransf
                         },
+                        -- I make 4 track covers coz the texture looks better
                         {
-                            -- top (track cover)
-                            materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
-                            materials = {'bridge/cement.mtl'},
+                            -- top (track cover) 1
+                            --materials = {'depot/rail/train_depot_era_a/concrete.mtl'},
+                            --materials = {'asset/ground/dam_texture_02_mat.mtl'},
                             materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
                             mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                             name = 'oil_refinery_wall_large',
-                            transf = topTransf
+                            transf = {0, 1.0, 0, 0, 0, 0, 4, 0, 1.60, 0, 0, 0, -2.40, -15.0, -0.61, 1}
+                        },
+                        {
+                            -- top (track cover) 2
+                            materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                            mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                            name = 'oil_refinery_wall_large',
+                            transf = {0, 1.0, 0, 0, 0, 0, 4, 0, 1.60, 0, 0, 0, -2.40, -5.0, -0.61, 1}
+                        },
+                        {
+                            -- top (track cover) 3
+                            materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                            mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                            name = 'oil_refinery_wall_large',
+                            transf = {0, 1.0, 0, 0, 0, 0, 4, 0, 1.60, 0, 0, 0, -2.40, 5.0, -0.61, 1}
+                        },
+                        {
+                            -- top (track cover) 4
+                            materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
+                            mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                            name = 'oil_refinery_wall_large',
+                            transf = {0, 1.0, 0, 0, 0, 0, 4, 0, 1.60, 0, 0, 0, -2.40, 15.0, -0.61, 1}
                         }
                     },
                     name = 'RootNode',
