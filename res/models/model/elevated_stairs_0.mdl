@@ -1,5 +1,5 @@
 local height = 0
-local underpassZed = -3 -- require('lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
+local underpassZed = require('lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
 
 local zedShift4groundRoof = -height + 2.95 -- - height * .6 + 2.60
 local groundRoofTransf = {.4, 0, 0, 0, 0, .05, 0, 0, 0, 0, .05, 0, 0, -5.1, zedShift4groundRoof, 1}
@@ -13,7 +13,7 @@ local rearRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPill
 
 local zedShift4GroundFloor = -height - .79
 local groundFloorPavingTransf = {1.024, 0, 0, 0, 0, 1.30, 0, 0, 0, 0, 1, 0, 0, 1.25, zedShift4GroundFloor, 1}
-
+local stairsTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 local roofTransf = {2, 0, 0, 0, 0, 0, 4.0, 0, 0, 1.6, 0, 0, 0, -5.25, 4.2, 1}
 --local solarOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1.1, 5.25, 1}
 local solarTwoTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -3.4, 5.25, 1}
@@ -97,6 +97,14 @@ function data()
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearRightPillarTransf
+                                },
+                                {
+                                    -- stairs
+                                    --materials = {'station/rail/era_a/station.mtl'},
+                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
+                                    mesh = 'station/rail/era_c/stairs/stairs_lod0.msh',
+                                    name = 'stairs',
+                                    transf = stairsTransf
                                 },
                                 -- roof
                                 {
@@ -218,6 +226,13 @@ function data()
                                     name = 'oil_refinery_wall_large',
                                     transf = rearRightPillarTransf
                                 },
+                                {
+                                    -- stairs
+                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
+                                    mesh = 'station/rail/era_c/stairs/stairs_lod0.msh',
+                                    name = 'stairs',
+                                    transf = stairsTransf
+                                },
                                 -- roof
                                 {
                                     -- flat roof
@@ -249,7 +264,7 @@ function data()
                                     materials = {'asset/roof/asset_roof_decor1.mtl'},
                                     mesh = 'asset/roof/lod_0_ventilation_end_curved.msh',
                                     transf = ventTwoTransf
-                                },
+                                }
                             },
                             name = 'station_1_main_grp',
                             transf = stationMainTransf
@@ -310,7 +325,7 @@ function data()
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = roofTransf
-                                },
+                                }
                             },
                             name = 'station_1_main_grp',
                             transf = stationMainTransf
