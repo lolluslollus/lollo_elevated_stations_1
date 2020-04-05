@@ -54,15 +54,14 @@ function data()
             }
             table.insert(result.terrainAlignmentLists, faces2)
             -- LOLLO NOTE insert colliders here, coz those in the model do not pull.
-            -- These values are calculated with trial and error. They are not, as often seen, half of the bounding box sizes.
-            -- print('LOLLO trainstationutil.getZed(params) = ', zed)
+            -- These values are calculated with trial and error. They are slightly larger than half of the bounding box sizes, which are cut a tad smaller.
             table.insert(
                 result.colliders,
                 {
                     type = 'BOX',
-                    transf = transform,
+                    transf = transf.mul(transform, transf.transl(vec3.new(0, 0, zed * .5 + 5))), --transform,
                     params = {
-                        halfExtents = {5.8, 6.7, zed + 9}
+                        halfExtents = {5.8, 6.7, zed * .5 + 5}
                     }
                 }
             )
