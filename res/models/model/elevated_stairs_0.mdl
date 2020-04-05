@@ -99,6 +99,20 @@ function data()
                                     transf = rearRightPillarTransf
                                 },
                                 {
+                                    -- ticket machine right
+                                    materials = {'station/road/streetstation/streetstation_1.mtl'},
+                                    mesh = 'station/road/streetstation/asset/tickets_era_c_1/tickets_era_c_1_lod0.msh',
+                                    name = 'tickets_era_c_1',
+                                    transf = {0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 7.47, -.95, 0, 1}
+                                },
+                                {
+                                    -- ticket machine left
+                                    materials = {'station/road/streetstation/streetstation_1.mtl'},
+                                    mesh = 'station/road/streetstation/asset/tickets_era_c_1/tickets_era_c_1_lod0.msh',
+                                    name = 'tickets_era_c_1',
+                                    transf = {0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, -7.47, -.95, 0, 1}
+                                },
+                                {
                                     -- stairs
                                     --materials = {'station/rail/era_a/station.mtl'},
                                     materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
@@ -439,7 +453,7 @@ function data()
                         },
                         speedLimit = 20,
                         transportModes = {'PERSON'}
-                    },
+                    }
                 },
                 runways = {},
                 terminals = {}

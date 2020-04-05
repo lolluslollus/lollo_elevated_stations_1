@@ -133,6 +133,20 @@ return function(height)
                                     name = 'oil_refinery_wall_large',
                                     transf = leftAboveTransf
                                 },
+                                {
+                                    -- ticket machine right
+                                    materials = {'station/road/streetstation/streetstation_1.mtl'},
+                                    mesh = 'station/road/streetstation/asset/tickets_era_c_1/tickets_era_c_1_lod0.msh',
+                                    name = 'tickets_era_c_1',
+                                    transf = {0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 9, -1.2, 0.8, 1}
+                                },
+                                {
+                                    -- ticket machine left
+                                    materials = {'station/road/streetstation/streetstation_1.mtl'},
+                                    mesh = 'station/road/streetstation/asset/tickets_era_c_1/tickets_era_c_1_lod0.msh',
+                                    name = 'tickets_era_c_1',
+                                    transf = {0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, -9, -2.2, 0.8, 1}
+                                },
                                 -- walls below the platform
                                 {
                                     -- front wall
@@ -250,6 +264,20 @@ return function(height)
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearRightPillarTransf
+                                },
+                                {
+                                    -- ticket machine right
+                                    materials = {'station/road/streetstation/streetstation_1.mtl'},
+                                    mesh = 'station/road/streetstation/asset/tickets_era_c_1/tickets_era_c_1_lod0.msh',
+                                    name = 'tickets_era_c_1',
+                                    transf = {0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 7.47, .7, -height, 1}
+                                },
+                                {
+                                    -- ticket machine left
+                                    materials = {'station/road/streetstation/streetstation_1.mtl'},
+                                    mesh = 'station/road/streetstation/asset/tickets_era_c_1/tickets_era_c_1_lod0.msh',
+                                    name = 'tickets_era_c_1',
+                                    transf = {0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, -7.47, .7, -height, 1}
                                 },
                                 -- roof
                                 {
@@ -860,63 +888,65 @@ return function(height)
                         speedLimit = 20,
                         transportModes = {'PERSON'}
                     },
-                    height > 0 and {
-                        -- straight down and then out
-                        -- LOLLO NOTE alter the sequence if underpassZed changes!
-                        linkable = true,
-                        nodes = {
-                            {
-                                {0, -2.5, 0},
-                                {0, 0, -1}, -- 0, 0, 0 crashes, 0, 0, -1 and 0, 0, 1 hide the people, 0, 1, 0 and 1, 0, 0 have them walk while being lifted
-                                2.4
+                    height > 0 and
+                        {
+                            -- straight down and then out
+                            -- LOLLO NOTE alter the sequence if underpassZed changes!
+                            linkable = true,
+                            nodes = {
+                                {
+                                    {0, -2.5, 0},
+                                    {0, 0, -1}, -- 0, 0, 0 crashes, 0, 0, -1 and 0, 0, 1 hide the people, 0, 1, 0 and 1, 0, 0 have them walk while being lifted
+                                    2.4
+                                },
+                                {
+                                    {0, -2.5, underpassZed},
+                                    {0, 0, -1},
+                                    2.4
+                                },
+                                {
+                                    {0, -2.5, underpassZed},
+                                    {0, 0, -1},
+                                    2.4
+                                },
+                                {
+                                    {0, -2.5, -height},
+                                    {0, 0, -1},
+                                    2.4
+                                },
+                                {
+                                    {0, -2.5, -height},
+                                    {0, -1, 0},
+                                    2.4
+                                },
+                                {
+                                    {0, -5, -height},
+                                    {0, -1, 0},
+                                    2.4
+                                }
                             },
-                            {
-                                {0, -2.5, underpassZed},
-                                {0, 0, -1},
-                                2.4
+                            speedLimit = 20,
+                            transportModes = {'PERSON'}
+                        } or
+                        {
+                            -- straight down and then out
+                            -- LOLLO NOTE alter the sequence if underpassZed changes!
+                            linkable = true,
+                            nodes = {
+                                {
+                                    {0, -2.5, 0},
+                                    {0, 0, -1}, -- 0, 0, 0 crashes, 0, 0, -1 and 0, 0, 1 hide the people, 0, 1, 0 and 1, 0, 0 have them walk while being lifted
+                                    2.4
+                                },
+                                {
+                                    {0, -2.5, underpassZed},
+                                    {0, 0, -1},
+                                    2.4
+                                }
                             },
-                            {
-                                {0, -2.5, underpassZed},
-                                {0, 0, -1},
-                                2.4
-                            },
-                            {
-                                {0, -2.5, -height},
-                                {0, 0, -1},
-                                2.4
-                            },
-                            {
-                                {0, -2.5, -height},
-                                {0, -1, 0},
-                                2.4
-                            },
-                            {
-                                {0, -5, -height},
-                                {0, -1, 0},
-                                2.4
-                            }
-                        },
-                        speedLimit = 20,
-                        transportModes = {'PERSON'}
-                    } or {
-                        -- straight down and then out
-                        -- LOLLO NOTE alter the sequence if underpassZed changes!
-                        linkable = true,
-                        nodes = {
-                            {
-                                {0, -2.5, 0},
-                                {0, 0, -1}, -- 0, 0, 0 crashes, 0, 0, -1 and 0, 0, 1 hide the people, 0, 1, 0 and 1, 0, 0 have them walk while being lifted
-                                2.4
-                            },
-                            {
-                                {0, -2.5, underpassZed},
-                                {0, 0, -1},
-                                2.4
-                            },
-                        },
-                        speedLimit = 20,
-                        transportModes = {'PERSON'}
-                    }
+                            speedLimit = 20,
+                            transportModes = {'PERSON'}
+                        }
                 },
                 runways = {},
                 terminals = {}
