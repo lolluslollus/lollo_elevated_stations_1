@@ -228,8 +228,9 @@ return function(height)
                                 },
                                 {
                                     -- floor paving
-                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'}, -- same as era_c_station_floor_1.mtl
+                                    --materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'}, -- same as era_c_station_floor_1.mtl
                                     --materials = {'station/rail/era_c/era_c_station_floor_1.mtl'},
+                                    materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
                                     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod0.msh',
                                     name = 'station_1_main_perron',
                                     transf = groundFloorPavingTransf
@@ -529,7 +530,7 @@ return function(height)
                                 },
                                 {
                                     -- floor paving
-                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
+                                    materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
                                     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod1.msh',
                                     name = 'station_1_main_perron',
                                     transf = groundFloorPavingTransf
@@ -679,7 +680,7 @@ return function(height)
                                 -- ground level
                                 {
                                     -- floor paving
-                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
+                                    materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
                                     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod2.msh',
                                     name = 'station_1_main_perron',
                                     transf = groundFloorPavingTransf

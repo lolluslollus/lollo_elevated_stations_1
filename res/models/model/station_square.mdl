@@ -53,8 +53,11 @@ function data()
                                 },
                                 {
                                     -- floor paving
-                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'}, -- same as era_c_station_floor_1.mtl
+                                    --materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'}, -- same as era_c_station_floor_1.mtl
                                     --materials = {'station/rail/era_c/era_c_station_floor_1.mtl'},
+                                    --materials = {'street/new_medium_paving.mtl'}, -- tarmac
+                                    --materials = {'station/road/streetstation/streetstation_perron_base_mid.mtl'}, -- modern-ish paving
+                                    materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'}, -- modern-ish paving
                                     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod0.msh',
                                     name = 'station_1_main_perron',
                                     transf = groundFloorPavingTransf
@@ -260,7 +263,7 @@ function data()
                                 },
                                 {
                                     -- floor paving
-                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
+                                    materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
                                     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod1.msh',
                                     name = 'station_1_main_perron',
                                     transf = groundFloorPavingTransf
@@ -412,7 +415,7 @@ function data()
                                 },
                                 {
                                     -- floor paving
-                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
+                                    materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
                                     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod2.msh',
                                     name = 'station_1_main_perron',
                                     transf = groundFloorPavingTransf
