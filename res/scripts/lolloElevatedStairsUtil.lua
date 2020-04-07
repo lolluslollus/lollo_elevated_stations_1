@@ -46,7 +46,7 @@ return function(height)
     -- Only the transformations above will change, if I am clever,
     -- and the height of the bounding box.
 
-    print('LOLLO height = ', height)
+    --print('LOLLO height = ', height)
     return {
         boundingInfo = {
             bbMax = {5.8, 1.0, 5.0},
