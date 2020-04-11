@@ -59,7 +59,7 @@ local generatedData = {
 function data()
     local function GetModelsConfig()
         return {
-            perron = 'station/rail/era_c/perron_5.mdl',
+            perron = 'era_c/perron_5.mdl',
             --endPerron = "station/rail/era_c/perron_5_end.mdl",
             endPerron = 'era_c/perron_5_end.mdl',
             perronRoof = 'station/rail/era_c/perron_5_roof.mdl',

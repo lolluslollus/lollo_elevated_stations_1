@@ -86,7 +86,7 @@ return {
 			node = {
 				children = {
 					{
-						materials = { "station/rail/era_c/era_c_station_borders_3.mtl", "station/rail/era_c/era_c_station_floor_1.mtl", },
+						materials = { "era_c_trainstation_borders_3.mtl", "station/rail/era_c/era_c_station_floor_1.mtl", },
 						mesh = "station/rail/era_c/perron_5_head_con/perron_head_con_lod0.msh",
 						name = "perron_head_con",
 						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
