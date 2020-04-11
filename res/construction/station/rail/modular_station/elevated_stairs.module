@@ -110,8 +110,8 @@ function data()
             end
         end,
         getModelsFn = function()
-            print('LOLLO getModelsFn called')
-            print('traceback = ', debug.traceback())
+            --print('LOLLO getModelsFn called')
+            --print('traceback = ', debug.traceback())
             local result = {
                 {
                     id = 'elevated_stairs.mdl', --'station/rail/era_a/stairs.mdl',
