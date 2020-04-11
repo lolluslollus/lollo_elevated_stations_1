@@ -124,7 +124,7 @@ function data()
             local j = coords[2]
             result.models[#result.models + 1] = {
                 --id = "station/rail/era_a/tn_underground_connection.mdl",
-                id = 'tn_underground_connection.mdl',
+                id = 'tn_underground_connection_no_top.mdl',
                 transf = transf.mul(transform, transf.transl(vec3.new(0, 0, -2))),
                 tag = tag
             }

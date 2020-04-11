@@ -219,7 +219,7 @@ function data()
         },
         order = 1000,
         soundConfig = {
-            soundSet = {name = 'station_cargo_old'}
+            soundSet = {name = 'station_passenger_new'}
         },
         constructionTemplates = makeTemplates(),
         createTemplateFn = function(params)
