@@ -92,6 +92,12 @@ function data()
                 values = {_('80m'), _('120m'), _('160m'), _('240m'), _('320m'), _('400m'), _('480m')},
                 defaultIndex = 2
             },
+            {
+                key = "autoRoofs",
+                name = _("Place platform roofs"),
+                values = { _("No"), _("Yes")},
+                defaultIndex = 1,
+            },
             -- {
             -- key = "head",
             -- name = _("Head"),
@@ -298,8 +304,14 @@ function data()
                         if (j == center or (dist > 3 and j == s + 1) or (dist > 3 and j == e - 1)) then
                             result[GetId(addonTag, genericAddonTag, i, j)] = underpassModule
                         end
-                        if (j ~= s and j ~= e) or e - s <= 3 then
-                            result[GetId(addonTag, roofTag, i, j)] = (not even and (j == center or j == center + 1) or j == center) and curvedRoofModule or roofModule
+                        -- if (j ~= s and j ~= e) or e - s <= 3 then
+                        --     result[GetId(addonTag, roofTag, i, j)] = (not even and (j == center or j == center + 1) or j == center) and curvedRoofModule or roofModule
+                        -- end
+                        if params.autoRoofs == 1 then
+                            if (j ~= s and j ~= e) or e - s <= 3 then
+                                result[GetId(addonTag, roofTag, i, j)] = (not even and (j == center or j == center + 1) or j == center)
+                                    and curvedRoofModule or roofModule
+                            end
                         end
                     else
                         local id = GetId(platformTag, passengerTag, i, j)
@@ -307,8 +319,13 @@ function data()
                         if (j == center or j == s or (dist > 3 and j == e - 1)) then
                             result[GetId(addonTag, genericAddonTag, i, j)] = underpassModule
                         end
-                        if j ~= e or j == s or j == s + 1 then
-                            result[GetId(addonTag, roofTag, i, j)] = j == s and curvedRoofModule or roofModule
+                        -- if j ~= e or j == s or j == s + 1 then
+                        --     result[GetId(addonTag, roofTag, i, j)] = j == s and curvedRoofModule or roofModule
+                        -- end
+                        if params.autoRoofs == 1 then
+                            if j ~= e or j == s or j == s + 1 then
+                                result[GetId(addonTag, roofTag, i, j)] = j == s and curvedRoofModule or roofModule
+                            end
                         end
                     end
                 end
