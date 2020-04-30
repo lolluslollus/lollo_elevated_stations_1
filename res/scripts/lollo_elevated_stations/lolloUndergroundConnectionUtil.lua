@@ -1,5 +1,5 @@
 return function(isHasTop)
-    local underpassZed = require('lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
+    local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
 
     local floorTransf = {0, 4.0, 0, 0, 0, 0, 1, 0, 1.60, 0, 0, 0, -2.40, -0.0, -3.45, 1}
     local leftWallTransf = {0, 4.0, 0, 0, 1, 0, 0, 0, 0, 0, 1.450, 0, 2.26, -0.0, -3.6, 1}

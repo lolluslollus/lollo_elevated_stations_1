@@ -1,6 +1,6 @@
 -- LOLLO NOTE this is the pavement area between head station and the non-platform areas, with criss-cross lanes. See also perron_5_head_con.mtl
 -- I duplicated the lanes underground to link them with elevated head stations
-local underpassZed = require('lolloConstants')().underpassZed
+local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed
 local function getNodes(z)
 	return {
 		{

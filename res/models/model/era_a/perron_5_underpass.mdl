@@ -1,7 +1,7 @@
-local underpassZed = require('lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep and we cover it from sight
+local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep and we cover it from sight
 
-local leftWallTransf = {4.0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.2, 0, 20, 2.5, -3.2, 1}
-local rightWallTransf = {4.0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.2, 0, 20, -2.5, -3.2, 1}
+-- local leftWallTransf = {4.0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.2, 0, 20, 2.5, -3.2, 1}
+-- local rightWallTransf = {4.0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.2, 0, 20, -2.5, -3.2, 1}
 local idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 
 function data()

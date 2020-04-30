@@ -1,3 +1,3 @@
 function data()
-    return require('lolloElevatedStairsUtil')(15)
+    return require('lollo_elevated_stations/lolloElevatedStairsUtil')(15)
 end

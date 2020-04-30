@@ -6,7 +6,7 @@ local paramsutil = require 'paramsutil'
 local colliderutil = require 'colliderutil'
 --local modulesutil = require 'modulesutil'
 local trainstationutil = require 'modules/elevated_trainstationutil'
-local lolloConstants = require('lolloConstants')
+local lolloConstants = require('lollo_elevated_stations/lolloConstants')
 --local inspect = require('inspect')
 
 function data()
@@ -175,9 +175,9 @@ function data()
             )
  ]]
         end
-        makePassengerTemplate(eraAStart, eraBStart, 'ui/construction/station/rail/modular_station/station_era_a.tga', 'ui/construction/station/rail/modular_station/station_head_era_a.tga')
-        makePassengerTemplate(eraBStart, eraCStart, 'ui/construction/station/rail/modular_station/station_era_b.tga', 'ui/construction/station/rail/modular_station/station_head_era_b.tga')
-        makePassengerTemplate(eraCStart, 0, 'ui/construction/station/rail/modular_station/station_era_c.tga', 'ui/construction/station/rail/modular_station/station_head_era_c.tga')
+        makePassengerTemplate(eraAStart, eraBStart, 'ui/construction/elevated_station_era_a.tga', 'ui/construction/station/rail/modular_station/station_head_era_a.tga')
+        makePassengerTemplate(eraBStart, eraCStart, 'ui/construction/elevated_station_era_b.tga', 'ui/construction/station/rail/modular_station/station_head_era_b.tga')
+        makePassengerTemplate(eraCStart, 0, 'ui/construction/elevated_station_era_c.tga', 'ui/construction/station/rail/modular_station/station_head_era_c.tga')
 
         --LOLLO commented out this
         --[[         table.insert(

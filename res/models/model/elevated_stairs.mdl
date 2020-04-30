@@ -1,4 +1,4 @@
-local underpassZed = require('lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
+local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
 
 local leftAboveTransf = {0, .48, 0, 0, 1, 0, 0, 0, 0, 0, 1.1, 0, -9.75, -2.43, 0.7, 1}
 local frontAboveTransf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.1, 0, 0, -5, 0.7, 1}

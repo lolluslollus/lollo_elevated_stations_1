@@ -1,7 +1,7 @@
 local vec3 = require 'vec3'
 local transf = require 'transf'
 local modulesutil = require 'modulesutil'
-local lolloConstants = require 'lolloConstants'
+local lolloConstants = require('lollo_elevated_stations/lolloConstants')
 local dump = require('luadump')
 
 local trainstationutil = {}

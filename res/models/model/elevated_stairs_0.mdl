@@ -1,5 +1,5 @@
 local height = 0
-local underpassZed = require('lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
+-- local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
 
 local zedShift4groundRoof = -height + 2.95 -- - height * .6 + 2.60
 local groundRoofTransf = {.4, 0, 0, 0, 0, .05, 0, 0, 0, 0, .05, 0, 0, -5.1, zedShift4groundRoof, 1}

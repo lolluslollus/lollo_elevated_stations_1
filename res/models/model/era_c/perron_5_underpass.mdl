@@ -1,4 +1,4 @@
-local underpassZed = require('lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep and we cover it from sight
+local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep and we cover it from sight
 local idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 
 function data()
