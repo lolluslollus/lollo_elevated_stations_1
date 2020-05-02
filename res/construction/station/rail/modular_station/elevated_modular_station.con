@@ -213,6 +213,8 @@ function data()
         return templates
     end
 
+    -- LOLLO NOTE the game gets here on loading and whenever the user clicks a station and then "configure".
+    -- Sadly, there are no parameters to play with.
     return {
         type = 'RAIL_STATION',
         description = {
@@ -225,7 +227,7 @@ function data()
         },
         order = 1000,
         soundConfig = {
-            soundSet = {name = 'station_passenger_new'}
+            soundSet = {name = 'station_passenger_new'} -- LOLLO NOTE this is the only place where it does something
         },
         constructionTemplates = makeTemplates(),
         createTemplateFn = function(params)
