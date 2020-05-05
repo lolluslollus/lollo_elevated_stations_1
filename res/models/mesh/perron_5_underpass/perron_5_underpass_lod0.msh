@@ -1,0 +1,154 @@
+function data()
+return {
+	-- only useful for blender 2.79
+	-- matConfigs = {
+	-- 	{
+	-- 		0, 0, 0, 0, 0, 
+	-- 	}, 
+	-- },
+	subMeshes = {
+		{
+			indices = {
+				normal = {
+					count = 1200,
+					offset = 21976,
+				},
+				position = {
+					count = 1200,
+					offset = 25576,
+				},
+				tangent = {
+					count = 1200,
+					offset = 24376,
+				},
+				uv0 = {
+					count = 1200,
+					offset = 23176,
+				},
+			},
+			-- only useful for blender 2.79
+			-- materials = {
+			-- 	"station/balcony_fence_xsipolycls.trainstation_small_new_fence.mtl", 
+			-- },
+		},
+		{
+			indices = {
+				normal = {
+					count = 2208,
+					offset = 26776,
+				},
+				position = {
+					count = 2208,
+					offset = 33400,
+				},
+				tangent = {
+					count = 2208,
+					offset = 31192,
+				},
+				uv0 = {
+					count = 2208,
+					offset = 28984,
+				},
+			},
+			-- only useful for blender 2.79
+			-- materials = {
+			-- 	"station/balcony_fence_xsipolycls.trainstation_small_new_fence.mtl", 
+			-- },
+		},
+		{
+			indices = {
+				normal = {
+					count = 1056,
+					offset = 35608,
+				},
+				position = {
+					count = 1056,
+					offset = 38776,
+				},
+				tangent = {
+					count = 1056,
+					offset = 37720,
+				},
+				uv0 = {
+					count = 1056,
+					offset = 36664,
+				},
+			},
+			-- only useful for blender 2.79
+			-- materials = {
+			-- 	"station/balcony_fence_xsipolycls.trainstation_small_new_fence.mtl", 
+			-- },
+		},
+		{
+			indices = {
+				normal = {
+					count = 1056,
+					offset = 39832,
+				},
+				position = {
+					count = 1056,
+					offset = 43000,
+				},
+				tangent = {
+					count = 1056,
+					offset = 41944,
+				},
+				uv0 = {
+					count = 1056,
+					offset = 40888,
+				},
+			},
+			-- only useful for blender 2.79
+			-- materials = {
+			-- 	"station/balcony_fence_xsipolycls.trainstation_small_new_fence.mtl", 
+			-- },
+		},
+		{
+			indices = {
+				normal = {
+					count = 6528,
+					offset = 44056,
+				},
+				position = {
+					count = 6528,
+					offset = 63640,
+				},
+				tangent = {
+					count = 6528,
+					offset = 57112,
+				},
+				uv0 = {
+					count = 6528,
+					offset = 50584,
+				},
+			},
+			-- only useful for blender 2.79
+			-- materials = {
+			-- 	"station/balcony_fence_xsipolycls.trainstation_small_new_fence.mtl", 
+			-- },
+		}, 
+	},
+	vertexAttr = {
+		normal = {
+			count = 528,
+			numComp = 3,
+			offset = 0,
+		},
+		position = {
+			count = 8328,
+			numComp = 3,
+			offset = 13648,
+		},
+		tangent = {
+			count = 3824,
+			numComp = 4,
+			offset = 9824,
+		},
+		uv0 = {
+			count = 9296,
+			numComp = 2,
+			offset = 528,
+		},
+	},
+}
+end
