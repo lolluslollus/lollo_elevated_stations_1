@@ -5,13 +5,15 @@ return function(lods)
 
     return {
         boundingInfo = {
-            bbMax = {2.5, 30, -1},
-            bbMin = {-2.5, -30, -5}
+            bbMax = {2.5, 20, -1},
+            bbMin = {-2.5, -20, -5}
         },
         collider = {
-            params = {},
+            params = {
+                halfExtents = {1.0, 1.0, 1.0}
+            },
             transf = idTransf,
-            type = 'NONE'
+            type = 'BOX'
         },
         lods = lods,
         metadata = {

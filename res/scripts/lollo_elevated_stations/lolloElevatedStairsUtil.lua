@@ -50,19 +50,16 @@ return function(height)
     return {
         boundingInfo = {
             bbMax = {5.8, 1.0, 5.0},
-            --bbMin = {-5.8, -5.0, -59}
             bbMin = {-5.8, -5.0, -height}
         },
         -- LOLLO NOTE the collider here seems to have no effect.
         -- We already get it in elevated_stairs.module, so never mind
         collider = {
-            --[[             params = {
+            params = {
                 halfExtents = {5.8, 3.0, 32.0}
             },
-            transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+            transf = idTransf,
             type = 'BOX'
- ]]
-            type = 'NONE'
         },
         lods = {
             {

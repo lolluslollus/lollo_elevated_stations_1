@@ -15,9 +15,12 @@ function data()
             bbMin = {-5.5, 1.0, -1.0}
         },
         collider = {
-            params = {},
+            params = {
+                -- halfExtents = {5.5, 3.0, 28}
+                halfExtents = {1.0, 1.0, 1.0}
+            },
             transf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-            type = 'NONE'
+            type = 'BOX'
         },
         lods = {},
         metadata = {
