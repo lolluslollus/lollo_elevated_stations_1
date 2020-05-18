@@ -11,8 +11,8 @@ local frontRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPil
 local rearLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -0.95, zedShift4groundPillar, 1}
 local rearRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -0.95, zedShift4groundPillar, 1}
 
-local zedShift4GroundFloor = -height - .79
-local groundFloorPavingTransf = {1.024, 0, 0, 0, 0, 1.30, 0, 0, 0, 0, 1, 0, 0, 1.25, zedShift4GroundFloor, 1}
+-- local zedShift4GroundFloor = -height - .79
+-- local groundFloorPavingTransf = {1.024, 0, 0, 0, 0, 1.30, 0, 0, 0, 0, 1, 0, 0, 1.25, zedShift4GroundFloor, 1}
 local stairsTransf = {0, -2, 0, 0, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 local roofTransf = {2, 0, 0, 0, 0, 0, 4.0, 0, 0, 1.6, 0, 0, 0, -5.25, 4.2, 1}
 --local solarOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1.1, 5.25, 1}
@@ -56,18 +56,19 @@ function data()
                                     name = 'station_3_roof_perron_side',
                                     transf = groundRoofTransf
                                 },
+                                -- {
+                                --     -- floor paving
+                                --     --materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'}, -- same as era_c_station_floor_1.mtl
+                                --     --materials = {'station/rail/era_c/era_c_station_floor_1.mtl'},
+                                --     materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
+                                --     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod0.msh',
+                                --     name = 'station_1_main_perron',
+                                --     transf = groundFloorPavingTransf
+                                -- },
                                 {
-                                    -- floor paving
-                                    --materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'}, -- same as era_c_station_floor_1.mtl
-                                    --materials = {'station/rail/era_c/era_c_station_floor_1.mtl'},
-                                    materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
-                                    mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod0.msh',
-                                    name = 'station_1_main_perron',
-                                    transf = groundFloorPavingTransf
-                                },
-                                {
-                                    --materials = { "station/train/passenger/trainstation_1990_borders_2.mtl", },
-                                    materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
+                                    -- stairs to platform
+                                    materials = { "station/train/passenger/trainstation_1990_borders_2.mtl", },
+                                    -- materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
                                     mesh = "station/train/passenger/1990/lod_0_stairs_2m.msh",
                                     transf = stairsTransf
                                 },
@@ -201,13 +202,13 @@ function data()
                                     name = 'station_3_roof_perron_side',
                                     transf = groundRoofTransf
                                 },
-                                {
-                                    -- floor paving
-                                    materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
-                                    mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod1.msh',
-                                    name = 'station_1_main_perron',
-                                    transf = groundFloorPavingTransf
-                                },
+                                -- {
+                                --     -- floor paving
+                                --     materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
+                                --     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod1.msh',
+                                --     name = 'station_1_main_perron',
+                                --     transf = groundFloorPavingTransf
+                                -- },
                                 {
                                     -- front left pillar
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
@@ -286,13 +287,13 @@ function data()
                         {
                             children = {
                                 -- ground level
-                                {
-                                    -- floor paving
-                                    materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
-                                    mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod2.msh',
-                                    name = 'station_1_main_perron',
-                                    transf = groundFloorPavingTransf
-                                },
+                                -- {
+                                --     -- floor paving
+                                --     materials = {'station/road/streetstation/streetstation_perron_base_new.mtl'},
+                                --     mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod2.msh',
+                                --     name = 'station_1_main_perron',
+                                --     transf = groundFloorPavingTransf
+                                -- },
                                 {
                                     -- front left pillar
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},

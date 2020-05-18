@@ -1,3 +1,5 @@
+-- LOLLO NOTE this mod is only there for compatibility with older releases or wrong param "zed"
+
 local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
 
 local leftAboveTransf = {0, .48, 0, 0, 1, 0, 0, 0, 0, 0, 1.1, 0, -9.75, -2.43, 0.7, 1}
