@@ -5,7 +5,7 @@ function data()
 [h2]Modular elevated passenger station with no frills, available from 1960.[/h2]
 
 This mod will add some "elevated" platforms, stations and tracks into the rail construction menu: use those for elevated stations and the normal ones for normal stations.
-Press and hold <shift> to override the ground floor tarmac with a paint asset.
+Press and hold <shift> to override the ground floor tarmac with a different paint asset.
 
 Some pics show other mods, like the excellent modular roof by oppiescc ( https://steamcommunity.com/sharedfiles/filedetails/?id=1991858933 ).
 
