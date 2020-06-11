@@ -6,6 +6,28 @@ local dump = require('luadump')
 
 local trainstationutil = {}
 
+function trainstationutil.findOrMakeNewEdgeListNum(result, trackType, catenary)
+	local function makeEmptyTrack(type, catenary)
+		return { 
+			type = "TRACK",
+			params = {
+				type =  type,
+				catenary = catenary,
+			},
+			edges = { },
+			snapNodes = { },
+			tag2nodes = { },
+		}
+	end
+
+	for k,v in pairs(result.edgeLists) do
+		if v.params.type == trackType and v.params.catenary == catenary then return k end
+	end
+
+	result.edgeLists[#result.edgeLists + 1] = makeEmptyTrack(trackType, catenary)
+	return #result.edgeLists
+end
+
 local function replaceBridgeType(params, edgeLists)
     local bridgeType = trainstationutil.getBridge(params)
     -- print("bridge type = ", bridgeType)
