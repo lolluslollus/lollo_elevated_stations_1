@@ -1,9 +1,9 @@
 return function(height)
     local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
 
-    local leftAboveTransf = {0, .48, 0, 0, 1, 0, 0, 0, 0, 0, 1.1, 0, -9.75, -2.43, 0.7, 1}
-    local frontAboveTransf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.1, 0, 0, -5, 0.7, 1}
-    local rightAboveTransf = {0, .48, 0, 0, 1, 0, 0, 0, 0, 0, 1.1, 0, 9.75, -2.43, 0.7, 1}
+    local leftAboveTransf = {0, .472, 0, 0, 1, 0, 0, 0, 0, 0, 1.1, 0, -9.75, -2.39, 0.7, 1}
+    local frontAboveTransf = {2.000, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.1, 0, 0, -5, 0.7, 1}
+    local rightAboveTransf = {0, .472, 0, 0, 1, 0, 0, 0, 0, 0, 1.1, 0, 9.75, -2.39, 0.7, 1}
 
     local upperLiftShaftTransf = {0, 0, 1, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, -2.5, 4.0, 1}
 
