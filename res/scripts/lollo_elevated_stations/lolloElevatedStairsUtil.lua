@@ -9,10 +9,10 @@ return function(height)
 
     local zedZoom4Wall = (-height + 2.5) * .333 -- wallBasicHeight * zoom = - (height - 3.0), approx coz there is an additional shift
     local zShift4Wall = 0.7 -- was -59.3
-    local leftBelowTransf = {0, .65, 0, 0, 1, 0, 0, 0, 0, 0, zedZoom4Wall, 0, -9.75, -2.0, zShift4Wall, 1}
-    local frontBelowTransf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 0, -5, zShift4Wall, 1}
-    local rightBelowTransf = {0, .65, 0, 0, 1, 0, 0, 0, 0, 0, zedZoom4Wall, 0, 9.75, -2.0, zShift4Wall, 1}
-    local rearBelowTransf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 0, 1, zShift4Wall, 1}
+    local leftBelowTransf = {0, .649, 0, 0, 1, 0, 0, 0, 0, 0, zedZoom4Wall, 0, -9.75, -2.0, zShift4Wall, 1}
+    local frontBelowTransf = {1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 0, -5, zShift4Wall, 1}
+    local rightBelowTransf = {0, .649, 0, 0, 1, 0, 0, 0, 0, 0, zedZoom4Wall, 0, 9.75, -2.0, zShift4Wall, 1}
+    local rearBelowTransf = {1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 0, 1, zShift4Wall, 1}
 
     local zedShift4groundRoof = -height + 3.00 -- - height * .6 + 2.60
     local groundRoofTransf = {.4, 0, 0, 0, 0, .05, 0, 0, 0, 0, .05, 0, 0, -5.1, zedShift4groundRoof, 1}
@@ -29,9 +29,9 @@ return function(height)
     -- local zedShift4GroundFloor = -height - .79
     -- local groundFloorPavingTransf = {1.024, 0, 0, 0, 0, 1.30, 0, 0, 0, 0, 1, 0, 0, 1.25, zedShift4GroundFloor, 1}
 
-    local roofTransf = {2, 0, 0, 0, 0, 0, 4.0, 0, 0, 1.6, 0, 0, 0, -5.25, 4.2, 1}
-    --local solarOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1.1, 5.25, 1}
-    local solarTwoTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -3.4, 5.25, 1}
+    local roofTransf = {1.999, 0, 0, 0, 0, 0, 4.0, 0, 0, 1.59, 0, 0, 0, -5.23, 4.2, 1}
+    -- local solarOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1.1, 5.25, 1}
+    -- local solarTwoTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -3.4, 5.25, 1}
     local ventOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 6, -2, 5.3, 1}
     local ventTwoTransf = {-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -6, -2, 5.3, 1}
     local floorPavingTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -.03, 0, 1}
@@ -301,12 +301,12 @@ return function(height)
                                     mesh = 'asset/roof/lod_0_solar_panel1.msh',
                                     transf = solarOneTransf
                                 }, ]]
-                                {
+--[[                                 {
                                     --solar panel 2
                                     materials = {'asset/roof/asset_roof_decor1.mtl'},
                                     mesh = 'asset/roof/lod_0_solar_panel1.msh',
                                     transf = solarTwoTransf
-                                },
+                                }, ]]
                                 {
                                     -- roof vent 1
                                     materials = {'asset/roof/asset_roof_decor1.mtl'},
@@ -574,12 +574,12 @@ return function(height)
                                     mesh = 'asset/roof/lod_0_solar_panel1.msh',
                                     transf = solarOneTransf
                                 }, ]]
-                                {
+--[[                                 {
                                     --solar panel 2
                                     materials = {'asset/roof/asset_roof_decor1.mtl'},
                                     mesh = 'asset/roof/lod_0_solar_panel1.msh',
                                     transf = solarTwoTransf
-                                },
+                                }, ]]
                                 {
                                     -- roof vent 1
                                     materials = {'asset/roof/asset_roof_decor1.mtl'},
