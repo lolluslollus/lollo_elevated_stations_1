@@ -77,9 +77,9 @@ function data()
                 result.colliders,
                 {
                     type = 'BOX',
-                    transf = transf.mul(transform, transf.transl(vec3.new(0, 0, zed * .5 + 5))), --transform,
+                    transf = transf.mul(transform, transf.transl(vec3.new(0, 0, zed * .5 + 3))), --transform,
                     params = {
-                        halfExtents = {5.8, 6.7, zed * .5 + 5}
+                        halfExtents = {5.8, 6.7, zed * .5 + 3}
                     }
                 }
             )
