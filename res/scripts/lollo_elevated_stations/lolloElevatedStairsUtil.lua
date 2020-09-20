@@ -896,6 +896,23 @@ return function(height)
                         speedLimit = 20,
                         transportModes = {'PERSON'}
                     },
+                    {
+                        -- horizontally back to centre, to connect an extra lift
+                        nodes = {
+                            {
+                                {0, 0.3, -height},
+                                {0, -1, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -height},
+                                {0, -1, 0},
+                                2.4
+                            }
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+                    },
                     height > 0 and
                         {
                             -- straight down and then out

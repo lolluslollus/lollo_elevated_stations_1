@@ -4,5 +4,8 @@
 		"*.mdl": "lua",
 		"*.module": "lua",
 		"*.mtl": "lua"
-	}
+	},
+	"Lua.diagnostics.globals": [
+		"data"
+	]
 }
