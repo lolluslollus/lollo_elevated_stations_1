@@ -1,14 +1,12 @@
 return function(height)
     local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
 
-    local leftAboveTransf = {0, .472, 0, 0, 1, 0, 0, 0, 0, 0, 1.1, 0, -9.75, -2.39, 0.7, 1}
-    local frontAboveTransf = {2.000, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.1, 0, 0, -5, 0.7, 1}
-    local rightAboveTransf = {0, .472, 0, 0, 1, 0, 0, 0, 0, 0, 1.1, 0, 9.75, -2.39, 0.7, 1}
-
-    local upperLiftShaftTransf = {0, 0, 1, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, -2.5, 4.0, 1}
-
-    local zedZoom4Wall = (-height + 2.5) * .333 -- wallBasicHeight * zoom = - (height - 3.0), approx coz there is an additional shift
-    local zShift4Wall = 0.7 -- was -59.3
+    -- local zedZoom4Wall = (-height + 2.5) * .333 -- wallBasicHeight * zoom = - (height - 3.0), approx coz there is an additional shift
+    -- local zedZoom4Wall = (-height + 5.5) * .333 -- wallBasicHeight * zoom = - (height - 3.0), approx coz there is an additional shift
+    local zedZoom4Wall = (-height + 6.5) * .333 -- wallBasicHeight * zoom = - (height - 3.0), approx coz there is an additional shift
+    -- local zShift4Wall = 0.7
+    -- local zShift4Wall = -2.3
+    local zShift4Wall = -3.3
     local leftBelowTransf = {0, .649, 0, 0, 1, 0, 0, 0, 0, 0, zedZoom4Wall, 0, -9.75, -2.0, zShift4Wall, 1}
     local frontBelowTransf = {1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 0, -5, zShift4Wall, 1}
     local rightBelowTransf = {0, .649, 0, 0, 1, 0, 0, 0, 0, 0, zedZoom4Wall, 0, 9.75, -2.0, zShift4Wall, 1}
@@ -26,23 +24,11 @@ return function(height)
 
     local groundLiftShaftTransf = {0, 0, -height / 4.0, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, -2.5, -height, 1}
 
-    -- local zedShift4GroundFloor = -height - .79
-    -- local groundFloorPavingTransf = {1.024, 0, 0, 0, 0, 1.30, 0, 0, 0, 0, 1, 0, 0, 1.25, zedShift4GroundFloor, 1}
-
-    local roofTransf = {1.999, 0, 0, 0, 0, 0, 4.0, 0, 0, 1.59, 0, 0, 0, -5.23, 4.2, 1}
-    -- local solarOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1.1, 5.25, 1}
-    -- local solarTwoTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -3.4, 5.25, 1}
-    local ventOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 6, -2, 5.3, 1}
-    local ventTwoTransf = {-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -6, -2, 5.3, 1}
-    local floorPavingTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -.03, 0, 1}
-    local floorTransf = {1.9, 0, 0, 0, 0, 0, 1.9, 0, 0, 1.9, 0, 0, 0, -4.7, 0.32, 1}
     local idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
     local stationMainTransf = {.6, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 
     -- LOLLO NOTE I can make many of these, one for each height.
-    -- For example, elevated_stairs_5.mdl, elevated_stairs_10.mdl, and so on.
-    -- I must leave the existing elevated_stairs.mdl as a fallback
-    -- and for compatibility with previous versions.
+    -- For example, platform_lifts_5.mdl, platform_lifts_10.mdl, and so on.
     -- Only the transformations above will change, if I am clever,
     -- and the height of the bounding box.
 
@@ -53,7 +39,7 @@ return function(height)
             bbMin = {-5.8, -5.0, -height}
         },
         -- LOLLO NOTE the collider here seems to have no effect.
-        -- We already get it in elevated_stairs.module, so never mind
+        -- We already get it in platform_lifts.module, so never mind
         collider = {
             params = {
                 halfExtents = {5.8, 3.0, 32.0}
@@ -68,7 +54,7 @@ return function(height)
                         {
                             children = {
                                 -- walls below the platform
-                                {
+                                height > 5 and {
                                     -- front wall
                                     --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
@@ -77,28 +63,28 @@ return function(height)
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontBelowTransf
-                                },
-                                {
+                                } or nil,
+                                height > 5 and {
                                     --rear wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearBelowTransf
-                                },
-                                {
+                                } or nil,
+                                height > 5 and {
                                     --right wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rightBelowTransf
-                                },
-                                {
+                                } or nil,
+                                height > 5 and {
                                     -- left wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = leftBelowTransf
-                                },
+                                } or nil,
                                 -- ground level
                                 {
                                     -- inner lift shaft
@@ -222,34 +208,34 @@ return function(height)
                         {
                             children = {
                                 -- walls below the platform
-                                {
+                                height > 5 and {
                                     -- front wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontBelowTransf
-                                },
-                                {
+                                } or nil,
+                                height > 5 and {
                                     --rear wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearBelowTransf
-                                },
-                                {
+                                } or nil,
+                                height > 5 and {
                                     --right wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rightBelowTransf
-                                },
-                                {
+                                } or nil,
+                                height > 5 and {
                                     -- left wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = leftBelowTransf
-                                },
+                                } or nil,
                                 -- ground level
                                 {
                                     -- inner lift shaft
@@ -316,34 +302,34 @@ return function(height)
                         {
                             children = {
                                 -- walls below the platform
-                                {
+                                height > 5 and {
                                     -- front wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontBelowTransf
-                                },
-                                {
+                                } or nil,
+                                height > 5 and {
                                     --rear wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearBelowTransf
-                                },
-                                {
+                                } or nil,
+                                height > 5 and {
                                     --right wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rightBelowTransf
-                                },
-                                {
+                                } or nil,
+                                height > 5 and {
                                     -- left wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = leftBelowTransf
-                                },
+                                } or nil,
                                 {
                                     -- front left pillar
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},

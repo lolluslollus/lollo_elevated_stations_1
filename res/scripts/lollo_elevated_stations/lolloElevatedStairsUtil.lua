@@ -41,8 +41,7 @@ return function(height)
 
     -- LOLLO NOTE I can make many of these, one for each height.
     -- For example, elevated_stairs_5.mdl, elevated_stairs_10.mdl, and so on.
-    -- I must leave the existing elevated_stairs.mdl as a fallback
-    -- and for compatibility with previous versions.
+    -- I must leave the existing elevated_stairs.mdl for compatibility with previous versions.
     -- Only the transformations above will change, if I am clever,
     -- and the height of the bounding box.
 

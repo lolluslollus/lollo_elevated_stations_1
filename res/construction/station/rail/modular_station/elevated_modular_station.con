@@ -1012,7 +1012,7 @@ function data()
 
             -- side stations
             for j = jMin, jMax do
-                local finerThanJ = (j - jMin) * 4 + 1
+                -- local finerThanJ = (j - jMin) * 4 + 1
                 -- along the tracks, south side - side 2
                 if maxS[j] ~= nil then
                     local platformOrTrackWhereIShouldGo = result.GetModuleAt(maxS[j], j)
@@ -1123,9 +1123,9 @@ function data()
 
             -- platform lifts (only along the sides)
             for j = jMin, jMax do
-                local finerThanJ = (j - jMin) * 4 + 1
+                -- local finerThanJ = (j - jMin) * 4 + 1
                 -- along the tracks, south side - side 2
-                print('j =', j or 'NIL', 'maxS[j] =', maxS and maxS[j] or 'NIL')
+                -- print('j =', j or 'NIL', 'maxS[j] =', maxS and maxS[j] or 'NIL')
                 if maxS[j] ~= nil then
                     local platformOrTrackWhereIShouldGo = result.GetModuleAt(maxS[j], j)
                     if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then --and not result.occupied[2][finerThanJ] then --and not result.occupied[2][finerThanJ + 1]
