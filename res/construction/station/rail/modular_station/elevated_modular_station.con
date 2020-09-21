@@ -657,11 +657,12 @@ function data()
                 return slotId2Coord[slotId]
             end
 
+            local _zed = trainstationutil.getZed(params)
             local function AddSlot(i, j, baseSlotId, type, offset, spacing)
                 local id = baseSlotId + 1000 * i + 10 * j
                 result.slots[#result.slots + 1] = {
                     id = id,
-                    transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth + offset, j * platformLength, trainstationutil.getZed(params))),
+                    transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth + offset, j * platformLength, _zed)),
                     type = type,
                     spacing = {
                         platformWidth / 2 * spacing,
@@ -702,7 +703,7 @@ function data()
                             local id1 = passengerPlatformRoofSlotId + 1000 * i + 10 * j
                             result.slots[#result.slots + 1] = {
                                 id = id1,
-                                transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth, j * platformLength, 2 + trainstationutil.getZed(params))),
+                                transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth, j * platformLength, 2 + _zed)),
                                 type = 'passenger_platform_roof',
                                 spacing = {0, 0, 0, 0}
                             }
@@ -712,7 +713,7 @@ function data()
                             if not mod.name:match('platform_passenger_stairs_') then -- old stairs logic legacy fix
                                 result.slots[#result.slots + 1] = {
                                     id = id2,
-                                    transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth, j * platformLength, 2 + trainstationutil.getZed(params))),
+                                    transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth, j * platformLength, 2 + _zed)),
                                     type = 'passenger_platform_addon',
                                     spacing = {0, 0, 0, 0}
                                 }
@@ -730,7 +731,7 @@ function data()
                                 id = id1,
                                 transf = transf.rotZYXTransl(
                                     transf.degToRad(0.0, 0.0, 0.0),
-                                    vec3.new(i * platformWidth, j * platformLength, 2 + trainstationutil.getZed(params))
+                                    vec3.new(i * platformWidth, j * platformLength, 2 + _zed)
                                 ),
                                 type = 'cargo_platform_roof',
                                 spacing = {0, 0, 0, 0}
@@ -742,7 +743,7 @@ function data()
                                 id = id2,
                                 transf = transf.rotZYXTransl(
                                     transf.degToRad(0.0, 0.0, 0.0),
-                                    vec3.new(i * platformWidth, j * platformLength, 2 + trainstationutil.getZed(params))
+                                    vec3.new(i * platformWidth, j * platformLength, 2 + _zed)
                                 ),
                                 type = 'cargo_platform_addon',
                                 spacing = {0, 0, 0, 0}
@@ -794,7 +795,7 @@ function data()
 
             result.mainBuildingCoord = {}
 
-            local function AddSlot(id, transf, type, spacing, buildingType)
+            local function AddSlot2(id, transf, type, spacing, buildingType, height)
                 --if buildingType == 1 and (countTracks < 8 or countPlatforms < 8) then return end
                 --if buildingType == 2 and (countTracks < 8 or countPlatforms < 8) then return end
                 --if buildingType == 3 and (countTracks < 12 and countPlatforms < 12) then return end
@@ -805,6 +806,7 @@ function data()
                 table.insert(
                     result.slots,
                     {
+                        height = height or 0,
                         id = id,
                         transf = transf,
                         type = type,
@@ -830,14 +832,14 @@ function data()
                             local tf2 = transf.transl(vec3.add(pos, vec3.new(0, j * platformLength + k * 10, 0)))
 
                             -- MAIN building
-                            AddSlot(id, tf2, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
-                            AddSlot(id + 1, tf2, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
+                            AddSlot2(id, tf2, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
+                            AddSlot2(id + 1, tf2, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
                             -- SIDE building
                             if k < 2 then
-                                AddSlot(id + 5, tf1, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
+                                AddSlot2(id + 5, tf1, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
                             end
-                            AddSlot(id + 6, tf2, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
-                            AddSlot(id + 7, tf2, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
+                            AddSlot2(id + 6, tf2, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
+                            AddSlot2(id + 7, tf2, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
 
                             local mod = params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or params.modules[id + 7]
                             if mod ~= nil then
@@ -866,15 +868,15 @@ function data()
                             local tf2 = transf.rotZTransl(math.rad(180), vec3.add(pos, vec3.new(0, j * platformLength + k * 10, 0)))
 
                             -- MAIN building
-                            AddSlot(id, tf2, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
-                            AddSlot(id + 1, tf2, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
+                            AddSlot2(id, tf2, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
+                            AddSlot2(id + 1, tf2, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
 
                             -- Side building
                             if k < 2 then
-                                AddSlot(id + 5, tf1, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
+                                AddSlot2(id + 5, tf1, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
                             end
-                            AddSlot(id + 6, tf2, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
-                            AddSlot(id + 7, tf2, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
+                            AddSlot2(id + 6, tf2, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
+                            AddSlot2(id + 7, tf2, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
 
                             local mod = params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or params.modules[id + 7]
                             if mod ~= nil then
@@ -916,21 +918,21 @@ function data()
 
                     -- MAIN building
                     if size4l then
-                        AddSlot(id, tf, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
+                        AddSlot2(id, tf, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
                     end
                     if size8l then
-                        AddSlot(id + 1, tf, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
+                        AddSlot2(id + 1, tf, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
                     end
 
                     -- SIDE building
                     if size2l then
-                        AddSlot(id + 5, tf, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
+                        AddSlot2(id + 5, tf, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
                     end
                     if size4l then
-                        AddSlot(id + 6, tf, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
+                        AddSlot2(id + 6, tf, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
                     end
                     if size8l then
-                        AddSlot(id + 7, tf, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
+                        AddSlot2(id + 7, tf, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
                     end
 
                     local mod = params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or params.modules[id + 7]
@@ -965,21 +967,21 @@ function data()
 
                     -- MAIN building
                     if size4l then
-                        AddSlot(id, tf, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
+                        AddSlot2(id, tf, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
                     end
                     if size8l then
-                        AddSlot(id + 1, tf, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
+                        AddSlot2(id + 1, tf, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
                     end
 
                     -- SIDE building
                     if size2l then
-                        AddSlot(id + 5, tf, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
+                        AddSlot2(id + 5, tf, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
                     end
                     if size4l then
-                        AddSlot(id + 6, tf, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
+                        AddSlot2(id + 6, tf, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
                     end
                     if size8l then
-                        AddSlot(id + 7, tf, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
+                        AddSlot2(id + 7, tf, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
                     end
 
                     local mod = params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or params.modules[id + 7]
@@ -1020,7 +1022,7 @@ function data()
                         for k = -1, 1 do
                             -- id = xx00000 + 40 * j + 12 * k + 1
                             local id = stairsSlotId + 40 * j + 12 * k + 1 -- add 1 so it won't overwrite its opposite twin
-                            AddSlot(
+                            AddSlot2(
                                 id,
                                 transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(maxS[j] * platformWidth + 2.5, j * platformLength + k * 12, 0)),
                                 'elevated_rail_stairs',
@@ -1041,7 +1043,7 @@ function data()
                     if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then --and not result.occupied[1][finerThanJ] then --and not result.occupied[1][finerThanJ + 1]
                         for k = -1, 1 do
                             local id = stairsSlotId + 40 * j + 12 * k
-                            AddSlot(
+                            AddSlot2(
                                 id,
                                 transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(minS[j] * platformWidth - 2.5, j * platformLength + k * 12, 0)),
                                 'elevated_rail_stairs',
@@ -1075,7 +1077,7 @@ function data()
                             if not result.GetModuleAt(i - 1, leftW[i] - 1) and not result.GetModuleAt(i + 1, leftW[i] - 1) then
                                 -- id = xx00000 + 1000 * i + 10 * j + 2
                                 local id = stairsSlotId + 1000 * i + 10 * leftW[i] + 2 -- add 2 so it won't overwrite the last stairs along the track
-                                AddSlot(
+                                AddSlot2(
                                     id,
                                     transf.rotZYXTransl(transf.degToRad(-90.0, 0.0, 0.0), vec3.new(i * platformWidth, leftW[i] * platformLength - .5 * platformLength, 0)),
                                     'elevated_rail_stairs',
@@ -1103,7 +1105,7 @@ function data()
                         if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then --and not result.occupied[4][i] then
                             if not result.GetModuleAt(i - 1, rightW[i] + 1) and not result.GetModuleAt(i + 1, rightW[i] + 1) then
                                 local id = stairsSlotId + 1000 * i + 10 * rightW[i] + 3 -- add 3 so it won't overwrite the last stairs along the track
-                                AddSlot(
+                                AddSlot2(
                                     id,
                                     transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(i * platformWidth, rightW[i] * platformLength + .5 * platformLength, 0)),
                                     'elevated_rail_stairs',
@@ -1121,6 +1123,13 @@ function data()
                 end
             end
 
+            -- LOLLO TODO build an irregular station: you will see the bounding boxes looking out, where there is nothing.
+            -- This is no good. However, it seems to have no collisions, maybe a bug in the game.
+            -- It also appears in stock stations.
+
+            -- LOLLO TODO build a 5m high station. The lift will have a very low entrance coz the underpass wall will be low.
+            -- Either add some mirror or forbid  lifts with 5m stations.
+
             -- platform lifts (only along the sides)
             for j = jMin, jMax do
                 -- local finerThanJ = (j - jMin) * 4 + 1
@@ -1131,55 +1140,48 @@ function data()
                     if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then --and not result.occupied[2][finerThanJ] then --and not result.occupied[2][finerThanJ + 1]
                         for k = -1, 1 do
                             -- id = xx00000 + 40 * j + 12 * k + 1
-                            local id = platformLiftsSlotId + 40 * j + 12 * k + 1 -- add 1 so it won't overwrite its opposite twin
-                            AddSlot(
-                                id,
-                                -- transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(maxS[j] * platformWidth + 2.5, j * platformLength + k * 12, 0)),
-                                transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(maxS[j] * platformWidth + 2.5, j * platformLength + k * 12, 0)),
-                                'platform_lifts',
-                                {0, 0, 0, 0}
-                                -- {2, 2, 2, 2}
-                            )
-                            -- local thisStation = params.modules[id]
-                            -- if thisStation ~= nil then
-                            --     result.occupied[2][finerThanJ + k - 1] = {thisStation, maxS[j]}
-                            --     result.occupied[2][finerThanJ + k] = {thisStation, maxS[j]}
-                            --     result.occupied[2][finerThanJ + k + 1] = {thisStation, maxS[j]}
-                            -- end
+                            local oppositeTwinId = platformLiftsSlotId + 40 * j + 12 * k
+                            if not(params.modules) or not(params.modules[oppositeTwinId]) then
+                                local id = platformLiftsSlotId + 40 * j + 12 * k + 1 -- add 1 so it won't overwrite its opposite twin
+                                AddSlot2(
+                                    id,
+                                    transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(maxS[j] * platformWidth + 2.5, j * platformLength + k * 12, 0)),
+                                    'platform_lifts',
+                                    {0, 0, 0, 0}
+                                    -- {2, 2, 2, 2}
+                                )
+                                -- local thisStation = params.modules[id]
+                                -- if thisStation ~= nil then
+                                --     result.occupied[2][finerThanJ + k - 1] = {thisStation, maxS[j]}
+                                --     result.occupied[2][finerThanJ + k] = {thisStation, maxS[j]}
+                                --     result.occupied[2][finerThanJ + k + 1] = {thisStation, maxS[j]}
+                                -- end
+                            end
                         end
                     end
                 end
-
-                -- LOLLO TODO build an irregular station: you will see the bounding boxes looking out, where there is nothing.
-                -- This is no good. However, it seems to have no collisions, maybe a bug in the game.
-
-                -- LOLLO TODO build a single platform: you can overlay two lifts on opposite sides.
-                -- This is no good, or maybe?
-                -- Build a track on either side and the offending lifts will be removed, anyway.
-
-                -- LOLLO TODO build a 5m high station. The lift will have a very low entrance coz the underpass wall will be low.
-                -- Either add some mirror or forbid  lifts with 5m stations.
-
                 -- along the tracks, north side - side 1
                 if minS[j] ~= nil then
                     local platformOrTrackWhereIShouldGo = result.GetModuleAt(minS[j], j)
                     if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then --and not result.occupied[1][finerThanJ] then --and not result.occupied[1][finerThanJ + 1]
                         for k = -1, 1 do
-                            local id = platformLiftsSlotId + 40 * j + 12 * k
-                            AddSlot(
-                                id,
-                                -- transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(minS[j] * platformWidth - 2.5, j * platformLength + k * 12, 0)),
-                                transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(minS[j] * platformWidth - 2.5, j * platformLength + k * 12, 0)),
-                                'platform_lifts',
-                                {0, 0, 0, 0}
-                                -- {2, 2, 2, 2}
-                            )
-                            -- local thisStation = params.modules[id]
-                            -- if thisStation ~= nil then
-                            --     result.occupied[1][finerThanJ + k - 1] = {thisStation, minS[j]}
-                            --     result.occupied[1][finerThanJ + k] = {thisStation, minS[j]}
-                            --     result.occupied[1][finerThanJ + k + 1] = {thisStation, minS[j]}
-                            -- end
+                            local oppositeTwinId = platformLiftsSlotId + 40 * j + 12 * k + 1
+                            if not(params.modules) or not(params.modules[oppositeTwinId]) then
+                                local id = platformLiftsSlotId + 40 * j + 12 * k
+                                AddSlot2(
+                                    id,
+                                    transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(minS[j] * platformWidth - 2.5, j * platformLength + k * 12, 0)),
+                                    'platform_lifts',
+                                    {0, 0, 0, 0}
+                                    -- {2, 2, 2, 2}
+                                )
+                                -- local thisStation = params.modules[id]
+                                -- if thisStation ~= nil then
+                                --     result.occupied[1][finerThanJ + k - 1] = {thisStation, minS[j]}
+                                --     result.occupied[1][finerThanJ + k] = {thisStation, minS[j]}
+                                --     result.occupied[1][finerThanJ + k + 1] = {thisStation, minS[j]}
+                                -- end
+                            end
                         end
                     end
                 end
@@ -1194,7 +1196,7 @@ function data()
                         local adjacentStairs = params.modules[stairsSlotId + 40 * j + 12 * k + 1]
                         if adjacentStairs ~= nil then
                             local id = squareSlotId + 40 * j + 12 * k + 1
-                            AddSlot(
+                            AddSlot2(
                                 id,
                                 transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(maxS[j] * platformWidth + 2.5 + 6, j * platformLength + k * 12, 0)),
                                 'station_square',
@@ -1205,7 +1207,7 @@ function data()
                         local adjacentLift = params.modules[platformLiftsSlotId + 40 * j + 12 * k + 1]
                         if adjacentLift ~= nil then
                             local id = squareSlotId + 40 * j + 12 * k + 1
-                            AddSlot(
+                            AddSlot2(
                                 id,
                                 -- transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(maxS[j] * platformWidth + 2.5 + 6, j * platformLength + k * 12, 0)),
                                 transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(maxS[j] * platformWidth - 2.8 + 6, j * platformLength + k * 12, 0)),
@@ -1222,7 +1224,7 @@ function data()
                         local adjacentStairs = params.modules[stairsSlotId + 40 * j + 12 * k]
                         if adjacentStairs ~= nil then
                             local id = squareSlotId + 40 * j + 12 * k
-                            AddSlot(
+                            AddSlot2(
                                 id,
                                 transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(minS[j] * platformWidth - 2.5 - 6, j * platformLength + k * 12, 0)), 
                                 'station_square',
@@ -1233,7 +1235,7 @@ function data()
                         local adjacentLift = params.modules[platformLiftsSlotId + 40 * j + 12 * k]
                         if adjacentLift ~= nil then
                             local id = squareSlotId + 40 * j + 12 * k
-                            AddSlot(
+                            AddSlot2(
                                 id,
                                 -- transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(minS[j] * platformWidth - 2.5 - 6, j * platformLength + k * 12, 0)), 
                                 transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(minS[j] * platformWidth + 2.8 - 6, j * platformLength + k * 12, 0)), 
@@ -1253,7 +1255,7 @@ function data()
                         local adjacentStation = params.modules[stairsSlotId + 1000 * i + 10 * leftW[i] + 2]
                         if adjacentStation ~= nil then
                             local id = squareSlotId + 1000 * i + 10 * leftW[i] + 2
-                            AddSlot(
+                            AddSlot2(
                                 id, 
                                 transf.rotZYXTransl(transf.degToRad(-90.0, 0.0, 0.0), vec3.new(i * platformWidth, leftW[i] * platformLength - .5 * platformLength - 6, 0)),
                                 'station_square', 
@@ -1271,7 +1273,7 @@ function data()
                         local adjacentStation = params.modules[stairsSlotId + 1000 * i + 10 * rightW[i] + 3]
                         if adjacentStation ~= nil then
                             local id = squareSlotId + 1000 * i + 10 * rightW[i] + 3
-                            AddSlot(
+                            AddSlot2(
                                 id,
                                 transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(i * platformWidth, rightW[i] * platformLength + .5 * platformLength + 6, 0)),
                                 'station_square', 
@@ -1285,7 +1287,7 @@ function data()
             result.cost = 0
 
             result.terminateConstructionHook = function()
-                --print("terminateConstructionHook has zed = ", trainstationutil.getZed(params))
+                --print("terminateConstructionHook has _zed = ", _zed)
                 --local year = game.interface.getGameTime().date.year
                 local year = params.year or 0
                 local era = getEra(year)
@@ -1370,15 +1372,15 @@ function data()
 
                     result.models[#result.models + 1] = {
                         id = id,
-                        transf = transf.rotZTransl(math.rad(angle), vec3.new(coordI * 5 + offsetX, coordJ * platformLength - 15 + l * 5 + offsetY, trainstationutil.getZed(params))),
+                        transf = transf.rotZTransl(math.rad(angle), vec3.new(coordI * 5 + offsetX, coordJ * platformLength - 15 + l * 5 + offsetY, _zed)),
                         tag = ''
                     }
 
                     local faces = {
-                        {coordI * 5 + 2.5, coordJ * platformLength - 20 + l * 5, trainstationutil.getZed(params)},
-                        {coordI * 5 + 2.5, coordJ * platformLength - 15 + l * 5, trainstationutil.getZed(params)},
-                        {coordI * 5 - 2.5, coordJ * platformLength - 15 + l * 5, trainstationutil.getZed(params)},
-                        {coordI * 5 - 2.5, coordJ * platformLength - 20 + l * 5, trainstationutil.getZed(params)}
+                        {coordI * 5 + 2.5, coordJ * platformLength - 20 + l * 5, _zed},
+                        {coordI * 5 + 2.5, coordJ * platformLength - 15 + l * 5, _zed},
+                        {coordI * 5 - 2.5, coordJ * platformLength - 15 + l * 5, _zed},
+                        {coordI * 5 - 2.5, coordJ * platformLength - 20 + l * 5, _zed}
                     }
                     table.insert(
                         result.terrainAlignmentLists,
