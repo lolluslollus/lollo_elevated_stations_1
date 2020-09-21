@@ -16,7 +16,7 @@ function data()
         },
         description = {
             name = _('Platform Lifts'),
-            description = _('Platform lifts for passengers, with street access.'),
+            description = _('Platform lifts for passengers, with street access. They do not protrude on the side.'),
             icon = 'ui/platform_lifts.tga'
         },
         category = {
