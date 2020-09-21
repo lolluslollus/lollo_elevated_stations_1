@@ -1152,6 +1152,8 @@ function data()
 
                 -- LOLLO TODO build an irregular station: you will see the bounding boxes looking out, where there is nothing.
                 -- This is no good.
+
+                -- LOLLO TODO build a single platform: you can overlay two lifts on opposite sides. This is no good, or maybe?
                 -- along the tracks, north side - side 1
                 if minS[j] ~= nil then
                     local platformOrTrackWhereIShouldGo = result.GetModuleAt(minS[j], j)
