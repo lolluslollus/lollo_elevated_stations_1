@@ -1151,9 +1151,15 @@ function data()
                 end
 
                 -- LOLLO TODO build an irregular station: you will see the bounding boxes looking out, where there is nothing.
-                -- This is no good.
+                -- This is no good. However, it seems to have no collisions, maybe a bug in the game.
 
-                -- LOLLO TODO build a single platform: you can overlay two lifts on opposite sides. This is no good, or maybe?
+                -- LOLLO TODO build a single platform: you can overlay two lifts on opposite sides.
+                -- This is no good, or maybe?
+                -- Build a track on either side and the offending lifts will be removed, anyway.
+
+                -- LOLLO TODO build a 5m high station. The lift will have a very low entrance coz the underpass wall will be low.
+                -- Either add some mirror or forbid  lifts with 5m stations.
+
                 -- along the tracks, north side - side 1
                 if minS[j] ~= nil then
                     local platformOrTrackWhereIShouldGo = result.GetModuleAt(minS[j], j)
