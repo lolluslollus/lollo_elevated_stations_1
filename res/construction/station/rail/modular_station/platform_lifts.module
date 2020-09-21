@@ -54,15 +54,11 @@ function data()
             end
 
             local faces = {
-                -- LOLLO NOTE first comes y, then x. Sigh.
-                -- {5.0, -5.8, 0.0, 1.0},
-                -- {5.0, 5.8, 0.0, 1.0},
-                -- {-1.0, 5.8, 0.0, 1.0},
-                -- {-1.0, -5.8, 0.0, 1.0}
-                {2.5, -5.8, 0.0, 1.0},
-                {2.5, 5.8, 0.0, 1.0},
-                {-2.5, 5.8, 0.0, 1.0},
-                {-2.5, -5.8, 0.0, 1.0}
+                -- LOLLO NOTE first comes y, then x. Remember I am transforming with transf1 above.
+                {4.7, -5.8, 0.0, 1.0},
+                {4.7, 5.8, 0.0, 1.0},
+                {0.1, 5.8, 0.0, 1.0},
+                {0.1, -5.8, 0.0, 1.0}
             }
             modulesutil.TransformFaces(transform, faces)
             local faces2 = {
@@ -80,7 +76,7 @@ function data()
                     type = 'BOX',
                     transf = transf.mul(transform, transf.transl(vec3.new(0, 0, zed * .5 + 3))), --transform,
                     params = {
-                        halfExtents = {5.8, 2.5, zed * .5 + 3}
+                        halfExtents = {5.8, 2.3, zed * .5 + 3}
                     }
                 }
             )
@@ -113,7 +109,7 @@ function data()
             local result = {
                 {
                     id = 'platform_lifts_20.mdl', --'station/rail/era_a/stairs.mdl',
-                    transf = transf.rotZTransl(math.rad(90), vec3.new(0, 0, 0))
+                    transf = transf.rotZTransl(math.rad(-90), vec3.new(2.8, 0, 0))
                 }
             }
 
