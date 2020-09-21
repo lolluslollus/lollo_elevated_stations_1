@@ -29,7 +29,7 @@ function data()
         },
         type = 'station_square',
         order = {
-            value = 700
+            value = 702
         },
         updateFn = function(result, transform, tag, slotId, addModuleFn, params)
             local faces = {

@@ -4,26 +4,24 @@ return function(height)
     -- local zedZoom4Wall = (-height + 2.5) * .333 -- wallBasicHeight * zoom = - (height - 3.0), approx coz there is an additional shift
     -- local zedZoom4Wall = (-height + 5.5) * .333 -- wallBasicHeight * zoom = - (height - 3.0), approx coz there is an additional shift
     local zedZoom4Wall = (-height + 6.5) * .333 -- wallBasicHeight * zoom = - (height - 3.0), approx coz there is an additional shift
-    -- local zShift4Wall = 0.7
-    -- local zShift4Wall = -2.3
     local zShift4Wall = -3.3
-    local leftBelowTransf = {0, .649, 0, 0, 1, 0, 0, 0, 0, 0, zedZoom4Wall, 0, -9.75, -2.0, zShift4Wall, 1}
-    local frontBelowTransf = {1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 0, -5, zShift4Wall, 1}
-    local rightBelowTransf = {0, .649, 0, 0, 1, 0, 0, 0, 0, 0, zedZoom4Wall, 0, 9.75, -2.0, zShift4Wall, 1}
-    local rearBelowTransf = {1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 0, 1, zShift4Wall, 1}
+    local leftBelowTransf = {0, 0.39, 0, 0, 1, 0, 0, 0, 0, 0, zedZoom4Wall, 0, -9.75, -0.3, zShift4Wall, 1}
+    local frontBelowTransf = {1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 0, -2.5, zShift4Wall, 1}
+    local rightBelowTransf = {0, 0.39, 0, 0, 1, 0, 0, 0, 0, 0, zedZoom4Wall, 0, 9.75, -0.3, zShift4Wall, 1}
+    local rearBelowTransf = {1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 0, 1.9, zShift4Wall, 1}
 
     local zedShift4groundRoof = -height + 3.00 -- - height * .6 + 2.60
-    local groundRoofTransf = {.4, 0, 0, 0, 0, .05, 0, 0, 0, 0, .05, 0, 0, -5.1, zedShift4groundRoof, 1}
+    local groundRoofTransf = {.4, 0, 0, 0, 0, .05, 0, 0, 0, 0, .05, 0, 0, -2.6, zedShift4groundRoof, 1}
 
     local zedShift4groundPillar = -height + 3.25
     local zedZoom4groundPillar = -1.08
-    local frontLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -4.75, zedShift4groundPillar, 1}
-    local frontRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -4.75, zedShift4groundPillar, 1}
-    local rearLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, 0.75, zedShift4groundPillar, 1}
-    local rearRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, 0.75, zedShift4groundPillar, 1}
+    local frontLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -2.25, zedShift4groundPillar, 1}
+    local frontRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -2.25, zedShift4groundPillar, 1}
+    local rearLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, 1.65, zedShift4groundPillar, 1}
+    local rearRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, 1.65, zedShift4groundPillar, 1}
 
-    local groundLiftShaftTransf = {0, 0, -height / 4.0, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, -2.5, -height, 1}
-    -- local broadGroundLiftShaftTransf = {0, 0, -0.87, 0, 0, 10.3, 0, 0, 40, 0, 0, 0, -40.0, -2.8, -5, 1}
+    local groundLiftShaftTransf = {0, 0, -height / 4.0, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, 0, -height, 1}
+    -- local broadGroundLiftShaftTransf = {0, 0, -0.87, 0, 0, 10.3, 0, 0, 40, 0, 0, 0, -40.0, -0.3, -5, 1}
 
     local idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
     local stationMainTransf = {.6, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
@@ -36,17 +34,21 @@ return function(height)
     --print('LOLLO height = ', height)
     return {
         boundingInfo = {
-            bbMax = {5.8, 1.0, 1.0},
-            bbMin = {-5.8, -5.0, -height}
+            -- bbMax = {5.8, 1.0, 1.0},
+            bbMax = {5.8, 2.0, 1.0},
+            bbMin = {-5.8, -2.6, -height}
         },
         -- LOLLO NOTE the collider here seems to have no effect.
         -- We already get it in platform_lifts.module, so never mind
         collider = {
-            params = {
-                halfExtents = {5.8, 3.0, 32.0}
-            },
+            -- params = {
+            --     halfExtents = {5.8, 2.4, 32.0}
+            -- },
+            -- transf = idTransf,
+            -- type = 'BOX'
+            params = {},
             transf = idTransf,
-            type = 'BOX'
+            type = 'MESH'
         },
         lods = {
             {
@@ -182,14 +184,14 @@ return function(height)
                                     materials = {'station/road/streetstation/streetstation_1.mtl'},
                                     mesh = 'station/road/streetstation/asset/tickets_era_c_1/tickets_era_c_1_lod0.msh',
                                     name = 'tickets_era_c_1',
-                                    transf = {0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 7.47, .7, -height, 1}
+                                    transf = {0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 7.47, 1.6, -height, 1}
                                 },
                                 {
                                     -- ticket machine left
                                     materials = {'station/road/streetstation/streetstation_1.mtl'},
                                     mesh = 'station/road/streetstation/asset/tickets_era_c_1/tickets_era_c_1_lod0.msh',
                                     name = 'tickets_era_c_1',
-                                    transf = {0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, -7.47, .7, -height, 1}
+                                    transf = {0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, -7.47, 1.6, -height, 1}
                                 },
                             },
                             name = 'station_1_main_grp',
@@ -206,7 +208,7 @@ return function(height)
                             },
                             name = 'era_c_station_name_grp',
                             --transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
-                            transf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -5.1, -.1, 1}
+                            transf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -2.6, -.1, 1}
                         }
                     },
                     name = 'RootNode',
@@ -408,7 +410,7 @@ return function(height)
                         fitting = 'SCALE',
                         nLines = 1,
                         size = {5.2, .6},
-                        transf = {1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, -2.6, -5.333, .23, 1},
+                        transf = {1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, -2.6, -2.833, .23, 1},
                         type = 'STATION_NAME',
                         verticalAlignment = 'CENTER'
                     }
@@ -420,12 +422,12 @@ return function(height)
                         -- horizontally into the along underpass, left
                         nodes = {
                             {
-                                {2, -2.8, underpassZed},
+                                {2, -0.3, underpassZed},
                                 {-2, 0.3, 0},
                                 2.4000000953674
                             },
                             {
-                                {0, -2.5, underpassZed},
+                                {0, 0, underpassZed},
                                 {-2, 0.3, 0},
                                 2.4000000953674
                             }
@@ -437,12 +439,12 @@ return function(height)
                         -- horizontally into the along underpass, right
                         nodes = {
                             {
-                                {-2, -2.8, underpassZed},
+                                {-2, -0.3, underpassZed},
                                 {2, 0.3, 0},
                                 2.4000000953674
                             },
                             {
-                                {0, -2.5, underpassZed},
+                                {0, 0, underpassZed},
                                 {2, 0.3, 0},
                                 2.4000000953674
                             }
@@ -454,12 +456,12 @@ return function(height)
                         -- horizontally into the across underpass
                         nodes = {
                             {
-                                {0, -2.8, underpassZed},
+                                {0, -0.3, underpassZed},
                                 {0, 0.3, 0},
                                 2.4000000953674
                             },
                             {
-                                {0, -2.5, underpassZed},
+                                {0, 0, underpassZed},
                                 {0, 0.3, 0},
                                 2.4000000953674
                             }
@@ -474,22 +476,22 @@ return function(height)
                             linkable = true,
                             nodes = {
                                 {
-                                    {0, -2.5, underpassZed},
+                                    {0, 0, underpassZed},
                                     {0, 0, -1},
                                     2.4
                                 },
                                 {
-                                    {0, -2.5, -height},
+                                    {0, 0, -height},
                                     {0, 0, -1},
                                     2.4
                                 },
                                 {
-                                    {0, -2.5, -height},
+                                    {0, 0, -height},
                                     {0, -1, 0},
                                     2.4
                                 },
                                 {
-                                    {0, -5, -height},
+                                    {0, -2.5, -height},
                                     {0, -1, 0},
                                     2.4
                                 }
@@ -497,25 +499,6 @@ return function(height)
                             speedLimit = 20,
                             transportModes = {'PERSON'}
                         } or nil
-                        -- {
-                        --     -- straight down and then out
-                        --     -- LOLLO NOTE alter the sequence if underpassZed changes!
-                        --     linkable = true,
-                        --     nodes = {
-                        --         {
-                        --             {0, -2.5, 0},
-                        --             {0, 0, -1}, -- 0, 0, 0 crashes, 0, 0, -1 and 0, 0, 1 hide the people, 0, 1, 0 and 1, 0, 0 have them walk while being lifted
-                        --             2.4
-                        --         },
-                        --         {
-                        --             {0, -2.5, underpassZed},
-                        --             {0, 0, -1},
-                        --             2.4
-                        --         }
-                        --     },
-                        --     speedLimit = 20,
-                        --     transportModes = {'PERSON'}
-                        -- }
                 },
                 runways = {},
                 terminals = {}

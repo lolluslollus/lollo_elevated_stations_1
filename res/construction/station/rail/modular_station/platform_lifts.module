@@ -31,11 +31,11 @@ function data()
         -- type = 'elevated_rail_stairs',
         type = 'platform_lifts',
         order = {
-            value = 700
+            value = 701
         },
         updateFn = function(result, transform, tag, slotId, addModuleFn, params)
             local zed = trainstationutil.getZed(params)
-            local transf1 = transf.rotZTransl(math.rad(90), vec3.new(0, 0, zed))
+            local transf1 = transf.rotZTransl(math.rad(-90), vec3.new(2.8, 0, zed))
             print('zed =', zed or 'NIL')
             if zed == 0 then
                 return -- no platform lifts at 0 height
@@ -54,14 +54,15 @@ function data()
             end
 
             local faces = {
-                -- {5.0, -5.0, 0.0, 1.0},
-                -- {5.0, 5.0, 0.0, 1.0},
-                -- {-1.0, 5.0, 0.0, 1.0},
-                -- {-1.0, -5.0, 0.0, 1.0},
-                {5.0, -5.8, 0.0, 1.0},
-                {5.0, 5.8, 0.0, 1.0},
-                {-1.0, 5.8, 0.0, 1.0},
-                {-1.0, -5.8, 0.0, 1.0}
+                -- LOLLO NOTE first comes y, then x. Sigh.
+                -- {5.0, -5.8, 0.0, 1.0},
+                -- {5.0, 5.8, 0.0, 1.0},
+                -- {-1.0, 5.8, 0.0, 1.0},
+                -- {-1.0, -5.8, 0.0, 1.0}
+                {2.5, -5.8, 0.0, 1.0},
+                {2.5, 5.8, 0.0, 1.0},
+                {-2.5, 5.8, 0.0, 1.0},
+                {-2.5, -5.8, 0.0, 1.0}
             }
             modulesutil.TransformFaces(transform, faces)
             local faces2 = {
@@ -79,7 +80,7 @@ function data()
                     type = 'BOX',
                     transf = transf.mul(transform, transf.transl(vec3.new(0, 0, zed * .5 + 3))), --transform,
                     params = {
-                        halfExtents = {5.8, 6.7, zed * .5 + 3}
+                        halfExtents = {5.8, 2.5, zed * .5 + 3}
                     }
                 }
             )
