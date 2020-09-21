@@ -806,7 +806,7 @@ function data()
                 table.insert(
                     result.slots,
                     {
-                        height = height or 0,
+                        height = height or 0, -- this seems to do nothing
                         id = id,
                         transf = transf,
                         type = type,

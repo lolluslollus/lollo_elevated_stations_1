@@ -67,12 +67,6 @@ return function(height)
                                     name = 'oil_refinery_wall_large',
                                     transf = frontBelowTransf
                                 } or nil,
-                                -- {
-                                --     materials = {'station/air/airport/shared/era_b_airport_windows_trans.mtl'}, -- glass with a hint of colour
-                                --     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
-                                --     name = 'oil_refinery_wall_large',
-                                --     transf = frontBelowTransf
-                                -- },
                                 height > 5 and {
                                     --rear wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
@@ -97,7 +91,7 @@ return function(height)
                                 -- ground level
                                 {
                                     -- inner lift shaft
-                                    materials = {'station/air/airport/shared/era_b_airport_windows_trans.mtl'}, -- glass with a hint of colour
+                                    materials = {'windows_trans.mtl'}, -- glass with a hint of colour
                                     --materials = { "station/rail/era_c/era_c_trainstation_roof_white.mtl", },
                                     --materials = {'station/rail/era_c/era_c_trainstation_glass_milk.mtl'},
                                     --materials = {'station/harbor/harbor_window_1.mtl'}, -- mirrory glass and rust
@@ -129,13 +123,6 @@ return function(height)
                                     name = 'ind_chimney_3_big_single',
                                     transf = groundLiftShaftTransf
                                 },
-                                -- height <= 5 and {
-                                --     -- outer, low lift shaft
-                                --     materials = {'station/air/airport/shared/era_b_airport_windows_trans.mtl'}, -- glass with a hint of colour
-                                --     mesh = 'asset/industry/pipes_large_straight/pipes_large_straight_lod0.msh',
-                                --     name = 'ind_chimney_3_big_single',
-                                --     transf = broadGroundLiftShaftTransf
-                                -- } or nil,
                                 {
                                     -- entrance roof
                                     materials = {
@@ -231,12 +218,6 @@ return function(height)
                                     name = 'oil_refinery_wall_large',
                                     transf = frontBelowTransf
                                 } or nil,
-                                -- {
-                                --     materials = {'station/air/airport/shared/era_b_airport_windows_trans.mtl'}, -- glass with a hint of colour
-                                --     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
-                                --     name = 'oil_refinery_wall_large',
-                                --     transf = frontBelowTransf
-                                -- },
                                 height > 5 and {
                                     --rear wall
                                     materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
@@ -261,18 +242,11 @@ return function(height)
                                 -- ground level
                                 {
                                     -- inner lift shaft
-                                    materials = {'station/air/airport/shared/era_b_airport_windows_trans.mtl'},
+                                    materials = {'windows_trans.mtl'},
                                     mesh = 'asset/industry/pipes_large_straight/pipes_large_straight_lod0.msh',
                                     name = 'ind_chimney_3_big_single',
                                     transf = groundLiftShaftTransf
                                 },
-                                -- height <= 5 and {
-                                --     -- outer, low lift shaft
-                                --     materials = {'station/air/airport/shared/era_b_airport_windows_trans.mtl'}, -- glass with a hint of colour
-                                --     mesh = 'asset/industry/pipes_large_straight/pipes_large_straight_lod0.msh',
-                                --     name = 'ind_chimney_3_big_single',
-                                --     transf = broadGroundLiftShaftTransf
-                                -- } or nil,
                                 {
                                     -- entrance roof
                                     materials = {
