@@ -91,7 +91,7 @@ return function(height)
                                 -- ground level
                                 {
                                     -- inner lift shaft
-                                    materials = {'windows_trans.mtl'}, -- glass with a hint of colour
+                                    materials = {'shaft.mtl'}, -- glass with a hint of colour
                                     --materials = { "station/rail/era_c/era_c_trainstation_roof_white.mtl", },
                                     --materials = {'station/rail/era_c/era_c_trainstation_glass_milk.mtl'},
                                     --materials = {'station/harbor/harbor_window_1.mtl'}, -- mirrory glass and rust
@@ -242,7 +242,7 @@ return function(height)
                                 -- ground level
                                 {
                                     -- inner lift shaft
-                                    materials = {'windows_trans.mtl'},
+                                    materials = {'shaft.mtl'},
                                     mesh = 'asset/industry/pipes_large_straight/pipes_large_straight_lod0.msh',
                                     name = 'ind_chimney_3_big_single',
                                     transf = groundLiftShaftTransf
