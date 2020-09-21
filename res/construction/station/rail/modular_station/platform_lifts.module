@@ -74,7 +74,8 @@ function data()
                 result.colliders,
                 {
                     type = 'BOX',
-                    transf = transf.mul(transform, transf.transl(vec3.new(0, 0, zed * .5 + 3))), --transform,
+                    -- transf = transf.mul(transform, transf.transl(vec3.new(0, 0, zed * .5 + 3))),
+                    transf = transf.mul(transform, transf.rotZTransl(math.rad(-90), vec3.new(2.8, 0, zed * .5 + 3))),
                     params = {
                         halfExtents = {5.8, 2.3, zed * .5 + 3}
                     }
@@ -104,8 +105,7 @@ function data()
             )
         end,
         getModelsFn = function()
-            --print('LOLLO getModelsFn called')
-            --print('traceback = ', debug.traceback())
+            --this is for previewing while configuring, it uses a transf similöar to transf1 above
             local result = {
                 {
                     id = 'platform_lifts_20.mdl', --'station/rail/era_a/stairs.mdl',

@@ -1149,6 +1149,9 @@ function data()
                         end
                     end
                 end
+
+                -- LOLLO TODO build an irregular station: you will see the bounding boxes looking out, where there is nothing.
+                -- This is no good.
                 -- along the tracks, north side - side 1
                 if minS[j] ~= nil then
                     local platformOrTrackWhereIShouldGo = result.GetModuleAt(minS[j], j)
