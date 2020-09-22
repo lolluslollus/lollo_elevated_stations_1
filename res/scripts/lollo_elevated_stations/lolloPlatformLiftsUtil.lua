@@ -392,40 +392,40 @@ return function(height)
             },
             transportNetworkProvider = {
                 laneLists = {
-                    {
-                        -- horizontally into the along underpass, left
-                        nodes = {
-                            {
-                                {2, -0.3, underpassZed},
-                                {-2, 0.3, 0},
-                                2.4000000953674
-                            },
-                            {
-                                {0, 0, underpassZed},
-                                {-2, 0.3, 0},
-                                2.4000000953674
-                            }
-                        },
-                        speedLimit = 20,
-                        transportModes = {'PERSON'}
-                    },
-                    {
-                        -- horizontally into the along underpass, right
-                        nodes = {
-                            {
-                                {-2, -0.3, underpassZed},
-                                {2, 0.3, 0},
-                                2.4000000953674
-                            },
-                            {
-                                {0, 0, underpassZed},
-                                {2, 0.3, 0},
-                                2.4000000953674
-                            }
-                        },
-                        speedLimit = 20,
-                        transportModes = {'PERSON'}
-                    },
+                    -- {
+                    --     -- horizontally into the along underpass, left
+                    --     nodes = {
+                    --         {
+                    --             {2, -0.3, underpassZed},
+                    --             {-2, 0.3, 0},
+                    --             2.4000000953674
+                    --         },
+                    --         {
+                    --             {0, 0, underpassZed},
+                    --             {-2, 0.3, 0},
+                    --             2.4000000953674
+                    --         }
+                    --     },
+                    --     speedLimit = 20,
+                    --     transportModes = {'PERSON'}
+                    -- },
+                    -- {
+                    --     -- horizontally into the along underpass, right
+                    --     nodes = {
+                    --         {
+                    --             {-2, -0.3, underpassZed},
+                    --             {2, 0.3, 0},
+                    --             2.4000000953674
+                    --         },
+                    --         {
+                    --             {0, 0, underpassZed},
+                    --             {2, 0.3, 0},
+                    --             2.4000000953674
+                    --         }
+                    --     },
+                    --     speedLimit = 20,
+                    --     transportModes = {'PERSON'}
+                    -- },
                     {
                         -- horizontally into the across underpass
                         nodes = {
