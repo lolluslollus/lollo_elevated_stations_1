@@ -13,10 +13,10 @@ function data()
 
     local zedShift4groundPillar = -3.5
     local zedZoom4groundPillar = -0.5
-    local frontLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -2.25, zedShift4groundPillar, 1}
-    local frontRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -2.25, zedShift4groundPillar, 1}
-    local rearLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, 1.65, zedShift4groundPillar, 1}
-    local rearRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, 1.65, zedShift4groundPillar, 1}
+    local frontLeftPillarTransf = {.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -2.50, zedShift4groundPillar, 1}
+    local frontRightPillarTransf = {.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -2.50, zedShift4groundPillar, 1}
+    local rearLeftPillarTransf = {.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, 1.90, zedShift4groundPillar, 1}
+    local rearRightPillarTransf = {.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, 1.90, zedShift4groundPillar, 1}
 
     local groundLiftShaftTransf = {0, 0, -height / 4.0, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, 0, -height, 1}
 
@@ -134,28 +134,28 @@ function data()
                                     --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
                                     --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
                                     --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
-                                    materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontLeftPillarTransf
                                 },
                                 {
                                     --front right pillar
-                                    materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontRightPillarTransf
                                 },
                                 {
                                     --rear left pillar
-                                    materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearLeftPillarTransf
                                 },
                                 {
                                     -- rear right pillar
-                                    materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearRightPillarTransf
@@ -241,28 +241,28 @@ function data()
                                 },
                                 {
                                     -- front left pillar
-                                    materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontLeftPillarTransf
                                 },
                                 {
                                     --front right pillar
-                                    materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontRightPillarTransf
                                 },
                                 {
                                     --rear left pillar
-                                    materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearLeftPillarTransf
                                 },
                                 {
                                     -- rear right pillar
-                                    materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearRightPillarTransf
@@ -301,28 +301,28 @@ function data()
                                 },
                                 {
                                     -- front left pillar
-                                    materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontLeftPillarTransf
                                 },
                                 {
                                     --front right pillar
-                                    materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontRightPillarTransf
                                 },
                                 {
                                     --rear left pillar
-                                    materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearLeftPillarTransf
                                 },
                                 {
                                     -- rear right pillar
-                                    materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearRightPillarTransf
