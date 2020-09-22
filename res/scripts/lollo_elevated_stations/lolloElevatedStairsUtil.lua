@@ -1,9 +1,9 @@
 return function(height)
     local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
 
-    local leftAboveTransf = {0, 0.472, 0, 0, 1, 0, 0, 0, 0, 0, 0.83, 0, -9.75, -2.39, 0.707, 1}
-    local frontAboveTransf = {2.000, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0.83, 0, 0, -5, 0.707, 1}
-    local rightAboveTransf = {0, 0.472, 0, 0, 1, 0, 0, 0, 0, 0, 0.83, 0, 9.75, -2.39, 0.707, 1}
+    local leftAboveTransf = {0, 0.472, 0, 0, 1, 0, 0, 0, 0, 0, 1.5, 0, -9.75, -2.39, 0.707, 1}
+    local frontAboveTransf = {2.000, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.5, 0, 0, -5, 0.707, 1}
+    local rightAboveTransf = {0, 0.472, 0, 0, 1, 0, 0, 0, 0, 0, 1.5, 0, 9.75, -2.39, 0.707, 1}
 
     local upperLiftShaftTransf = {0, 0, 1, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, -2.5, 4.0, 1}
 
@@ -29,7 +29,7 @@ return function(height)
     -- local zedShift4GroundFloor = -height - .79
     -- local groundFloorPavingTransf = {1.024, 0, 0, 0, 0, 1.30, 0, 0, 0, 0, 1, 0, 0, 1.25, zedShift4GroundFloor, 1}
 
-    local roofTransf = {2.0, 0, 0, 0, 0, 0, 4.0, 0, 0, 1.59, 0, 0, 0.0, -5.24, 4.2, 1}
+    local roofTransf = {1.95, 0, 0, 0, 0, 0, 4.0, 0, 0, 1.55, 0, 0, 0.0, -5.24, 4.2, 1}
     -- local solarOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1.1, 5.25, 1}
     -- local solarTwoTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -3.4, 5.25, 1}
     local ventOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 6, -2, 5.3, 1}
@@ -66,7 +66,7 @@ return function(height)
                     children = {
                         {
                             children = {
-                                -- walls above the platform
+                                -- above the platform
                                 {
                                     -- inner lift shaft
                                     materials = {'shaft.mtl'}, -- glass with a hint of colour
@@ -105,7 +105,7 @@ return function(height)
                                 {
                                     -- front wall
                                     --materials = { "industry/oil_refinery/era_a/wall_2.mtl", },
-                                    materials = {'lollo_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white_no_stripes.mtl'},
                                     --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
                                     --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
                                     --materials = { "asset/commercial/era_c/com_glass.mtl", },
@@ -117,14 +117,14 @@ return function(height)
                                 },
                                 {
                                     --right wall
-                                    materials = {'lollo_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rightAboveTransf
                                 },
                                 {
                                     -- left wall
-                                    materials = {'lollo_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = leftAboveTransf
@@ -442,7 +442,7 @@ return function(height)
                     children = {
                         {
                             children = {
-                                -- walls above the platform
+                                -- above the platform
                                 {
                                     -- inner lift shaft
                                     materials = {'shaft.mtl'},
@@ -452,21 +452,21 @@ return function(height)
                                 },
                                 {
                                     -- front wall
-                                    materials = {'lollo_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontAboveTransf
                                 },
                                 {
                                     --right wall
-                                    materials = {'lollo_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rightAboveTransf
                                 },
                                 {
                                     -- left wall
-                                    materials = {'lollo_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = leftAboveTransf
@@ -618,24 +618,24 @@ return function(height)
                     children = {
                         {
                             children = {
-                                -- walls above the platform
+                                -- above the platform
                                 {
                                     -- front wall
-                                    materials = {'lollo_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontAboveTransf
                                 },
                                 {
                                     --right wall
-                                    materials = {'lollo_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rightAboveTransf
                                 },
                                 {
                                     -- left wall
-                                    materials = {'lollo_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white_no_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = leftAboveTransf
