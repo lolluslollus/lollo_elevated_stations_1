@@ -1,13 +1,13 @@
 return function(height)
     local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
 
-    local leftAboveTransf = {0, 0.472, 0, 0, 1, 0, 0, 0, 0, 0, 0.832, 0, -9.75, -2.39, 0.707, 1}
-    local frontAboveTransf = {2.000, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0.832, 0, 0, -5, 0.707, 1}
-    local rightAboveTransf = {0, 0.472, 0, 0, 1, 0, 0, 0, 0, 0, 0.832, 0, 9.75, -2.39, 0.707, 1}
+    local leftAboveTransf = {0, 0.472, 0, 0, 1, 0, 0, 0, 0, 0, 0.83, 0, -9.75, -2.39, 0.707, 1}
+    local frontAboveTransf = {2.000, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0.83, 0, 0, -5, 0.707, 1}
+    local rightAboveTransf = {0, 0.472, 0, 0, 1, 0, 0, 0, 0, 0, 0.83, 0, 9.75, -2.39, 0.707, 1}
 
     local upperLiftShaftTransf = {0, 0, 1, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, -2.5, 4.0, 1}
 
-    local zedZoom4Wall = (-height + 2.5) * .333 -- wallBasicHeight * zoom = - (height - 3.0), approx coz there is an additional shift
+    local zedZoom4Wall = (-height + 2.5) * 0.3335 -- wallBasicHeight * zoom = - (height - 3.0), approx coz there is an additional shift
     local zShift4Wall = 0.7 -- was -59.3
     local leftBelowTransf = {0, .649, 0, 0, 1, 0, 0, 0, 0, 0, zedZoom4Wall, 0, -9.75, -2.0, zShift4Wall, 1}
     local frontBelowTransf = {1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 0, -5, zShift4Wall, 1}
@@ -17,10 +17,10 @@ return function(height)
     local zedShift4groundRoof = -height + 3.00 -- - height * .6 + 2.60
     local groundRoofTransf = {.4, 0, 0, 0, 0, .05, 0, 0, 0, 0, .05, 0, 0, -5.1, zedShift4groundRoof, 1}
 
-    local zedShift4groundPillar = -height + 3.25
-    local zedZoom4groundPillar = -1.08
-    local frontLeftPillarTransf = {0.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -4.75, zedShift4groundPillar, 1}
-    local frontRightPillarTransf = {0.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -4.75, zedShift4groundPillar, 1}
+    local zedShift4groundPillar = -height + 3.2
+    local zedZoom4groundPillar = -1.075
+    local frontLeftPillarTransf = {0.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -4.74, zedShift4groundPillar, 1}
+    local frontRightPillarTransf = {0.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -4.74, zedShift4groundPillar, 1}
     local rearLeftPillarTransf = {0.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, 0.75, zedShift4groundPillar, 1}
     local rearRightPillarTransf = {0.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, 0.75, zedShift4groundPillar, 1}
 

@@ -4,12 +4,12 @@ local height = 0
 local zedShift4groundRoof = -height + 2.95 -- - height * .6 + 2.60
 local groundRoofTransf = {.4, 0, 0, 0, 0, .05, 0, 0, 0, 0, .05, 0, 0, -5.1, zedShift4groundRoof, 1}
 
-local zedShift4groundPillar = -height + 3.25
-local zedZoom4groundPillar = -1.08
-local frontLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -4.75, zedShift4groundPillar, 1}
-local frontRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -4.75, zedShift4groundPillar, 1}
-local rearLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -0.95, zedShift4groundPillar, 1}
-local rearRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -0.95, zedShift4groundPillar, 1}
+local zedShift4groundPillar = -height + 3.2
+local zedZoom4groundPillar = -1.07
+local frontLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -4.74, zedShift4groundPillar, 1}
+local frontRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -4.74, zedShift4groundPillar, 1}
+local rearLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -0.97, zedShift4groundPillar, 1}
+local rearRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -0.97, zedShift4groundPillar, 1}
 
 -- local zedShift4GroundFloor = -height - .79
 -- local groundFloorPavingTransf = {1.024, 0, 0, 0, 0, 1.30, 0, 0, 0, 0, 1, 0, 0, 1.25, zedShift4GroundFloor, 1}
