@@ -36,7 +36,7 @@ function data()
         updateFn = function(result, transform, tag, slotId, addModuleFn, params)
             local zed = trainstationutil.getZed(params)
             local transf1 = transf.rotZTransl(math.rad(-90), vec3.new(2.8, 0, zed))
-            print('zed =', zed or 'NIL')
+            -- print('zed =', zed or 'NIL')
             if zed == 0 then
                 return -- no platform lifts at 0 height
             elseif zed == 5 then
