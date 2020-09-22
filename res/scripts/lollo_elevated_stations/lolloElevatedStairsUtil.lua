@@ -1,9 +1,9 @@
 return function(height)
     local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
 
-    local leftAboveTransf = {0, .472, 0, 0, 1, 0, 0, 0, 0, 0, 1.1, 0, -9.75, -2.39, 0.7, 1}
-    local frontAboveTransf = {2.000, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.1, 0, 0, -5, 0.7, 1}
-    local rightAboveTransf = {0, .472, 0, 0, 1, 0, 0, 0, 0, 0, 1.1, 0, 9.75, -2.39, 0.7, 1}
+    local leftAboveTransf = {0, 0.472, 0, 0, 1, 0, 0, 0, 0, 0, 0.832, 0, -9.75, -2.39, 0.707, 1}
+    local frontAboveTransf = {2.000, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0.832, 0, 0, -5, 0.707, 1}
+    local rightAboveTransf = {0, 0.472, 0, 0, 1, 0, 0, 0, 0, 0, 0.832, 0, 9.75, -2.39, 0.707, 1}
 
     local upperLiftShaftTransf = {0, 0, 1, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, -2.5, 4.0, 1}
 
@@ -19,17 +19,17 @@ return function(height)
 
     local zedShift4groundPillar = -height + 3.25
     local zedZoom4groundPillar = -1.08
-    local frontLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -4.75, zedShift4groundPillar, 1}
-    local frontRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -4.75, zedShift4groundPillar, 1}
-    local rearLeftPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, 0.75, zedShift4groundPillar, 1}
-    local rearRightPillarTransf = {.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, 0.75, zedShift4groundPillar, 1}
+    local frontLeftPillarTransf = {0.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -4.75, zedShift4groundPillar, 1}
+    local frontRightPillarTransf = {0.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -4.75, zedShift4groundPillar, 1}
+    local rearLeftPillarTransf = {0.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, 0.75, zedShift4groundPillar, 1}
+    local rearRightPillarTransf = {0.2, 0, 0, 0, 0, 2, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, 0.75, zedShift4groundPillar, 1}
 
     local groundLiftShaftTransf = {0, 0, -height / 4.0, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, -2.5, -height, 1}
 
     -- local zedShift4GroundFloor = -height - .79
     -- local groundFloorPavingTransf = {1.024, 0, 0, 0, 0, 1.30, 0, 0, 0, 0, 1, 0, 0, 1.25, zedShift4GroundFloor, 1}
 
-    local roofTransf = {1.999, 0, 0, 0, 0, 0, 4.0, 0, 0, 1.59, 0, 0, 0, -5.23, 4.2, 1}
+    local roofTransf = {2.0, 0, 0, 0, 0, 0, 4.0, 0, 0, 1.59, 0, 0, 0.0, -5.24, 4.2, 1}
     -- local solarOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1.1, 5.25, 1}
     -- local solarTwoTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -3.4, 5.25, 1}
     local ventOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 6, -2, 5.3, 1}
@@ -105,7 +105,7 @@ return function(height)
                                 {
                                     -- front wall
                                     --materials = { "industry/oil_refinery/era_a/wall_2.mtl", },
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white.mtl'},
                                     --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
                                     --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
                                     --materials = { "asset/commercial/era_c/com_glass.mtl", },
@@ -117,14 +117,14 @@ return function(height)
                                 },
                                 {
                                     --right wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rightAboveTransf
                                 },
                                 {
                                     -- left wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = leftAboveTransf
@@ -147,7 +147,7 @@ return function(height)
                                 {
                                     -- front wall
                                     --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
                                     --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
@@ -156,21 +156,21 @@ return function(height)
                                 },
                                 {
                                     --rear wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearBelowTransf
                                 },
                                 {
                                     --right wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rightBelowTransf
                                 },
                                 {
                                     -- left wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = leftBelowTransf
@@ -236,28 +236,32 @@ return function(height)
                                     --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
                                     --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
                                     --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", },
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    -- materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_fewer_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontLeftPillarTransf
                                 },
                                 {
                                     --front right pillar
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    -- materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_fewer_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontRightPillarTransf
                                 },
                                 {
                                     --rear left pillar
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    -- materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_fewer_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearLeftPillarTransf
                                 },
                                 {
                                     -- rear right pillar
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    -- materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_fewer_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearRightPillarTransf
@@ -280,7 +284,7 @@ return function(height)
                                 {
                                     -- flat roof
                                     --materials = { "industry/oil_refinery/era_a/wall_2.mtl", },
-                                    --materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl',},
+                                    --materials = {'lollo_trainstation_wall_grey.mtl',},
                                     --materials = { "station/rail/era_c/era_c_trainstation_roof_white.mtl", },
                                     --materials = { "station/rail/era_c/era_c_trainstation_glass_milk.mtl", },
                                     --materials = { "asset/roof/asset_roof_decor1.mtl", },
@@ -289,7 +293,7 @@ return function(height)
                                     --materials = { "industry/goods_factory/goods_factory_roof1.mtl", },
                                     --materials = { "industry/machines_factory/wall_1.mtl", },
                                     --materials = {'industry/machines_factory/roof_2.mtl'},
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = roofTransf
@@ -327,7 +331,7 @@ return function(height)
                                 },
                                 -- floor structure
                                 {
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'station_1_main_floor',
                                     transf = floorTransf
@@ -456,21 +460,21 @@ return function(height)
                                 },
                                 {
                                     -- front wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontAboveTransf
                                 },
                                 {
                                     --right wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rightAboveTransf
                                 },
                                 {
                                     -- left wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = leftAboveTransf
@@ -478,28 +482,28 @@ return function(height)
                                 -- walls below the platform
                                 {
                                     -- front wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontBelowTransf
                                 },
                                 {
                                     --rear wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearBelowTransf
                                 },
                                 {
                                     --right wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rightBelowTransf
                                 },
                                 {
                                     -- left wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = leftBelowTransf
@@ -533,28 +537,32 @@ return function(height)
                                 -- },
                                 {
                                     -- front left pillar
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    -- materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_fewer_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontLeftPillarTransf
                                 },
                                 {
                                     --front right pillar
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    -- materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_fewer_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontRightPillarTransf
                                 },
                                 {
                                     --rear left pillar
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    -- materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_fewer_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearLeftPillarTransf
                                 },
                                 {
                                     -- rear right pillar
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    -- materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_fewer_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearRightPillarTransf
@@ -562,7 +570,7 @@ return function(height)
                                 -- roof
                                 {
                                     -- flat roof
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = roofTransf
@@ -600,7 +608,7 @@ return function(height)
                                 },
                                 -- floor structure
                                 {
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'station_1_main_floor',
                                     transf = floorTransf
@@ -625,21 +633,21 @@ return function(height)
                                 -- walls above the platform
                                 {
                                     -- front wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontAboveTransf
                                 },
                                 {
                                     --right wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rightAboveTransf
                                 },
                                 {
                                     -- left wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = leftAboveTransf
@@ -647,28 +655,28 @@ return function(height)
                                 -- walls below the platform
                                 {
                                     -- front wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontBelowTransf
                                 },
                                 {
                                     --rear wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearBelowTransf
                                 },
                                 {
                                     --right wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rightBelowTransf
                                 },
                                 {
                                     -- left wall
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = leftBelowTransf
@@ -683,28 +691,32 @@ return function(height)
                                 -- },
                                 {
                                     -- front left pillar
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    -- materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_fewer_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontLeftPillarTransf
                                 },
                                 {
                                     --front right pillar
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    -- materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_fewer_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontRightPillarTransf
                                 },
                                 {
                                     --rear left pillar
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    -- materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_fewer_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearLeftPillarTransf
                                 },
                                 {
                                     -- rear right pillar
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    -- materials = {'lollo_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey_fewer_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearRightPillarTransf
@@ -712,7 +724,7 @@ return function(height)
                                 -- roof
                                 {
                                     -- flat roof
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
+                                    materials = {'lollo_trainstation_wall_white.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = roofTransf
@@ -726,7 +738,7 @@ return function(height)
                                 },
                                 -- floor structure
                                 {
-                                    materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                                    materials = {'lollo_trainstation_wall_grey.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'station_1_main_floor',
                                     transf = floorTransf

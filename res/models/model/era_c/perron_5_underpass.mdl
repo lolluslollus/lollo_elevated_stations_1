@@ -21,9 +21,9 @@ function data()
                         {
                             materials = {
                                 'era_c_trainstation_borders_3.mtl',
-                                'station/rail/era_c/era_c_trainstation_wall_grey.mtl',
+                                'lollo_trainstation_wall_grey.mtl',
                                 'station/rail/era_c/era_c_trainstation_floor_1.mtl',
-                                'station/rail/era_c/era_c_trainstation_wall_white.mtl',
+                                'lollo_trainstation_wall_white.mtl',
                                 'station/rail/era_c/era_c_trainstation_borders_1.mtl'
                             },
                             -- mesh = 'station/rail/era_c/perron_5_underpass/perron_5_underpass_lod0.msh',
@@ -46,9 +46,9 @@ function data()
                         {
                             materials = {
                                 'era_c_trainstation_borders_3.mtl',
-                                'station/rail/era_c/era_c_trainstation_wall_grey.mtl',
+                                'lollo_trainstation_wall_grey.mtl',
                                 'station/rail/era_c/era_c_trainstation_floor_1.mtl',
-                                'station/rail/era_c/era_c_trainstation_wall_white.mtl',
+                                'lollo_trainstation_wall_white.mtl',
                                 'station/rail/era_c/era_c_trainstation_borders_1.mtl'
                             },
                             -- mesh = 'station/rail/era_c/perron_5_underpass/perron_5_underpass_lod1.msh',
@@ -71,8 +71,8 @@ function data()
                             materials = {
                                 'era_c_trainstation_borders_3.mtl',
                                 'station/rail/era_c/era_c_trainstation_floor_1.mtl',
-                                'station/rail/era_c/era_c_trainstation_wall_grey.mtl',
-                                'station/rail/era_c/era_c_trainstation_wall_white.mtl',
+                                'lollo_trainstation_wall_grey.mtl',
+                                'lollo_trainstation_wall_white.mtl',
                                 'station/rail/era_c/era_c_trainstation_borders_1.mtl'
                             },
                             mesh = 'station/rail/era_c/perron_5_underpass/perron_5_underpass_lod2.msh',

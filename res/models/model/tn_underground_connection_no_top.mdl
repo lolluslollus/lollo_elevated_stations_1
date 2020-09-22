@@ -13,37 +13,37 @@ function data()
                 children = {
                     -- left wall
                     {
-                        materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                        materials = {'lollo_trainstation_wall_grey.mtl'},
                         mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                         name = 'oil_refinery_wall_large',
                         transf = leftWallTransf
                     },
                     -- right wall
                     {
-                        materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                        materials = {'lollo_trainstation_wall_grey.mtl'},
                         mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                         name = 'oil_refinery_wall_large',
                         transf = rightWallTransf
                     },
                     {
                         -- fore wall
-                        -- materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
-                        materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                        -- materials = {'lollo_trainstation_wall_white.mtl'},
+                        materials = {'lollo_trainstation_wall_grey.mtl'},
                         mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                         name = 'oil_refinery_wall_large',
                         transf = foreWallTransf
                     },
                     {
                         -- aft wall
-                        -- materials = {'station/rail/era_c/era_c_trainstation_wall_white.mtl'},
-                        materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                        -- materials = {'lollo_trainstation_wall_white.mtl'},
+                        materials = {'lollo_trainstation_wall_grey.mtl'},
                         mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                         name = 'oil_refinery_wall_large',
                         transf = aftWallTransf
                     },
                     {
                         -- floor
-                        materials = {'station/rail/era_c/era_c_trainstation_wall_grey.mtl'},
+                        materials = {'lollo_trainstation_wall_grey.mtl'},
                         mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                         name = 'oil_refinery_wall_large',
                         transf = floorTransf
