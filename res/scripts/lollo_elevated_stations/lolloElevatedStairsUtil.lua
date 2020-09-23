@@ -28,7 +28,8 @@ return function(height)
                 -- front wall
                 --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
                 materials = {'lollo_trainstation_wall_grey_no_horiz_stripes.mtl'},
-                mesh = 'lollo12x6x5room.msh',
+                -- mesh = 'lollo12x6x5room.msh',
+                mesh = 'lollo12x6x5room_deco.msh',
                 name = 'oil_refinery_wall_large',
                 transf = transf0
             }
