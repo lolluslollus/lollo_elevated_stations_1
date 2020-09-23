@@ -34,28 +34,29 @@ function data()
             value = 700
         },
         updateFn = function(result, transform, tag, slotId, addModuleFn, params)
-            local zed = trainstationutil.getZed(params)
-            local stationTransf = transf.rotZTransl(math.rad(90), vec3.new(0, 0, zed))
-            if zed == 0 then
-                addModuleFn('elevated_stairs_0.mdl', stationTransf)
-            elseif zed == 5 then
-                addModuleFn('elevated_stairs_5.mdl', stationTransf)
-            elseif zed == 10 then
-                addModuleFn('elevated_stairs_10.mdl', stationTransf)
-                local clockTransf = transf.rotZTransl(math.rad(90), vec3.new(5.3, 0, zed - 3))
-                addModuleFn('station/rail/asset/era_c_big_clock.mdl', clockTransf)
-            elseif zed == 15 then
-                addModuleFn('elevated_stairs_15.mdl', stationTransf)
-                local clockTransf = transf.rotZTransl(math.rad(90), vec3.new(5.3, 0, zed - 5))
-                addModuleFn('station/rail/asset/era_c_big_clock.mdl', clockTransf)
-            elseif zed == 20 then
-                addModuleFn('elevated_stairs_20.mdl', stationTransf)
-                local clockTransf = transf.rotZTransl(math.rad(90), vec3.new(5.3, 0, zed - 5))
-                addModuleFn('station/rail/asset/era_c_big_clock.mdl', clockTransf)
-            elseif zed == 25 then
-                addModuleFn('elevated_stairs_25.mdl', stationTransf)
-                local clockTransf = transf.rotZTransl(math.rad(90), vec3.new(5.3, 0, zed - 5))
-                addModuleFn('station/rail/asset/era_c_big_clock.mdl', clockTransf)
+            local _zed = trainstationutil.getZed(params)
+            local _stationTransf = transf.rotZTransl(math.rad(90), vec3.new(0, 0, _zed))
+            local _clockY = 5.3
+            if _zed == 0 then
+                addModuleFn('elevated_stairs_0.mdl', _stationTransf)
+            elseif _zed == 5 then
+                addModuleFn('elevated_stairs_5.mdl', _stationTransf)
+            elseif _zed == 10 then
+                addModuleFn('elevated_stairs_10.mdl', _stationTransf)
+                local _clockTransf = transf.rotZTransl(math.rad(90), vec3.new(_clockY, 0, _zed - 3))
+                addModuleFn('station/rail/asset/era_c_big_clock.mdl', _clockTransf)
+            elseif _zed == 15 then
+                addModuleFn('elevated_stairs_15.mdl', _stationTransf)
+                local _clockTransf = transf.rotZTransl(math.rad(90), vec3.new(_clockY, 0, _zed - 5))
+                addModuleFn('station/rail/asset/era_c_big_clock.mdl', _clockTransf)
+            elseif _zed == 20 then
+                addModuleFn('elevated_stairs_20.mdl', _stationTransf)
+                local _clockTransf = transf.rotZTransl(math.rad(90), vec3.new(_clockY, 0, _zed - 5))
+                addModuleFn('station/rail/asset/era_c_big_clock.mdl', _clockTransf)
+            elseif _zed == 25 then
+                addModuleFn('elevated_stairs_25.mdl', _stationTransf)
+                local _clockTransf = transf.rotZTransl(math.rad(90), vec3.new(_clockY, 0, _zed - 5))
+                addModuleFn('station/rail/asset/era_c_big_clock.mdl', _clockTransf)
             else
                 -- addModuleFn('elevated_stairs.mdl', stationTransf)
                 return
@@ -81,9 +82,9 @@ function data()
                 result.colliders,
                 {
                     type = 'BOX',
-                    transf = transf.mul(transform, transf.transl(vec3.new(0, 0, zed * .5 + 5))), --transform,
+                    transf = transf.mul(transform, transf.transl(vec3.new(0, 0, _zed * .5 + 5))), --transform,
                     params = {
-                        halfExtents = {5.8, 6.7, zed * .5 + 5}
+                        halfExtents = {5.8, 6.7, _zed * .5 + 5}
                     }
                 }
             )
