@@ -15,7 +15,8 @@ return function(height)
             results[#results + 1] = {
                 --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
                 materials = {'lollo_trainstation_wall_grey_no_horiz_stripes.mtl'},
-                mesh = 'lollo12x5x5room.msh',
+                -- mesh = 'lollo12x5x5room.msh',
+                mesh = 'lollo12x5x5room_deco.msh',
                 name = 'oil_refinery_wall_large',
                 transf = transf0
             }
