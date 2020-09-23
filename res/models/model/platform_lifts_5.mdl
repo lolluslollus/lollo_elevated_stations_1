@@ -13,10 +13,10 @@ function data()
 
     local zedShift4groundPillar = -3.5
     local zedZoom4groundPillar = -0.5
-    local frontLeftPillarTransf = {.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -2.50, zedShift4groundPillar, 1}
-    local frontRightPillarTransf = {.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -2.50, zedShift4groundPillar, 1}
-    local rearLeftPillarTransf = {.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, 1.90, zedShift4groundPillar, 1}
-    local rearRightPillarTransf = {.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, 1.90, zedShift4groundPillar, 1}
+    local frontLeftPillarTransf = {.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, -2.55, zedShift4groundPillar, 1}
+    local frontRightPillarTransf = {.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, -2.55, zedShift4groundPillar, 1}
+    local rearLeftPillarTransf = {.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, 1.95, zedShift4groundPillar, 1}
+    local rearRightPillarTransf = {.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, 1.95, zedShift4groundPillar, 1}
 
     local groundLiftShaftTransf = {0, 0, -height / 4.0, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, 0, -height, 1}
 
