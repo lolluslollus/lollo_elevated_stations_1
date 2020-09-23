@@ -23,9 +23,6 @@ return {
 					offset = 3148,
 				},
 			},
-			materials = {
-				"station/road/streetstation/streetstation_perron_base_old.mtl", 
-			},
 		}, 
 	},
 	vertexAttr = {

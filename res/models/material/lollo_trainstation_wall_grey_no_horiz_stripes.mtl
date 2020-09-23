@@ -29,8 +29,10 @@ return {
 			wrapT = "REPEAT",
 		},
 		map_op_1 = {
-			fileName = "unknown_texture.tga",
+			fileName = "unknown_roughness_2k.tga",
 			type = "TWOD",
+			wrapS = "REPEAT",
+			wrapT = "REPEAT",
 		},
 		map_op_2 = {
 			fileName = "buildings/dirtmap.tga",
@@ -42,18 +44,18 @@ return {
 			normalScale = 1,
 		},
 		operation_1 = {
-			mode = "TEXCOORD",
+			-- mode = "NORMAL",
 			op = "NO_OP",
-			opacity = 1,
+			-- op = "MULTIPLICATION",
+			opacity = 0.5,
 			scale = { 1, 1, },
 		},
 		operation_2 = {
-			mode = "TEXCOORD",
+			mode = "NORMAL",
 			op = "MULTIPLICATION",
-			-- opacity = 0.30000001192093,
-			opacity = 0.7,
-			-- scale = { 0.050000000745058, 0.050000000745058, },
-			scale = { 0.23, 0.23, },
+			opacity = 0.4,
+			scale = { 0.015, 0.015, },
+			-- scale = { 0.23, 0.23, },
 		},
 		polygon_offset = {
 			factor = 0,

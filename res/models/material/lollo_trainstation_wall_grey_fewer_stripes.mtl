@@ -42,13 +42,13 @@ return {
 			normalScale = 1,
 		},
 		operation_1 = {
-			mode = "TEXCOORD",
+			mode = "NORMAL",
 			op = "NO_OP",
 			opacity = 1,
 			scale = { 1, 1, },
 		},
 		operation_2 = {
-			mode = "TEXCOORD",
+			mode = "NORMAL",
 			op = "MULTIPLICATION",
 			-- opacity = 0.30000001192093,
 			opacity = 0.7,
