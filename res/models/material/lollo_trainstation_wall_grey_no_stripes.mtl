@@ -25,7 +25,7 @@ return {
 		},
 		map_normal = {
 			-- fileName = "lollo_era_c_trainstation_wall_grey_no_stripes_normal_bc5.dds",
-			fileName = "era_c_trainstation_wall_grey_normal.dds",
+			fileName = "models/station/rail/era_c/era_c_trainstation_wall_grey_normal.dds",
 			redGreen = true,
 			type = "TWOD",
 			wrapS = "REPEAT",

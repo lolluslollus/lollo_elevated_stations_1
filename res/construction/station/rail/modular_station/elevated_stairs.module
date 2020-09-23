@@ -35,21 +35,29 @@ function data()
         },
         updateFn = function(result, transform, tag, slotId, addModuleFn, params)
             local zed = trainstationutil.getZed(params)
-            local transf1 = transf.rotZTransl(math.rad(90), vec3.new(0, 0, zed))
+            local stationTransf = transf.rotZTransl(math.rad(90), vec3.new(0, 0, zed))
             if zed == 0 then
-                addModuleFn('elevated_stairs_0.mdl', transf1)
+                addModuleFn('elevated_stairs_0.mdl', stationTransf)
             elseif zed == 5 then
-                addModuleFn('elevated_stairs_5.mdl', transf1)
+                addModuleFn('elevated_stairs_5.mdl', stationTransf)
             elseif zed == 10 then
-                addModuleFn('elevated_stairs_10.mdl', transf1)
+                addModuleFn('elevated_stairs_10.mdl', stationTransf)
+                local clockTransf = transf.rotZTransl(math.rad(90), vec3.new(5.3, 0, zed - 3))
+                addModuleFn('station/rail/asset/era_c_big_clock.mdl', clockTransf)
             elseif zed == 15 then
-                addModuleFn('elevated_stairs_15.mdl', transf1)
+                addModuleFn('elevated_stairs_15.mdl', stationTransf)
+                local clockTransf = transf.rotZTransl(math.rad(90), vec3.new(5.3, 0, zed - 5))
+                addModuleFn('station/rail/asset/era_c_big_clock.mdl', clockTransf)
             elseif zed == 20 then
-                addModuleFn('elevated_stairs_20.mdl', transf1)
+                addModuleFn('elevated_stairs_20.mdl', stationTransf)
+                local clockTransf = transf.rotZTransl(math.rad(90), vec3.new(5.3, 0, zed - 5))
+                addModuleFn('station/rail/asset/era_c_big_clock.mdl', clockTransf)
             elseif zed == 25 then
-                addModuleFn('elevated_stairs_25.mdl', transf1)
+                addModuleFn('elevated_stairs_25.mdl', stationTransf)
+                local clockTransf = transf.rotZTransl(math.rad(90), vec3.new(5.3, 0, zed - 5))
+                addModuleFn('station/rail/asset/era_c_big_clock.mdl', clockTransf)
             else
-                -- addModuleFn('elevated_stairs.mdl', transf1)
+                -- addModuleFn('elevated_stairs.mdl', stationTransf)
                 return
             end
 
