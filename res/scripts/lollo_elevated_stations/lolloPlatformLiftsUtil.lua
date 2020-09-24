@@ -172,19 +172,19 @@ return function(height)
                             name = 'walls_below_the_platform',
                             transf = idTransf
                         },
-                        {
-                            children = {
-                                {
-                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
-                                    mesh = 'station/rail/asset/era_c_station_name/era_c_station_name_lod0.msh',
-                                    name = 'era_c_station_name',
-                                    transf = idTransf
-                                }
-                            },
-                            name = 'era_c_station_name_grp',
-                            --transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
-                            transf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -2.6, -.1, 1}
-                        }
+                        -- {
+                        --     children = {
+                        --         {
+                        --             materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                        --             mesh = 'station/rail/asset/era_c_station_name/era_c_station_name_lod0.msh',
+                        --             name = 'era_c_station_name',
+                        --             transf = idTransf
+                        --         }
+                        --     },
+                        --     name = 'era_c_station_name_grp',
+                        --     --transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                        --     transf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -2.6, -.1, 1}
+                        -- }
                     },
                     name = 'RootNode',
                     transf = idTransf
@@ -315,21 +315,21 @@ return function(height)
             }
         },
         metadata = {
-            labelList = {
-                labels = {
-                    {
-                        alignment = 'CENTER',
-                        alphaMode = 'BLEND',
-                        childId = 'RootNode',
-                        fitting = 'SCALE',
-                        nLines = 1,
-                        size = {5.2, .6},
-                        transf = {1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, -2.6, -2.833, .23, 1},
-                        type = 'STATION_NAME',
-                        verticalAlignment = 'CENTER'
-                    }
-                }
-            },
+            -- labelList = {
+            --     labels = {
+            --         {
+            --             alignment = 'CENTER',
+            --             alphaMode = 'BLEND',
+            --             childId = 'RootNode',
+            --             fitting = 'SCALE',
+            --             nLines = 1,
+            --             size = {5.2, .6},
+            --             transf = {1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, -2.6, -2.833, .23, 1},
+            --             type = 'STATION_NAME',
+            --             verticalAlignment = 'CENTER'
+            --         }
+            --     }
+            -- },
             transportNetworkProvider = {
                 laneLists = {
                     {
@@ -378,7 +378,25 @@ return function(height)
                             },
                             speedLimit = 20,
                             transportModes = {'PERSON'}
-                        } or nil
+                        } or nil,
+                        {
+                            -- out toward the back
+                            linkable = true,
+                            nodes = {
+                                {
+                                    {0, 0, -height},
+                                    {0, 1, 0},
+                                    2.4
+                                },
+                                {
+                                    {0, 2.0, -height},
+                                    {0, 1, 0},
+                                    2.4
+                                }
+                            },
+                            speedLimit = 20,
+                            transportModes = {'PERSON'}
+                        }
                 },
                 runways = {},
                 terminals = {}

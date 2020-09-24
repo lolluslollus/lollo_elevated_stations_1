@@ -2,6 +2,7 @@ local transf = require 'transf'
 local vec3 = require 'vec3'
 -- local vec4 = require 'vec4'
 local modulesutil = require 'modulesutil'
+local arrayUtils = require('lollo_elevated_stations.arrayUtils')
 local trainstationutil = require 'modules/elevated_trainstationutil'
 local lolloConstants = require('lollo_elevated_stations/lolloConstants')
 
@@ -37,29 +38,77 @@ function data()
             local _zed = trainstationutil.getZed(params)
             local _stationTransf = transf.rotZTransl(math.rad(-90), vec3.new(2.8, 0, _zed))
             local _clockY = 0
+            local _isFacingOutwards = arrayUtils.arrayHasValue(result.platformLiftsFacingOutwards, slotId)
             -- print('_zed =', _zed or 'NIL')
+            -- tag is a mangled id like __module_11603013
             if _zed == 0 then
                 return -- no platform lifts at 0 height
             elseif _zed == 5 then
                 addModuleFn('platform_lifts_5.mdl', _stationTransf)
             elseif _zed == 10 then
                 addModuleFn('platform_lifts_10.mdl', _stationTransf)
-                local _clockTransf = transf.rotZTransl(math.rad(-90), vec3.new(_clockY, 0, _zed - 3))
-                addModuleFn('station/rail/asset/era_c_big_clock.mdl', _clockTransf)
             elseif _zed == 15 then
                 addModuleFn('platform_lifts_15.mdl', _stationTransf)
-                local _clockTransf = transf.rotZTransl(math.rad(-90), vec3.new(_clockY, 0, _zed - 5))
-                addModuleFn('station/rail/asset/era_c_big_clock.mdl', _clockTransf)
             elseif _zed == 20 then
                 addModuleFn('platform_lifts_20.mdl', _stationTransf)
-                local _clockTransf = transf.rotZTransl(math.rad(-90), vec3.new(_clockY, 0, _zed - 5))
-                addModuleFn('station/rail/asset/era_c_big_clock.mdl', _clockTransf)
             elseif _zed == 25 then
                 addModuleFn('platform_lifts_25.mdl', _stationTransf)
-                local _clockTransf = transf.rotZTransl(math.rad(-90), vec3.new(_clockY, 0, _zed - 5))
-                addModuleFn('station/rail/asset/era_c_big_clock.mdl', _clockTransf)
             else
                 return -- no platform lifts at other heights
+            end
+
+            if _zed == 5 then
+                if _isFacingOutwards then
+                    addModuleFn(
+                        'single_small_clock.mdl',
+                        transf.rotZTransl(math.rad(-90), vec3.new(_clockY, 0, 4.5))
+                    )
+                end
+            elseif _zed == 10 then
+                if _isFacingOutwards then
+                    addModuleFn(
+                        'station/rail/asset/era_c_big_clock.mdl',
+                        transf.rotZTransl(math.rad(-90), vec3.new(_clockY, 0, _zed - 3))
+                    )
+                else
+                    addModuleFn(
+                        'single_small_clock.mdl',
+                        transf.rotZTransl(math.rad(-90), vec3.new(_clockY, 0, 5.5))
+                    )
+                end
+            else
+                if _isFacingOutwards then
+                    addModuleFn(
+                        'station/rail/asset/era_c_big_clock.mdl',
+                        transf.rotZTransl(math.rad(-90), vec3.new(_clockY, 0, _zed - 5))
+                    )
+                else
+                    addModuleFn(
+                        'single_small_clock.mdl',
+                        transf.rotZTransl(math.rad(-90), vec3.new(_clockY, 0, 6))
+                    )
+                end
+            end
+
+            if _zed == 5 then
+                if _isFacingOutwards then
+                    addModuleFn(
+                        'single_station_name.mdl',
+                        transf.rotZTransl(math.rad(-90), vec3.new(0.2, 0, _zed - 0.1))
+                    )
+                end
+            else
+                if _isFacingOutwards then
+                    addModuleFn(
+                        'single_station_name.mdl',
+                        transf.rotZTransl(math.rad(-90), vec3.new(0.2, 0, _zed - 0.1))
+                    )
+                else
+                    addModuleFn(
+                        'single_station_name.mdl',
+                        transf.rotZTransl(math.rad(-90), vec3.new(0.2, 0, 4))
+                    )
+                end
             end
 
             local faces = {

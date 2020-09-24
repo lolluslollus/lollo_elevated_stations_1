@@ -2,6 +2,7 @@ local transf = require 'transf'
 local vec3 = require 'vec3'
 -- local vec4 = require 'vec4'
 local modulesutil = require 'modulesutil'
+-- local arrayUtils = require('lollo_elevated_stations.arrayUtils')
 local lolloConstants = require('lollo_elevated_stations/lolloConstants')
 
 function data()
@@ -33,10 +34,6 @@ function data()
         },
         updateFn = function(result, transform, tag, slotId, addModuleFn, params)
             local faces = {
-                -- {5.0, -5.0, 0.0, 1.0},
-                -- {5.0, 5.0, 0.0, 1.0},
-                -- {-1.0, 5.0, 0.0, 1.0},
-                -- {-1.0, -5.0, 0.0, 1.0},
                 {5.0, -5.8, 0.0, 1.0},
                 {5.0, 5.8, 0.0, 1.0},
                 {-1.0, 5.8, 0.0, 1.0},
@@ -46,6 +43,7 @@ function data()
             local faces2 = {
                 type = 'EQUAL',
                 faces = {faces},
+                optional = true
                 -- slopeHigh = 999, --LOLLO added this
                 -- slopeLow = 0 --LOLLO added this
             }
@@ -85,8 +83,13 @@ function data()
                 }
             )
 
-            local transf1 = transf.rotZTransl(math.rad(90), vec3.new(0, 0, 0))
-            addModuleFn('station_square.mdl', transf1)
+            local squareTransf = transf.rotZTransl(math.rad(90), vec3.new(0, 0, 0))
+            if tostring(slotId or ''):sub(1, 3) == '112' then -- squareSlotId
+            -- if arrayUtils.arrayHasValue(result.stationSquaresFacingOutwards, slotId) then
+                addModuleFn('station_square.mdl', squareTransf)
+            -- else -- innerSquareSlotId
+            --     addModuleFn('station_square_inwards.mdl', squareTransf)
+            end
         end,
         getModelsFn = function()
             local result = {

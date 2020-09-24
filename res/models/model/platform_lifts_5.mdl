@@ -52,9 +52,8 @@ function data()
                     children = {
                         {
                             children = {
-                                -- walls below the platform
                                 {
-                                    -- front wall
+                                    -- front doors
                                     materials = {'doors.mtl'}, -- glass with a hint of colour
                                     -- materials = {'station/rail/era_c/era_c_trainstation_glass_milk.mtl'},
                                     -- materials = {'station/rail/era_c/era_c_trainstation_details_1.mtl'},
@@ -76,13 +75,12 @@ function data()
                                     transf = frontBelowTransf
                                 },
                                 {
-                                    --rear wall
+                                    --rear doors
                                     materials = {'doors.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearBelowTransf
                                 },
-                                -- ground level
                                 {
                                     -- inner lift shaft
                                     materials = {'shaft.mtl'}, -- glass with a hint of colour
@@ -178,19 +176,19 @@ function data()
                             name = 'station_1_main_grp',
                             transf = stationMainTransf
                         },
-                        {
-                            children = {
-                                {
-                                    materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
-                                    mesh = 'station/rail/asset/era_c_station_name/era_c_station_name_lod0.msh',
-                                    name = 'era_c_station_name',
-                                    transf = idTransf
-                                }
-                            },
-                            name = 'era_c_station_name_grp',
-                            --transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
-                            transf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -2.6, -.1, 1}
-                        }
+                        -- {
+                        --     children = {
+                        --         {
+                        --             materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
+                        --             mesh = 'station/rail/asset/era_c_station_name/era_c_station_name_lod0.msh',
+                        --             name = 'era_c_station_name',
+                        --             transf = idTransf
+                        --         }
+                        --     },
+                        --     name = 'era_c_station_name_grp',
+                        --     --transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                        --     transf = {2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -2.6, -.1, 1}
+                        -- }
                     },
                     name = 'RootNode',
                     transf = idTransf
@@ -204,22 +202,20 @@ function data()
                     children = {
                         {
                             children = {
-                                -- walls below the platform
                                 {
-                                    -- front wall
+                                    -- front doors
                                     materials = {'doors.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontBelowTransf
                                 },
                                 {
-                                    --rear wall
+                                    --rear doors
                                     materials = {'doors.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = rearBelowTransf
                                 },
-                                -- ground level
                                 {
                                     -- inner lift shaft
                                     materials = {'shaft.mtl'},
@@ -284,16 +280,16 @@ function data()
                     children = {
                         {
                             children = {
-                                -- walls below the platform
+                                -- below the platform
                                 {
-                                    -- front wall
+                                    -- front doors
                                     materials = {'doors.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
                                     transf = frontBelowTransf
                                 },
                                 {
-                                    --rear wall
+                                    --rear doors
                                     materials = {'doors.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
                                     name = 'oil_refinery_wall_large',
@@ -341,57 +337,23 @@ function data()
             }
         },
         metadata = {
-            labelList = {
-                labels = {
-                    {
-                        alignment = 'CENTER',
-                        alphaMode = 'BLEND',
-                        childId = 'RootNode',
-                        fitting = 'SCALE',
-                        nLines = 1,
-                        size = {5.2, .6},
-                        transf = {1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, -2.6, -2.833, .23, 1},
-                        type = 'STATION_NAME',
-                        verticalAlignment = 'CENTER'
-                    }
-                }
-            },
+            -- labelList = {
+            --     labels = {
+            --         {
+            --             alignment = 'CENTER',
+            --             alphaMode = 'BLEND',
+            --             childId = 'RootNode',
+            --             fitting = 'SCALE',
+            --             nLines = 1,
+            --             size = {5.2, .6},
+            --             transf = {1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, -2.6, -2.833, .23, 1},
+            --             type = 'STATION_NAME',
+            --             verticalAlignment = 'CENTER'
+            --         }
+            --     }
+            -- },
             transportNetworkProvider = {
                 laneLists = {
-                    -- {
-                    --     -- horizontally into the along underpass, left
-                    --     nodes = {
-                    --         {
-                    --             {2, -0.3, underpassZed},
-                    --             {-2, 0.3, 0},
-                    --             2.4000000953674
-                    --         },
-                    --         {
-                    --             {0, 0, underpassZed},
-                    --             {-2, 0.3, 0},
-                    --             2.4000000953674
-                    --         }
-                    --     },
-                    --     speedLimit = 20,
-                    --     transportModes = {'PERSON'}
-                    -- },
-                    -- {
-                    --     -- horizontally into the along underpass, right
-                    --     nodes = {
-                    --         {
-                    --             {-2, -0.3, underpassZed},
-                    --             {2, 0.3, 0},
-                    --             2.4000000953674
-                    --         },
-                    --         {
-                    --             {0, 0, underpassZed},
-                    --             {2, 0.3, 0},
-                    --             2.4000000953674
-                    --         }
-                    --     },
-                    --     speedLimit = 20,
-                    --     transportModes = {'PERSON'}
-                    -- },
                     {
                         -- horizontally into the across underpass
                         nodes = {
@@ -432,6 +394,24 @@ function data()
                             {
                                 {0, -2.5, -height},
                                 {0, -1, 0},
+                                2.4
+                            }
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+                    },
+                    {
+                        -- out toward the back
+                        linkable = true,
+                        nodes = {
+                            {
+                                {0, 0, -height},
+                                {0, 1, 0},
+                                2.4
+                            },
+                            {
+                                {0, 2.0, -height},
+                                {0, 1, 0},
                                 2.4
                             }
                         },

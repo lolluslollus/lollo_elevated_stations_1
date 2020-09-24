@@ -6,6 +6,7 @@
 		"*.mtl": "lua"
 	},
 	"Lua.diagnostics.globals": [
-		"data"
+		"data",
+		"debugPrint"
 	]
 }
