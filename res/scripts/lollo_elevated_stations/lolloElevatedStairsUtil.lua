@@ -725,7 +725,7 @@ return function(height)
                     },
                     {
                         -- down the stairs
-                        linkable = true, -- LOLLO was false
+                        linkable = true,
                         nodes = {
                             {
                                 {0, 0, 0.80000001192093},
@@ -803,7 +803,7 @@ return function(height)
                         transportModes = {'PERSON'}
                     },
                     {
-                        -- horizontally back to centre, to connect an extra lift
+                        -- out toward the back
                         nodes = {
                             {
                                 {0, 0.3, -height},
@@ -815,6 +815,33 @@ return function(height)
                                 {0, -1, 0},
                                 2.4
                             }
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+                    },
+                    {
+                        -- sideways, to connect extra elements
+                        nodes = {
+                            {
+                                {-6, -2.5, -height},
+                                {1, 0, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -height},
+                                {1, 0, 0},
+                                2.4
+                            },
+                            {
+                                {0, -2.5, -height},
+                                {1, 0, 0},
+                                2.4
+                            },
+                            {
+                                {6, -2.5, -height},
+                                {1, 0, 0},
+                                2.4
+                            },
                         },
                         speedLimit = 20,
                         transportModes = {'PERSON'}

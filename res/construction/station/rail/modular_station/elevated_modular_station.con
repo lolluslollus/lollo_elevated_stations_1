@@ -21,7 +21,7 @@ function data()
     local passengerPlatformAddonSlotId = 10800000
     local squareSlotId = 11200000
     local platformLiftsSlotId = 11600000
-    -- local innerSquareSlotId = 12000000
+    local plainSquareSlotId = 12000000
 
     local platformLength = 40
     local platformWidth = 5
@@ -647,7 +647,8 @@ function data()
             local slotId2Coord = {}
             result.trackCoord2models = {}
             result.GetModuleAt = function(i, j)
-                return params.modules[cargoPlatformSlotId + 1000 * i + 10 * j] or params.modules[cargoPlatformSlotId + 1000 * (i - 1) + 10 * j] or
+                return -- params.modules[cargoPlatformSlotId + 1000 * i + 10 * j] or
+                    -- params.modules[cargoPlatformSlotId + 1000 * (i - 1) + 10 * j] or
                     params.modules[passengerPlatformSlotId + 1000 * i + 10 * j] or
                     params.modules[trackSlotId + 1000 * i + 10 * j]
             end
@@ -1001,8 +1002,7 @@ function data()
                 end
             end
 
-            ------------------------------------------------------------------------------------------------
-            -- Add dedicated elevated station slots.
+            --------------------------------- Elevated stations --------------------------
             -- They don't call util.MakeStation nor MakeMainBuildingModule but they still populate occupied
             -- for compatibility with oppie's station roofs
             local function isStockStationOnHead(sideIndex, occupied)
@@ -1019,10 +1019,47 @@ function data()
                 return false
             end
 
-            -- side stations
-            for j = _jMin, _jMax do
-                local finerThanJ = (j - _jMin) * 4 + 1
+            local function isAnyPlatformOrTrackAt(j)
+                for i = -_backwardDist, _forwardDist do
+                    if result.GetModuleAt(i, j) then return true end
+                end
+                return false
+            end
+
+            local function getMaxI()
+                local result = -999
+                for j = _jMin, _jMax do
+                    if maxS[j] ~= nil and maxS[j] > result then result = maxS[j] end
+                end
+                return result
+            end
+
+            local function getMinI()
+                local result = 999
+                for j = _jMin, _jMax do
+                    if minS[j] ~= nil and minS[j] < result then result = minS[j] end
+                end
+                return result
+            end
+
+            local occupiedOnGround = {}
+            local getOccupiedOnGround = function(alongFine, across)
+                local alongFineStr = tostring(alongFine)
+                local acrossStr = tostring(across)
+                if not(occupiedOnGround[alongFineStr]) then return false end
+                return occupiedOnGround[alongFineStr][acrossStr] == true
+            end
+            local setOccupiedOnGround = function(alongFine, across)
+                local alongFineStr = tostring(alongFine)
+                local acrossStr = tostring(across)
+                if type(occupiedOnGround[alongFineStr]) ~= 'table' then occupiedOnGround[alongFineStr] = {} end
+                occupiedOnGround[alongFineStr][acrossStr] = true
+            end
+
+            -- -- side stations
+            for j = _jMin, _jMax do -- along
                 -- along the tracks, south side - side 2
+                local finerThanJ = (j - _jMin) * 4 + 1
                 if maxS[j] ~= nil then
                     local platformOrTrackWhereIShouldGo = result.GetModuleAt(maxS[j], j)
                     if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then --and not result.occupied[2][finerThanJ] then --and not result.occupied[2][finerThanJ + 1]
@@ -1031,7 +1068,10 @@ function data()
                             local id = stairsSlotId + 40 * j + 12 * k + 1 -- add 1 so it won't overwrite its opposite twin
                             AddSlot2(
                                 id,
-                                transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(maxS[j] * platformWidth + 2.5, j * platformLength + k * 12, 0)),
+                                transf.rotZYXTransl(
+                                    transf.degToRad(0.0, 0.0, 0.0),
+                                    vec3.new(maxS[j] * platformWidth + 2.5, j * platformLength + k * 12, 0)
+                                ),
                                 'elevated_rail_stairs',
                                 {0, 0, 0, 0}
                             )
@@ -1040,6 +1080,7 @@ function data()
                                 -- result.occupied[2][finerThanJ + k - 1] = {thisStation, maxS[j]}
                                 result.occupied[2][finerThanJ + k] = {thisStation, maxS[j]}
                                 result.occupied[2][finerThanJ + k + 1] = {thisStation, maxS[j]}
+                                setOccupiedOnGround(finerThanJ + k, maxS[j] + 1)
                             end
                         end
                     end
@@ -1052,7 +1093,10 @@ function data()
                             local id = stairsSlotId + 40 * j + 12 * k
                             AddSlot2(
                                 id,
-                                transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(minS[j] * platformWidth - 2.5, j * platformLength + k * 12, 0)),
+                                transf.rotZYXTransl(
+                                    transf.degToRad(180.0, 0.0, 0.0),
+                                    vec3.new(minS[j] * platformWidth - 2.5, j * platformLength + k * 12, 0)
+                                ),
                                 'elevated_rail_stairs',
                                 {0, 0, 0, 0}
                             )
@@ -1061,13 +1105,14 @@ function data()
                                 -- result.occupied[1][finerThanJ + k - 1] = {thisStation, minS[j]}
                                 result.occupied[1][finerThanJ + k] = {thisStation, minS[j]}
                                 result.occupied[1][finerThanJ + k + 1] = {thisStation, minS[j]}
+                                setOccupiedOnGround(finerThanJ + k, minS[j] - 1)
                             end
                         end
                     end
                 end
             end
 
-            -- head stations
+            -- -- head stations
             -- left end - side 3
             if not isStockStationOnHead(3, result.occupied) then
                 --print('LOLLO side 3 has no stock stations')
@@ -1101,7 +1146,6 @@ function data()
                     end
                 end
             end
-
             -- right end - side 4
             if not isStockStationOnHead(4, result.occupied) then
                 --print('LOLLO side 4 has no stock stations')
@@ -1130,7 +1174,7 @@ function data()
                 end
             end
 
-            -- LOLLO TODO allow vorplatz under the track
+            -- LOLLO TODO redo the grid on base 5 so you can add the plain square
 
             -- LOLLO TODO build an irregular station: you will see the bounding boxes looking out, where there is nothing.
             -- This is no good. However, it seems to have no collisions, maybe a bug in the game.
@@ -1138,39 +1182,47 @@ function data()
 
             -- ---------------------------- platform lifts (only below the platforms)
             if _zed > 0 then -- no lifts under 0 m stations
-                for i = -_backwardDist, _forwardDist + 1 do
-                    for j = _jMin, _jMax do
-                        -- local finerThanJ = (j - jMin) * 4 + 1
+                for i = -_backwardDist, _forwardDist + 1 do -- across
+                    for j = _jMin, _jMax do -- along
+                        local finerThanJ = (j - _jMin) * 4 + 1
                         -- print('j =', j or 'NIL', 'i =', i)
                         local platformWhereIShouldGo = result.GetModuleAt(i, j)
                         if platformWhereIShouldGo
                         and platformWhereIShouldGo.metadata
+                        -- LOLLO TODO elevated stations and platform lifts might collide with stock stuff: test the check below with result.occupied
                         and platformWhereIShouldGo.metadata.platform then --and not result.occupied[2][finerThanJ] then --and not result.occupied[2][finerThanJ + 1]
-                            for k = -1, 1 do
+                            for k = -1, 1 do -- along, finer
                                 -- along the tracks, south side - side 2
-                                -- id = xx00000 + 40 * j + 12 * k + 1
-                                local northTwinId = platformLiftsSlotId + 1000 * i + 40 * j + 12 * k
-                                if not(params.modules) or not(params.modules[northTwinId]) then
-                                    local id = platformLiftsSlotId + 1000 * i + 40 * j + 12 * k + 1 -- add 1 so it won't overwrite its opposite twin
-                                    if maxS[j] == i then result.platformLiftsFacingOutwards[#result.platformLiftsFacingOutwards+1] = id end
+                                local northId = platformLiftsSlotId + 1000 * i + 40 * j + 12 * k
+                                local southId = platformLiftsSlotId + 1000 * i + 40 * j + 12 * k + 1 -- add 1 so it won't overwrite its opposite twin
+                                if not(params.modules) or not(params.modules[northId]) then
+                                    if maxS[j] == i then
+                                        result.platformLiftsFacingOutwards[#result.platformLiftsFacingOutwards+1] = southId
+                                    end
                                     AddSlot2(
-                                        id,
+                                        southId,
                                         transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(i * platformWidth + 2.5, j * platformLength + k * 12, 0)),
                                         'platform_lifts',
                                         {0, 0, 0, 0}
                                     )
+                                    if params.modules[southId] ~= nil then
+                                        setOccupiedOnGround(finerThanJ + k, i)
+                                    end
                                 end
                                 -- along the tracks, north side - side 1
-                                local southTwinId = platformLiftsSlotId + 1000 * i + 40 * j + 12 * k + 1
-                                if not(params.modules) or not(params.modules[southTwinId]) then
-                                    local id = platformLiftsSlotId + 1000 * i + 40 * j + 12 * k
-                                    if minS[j] == i then result.platformLiftsFacingOutwards[#result.platformLiftsFacingOutwards+1] = id end
+                                if not(params.modules) or not(params.modules[southId]) then
+                                    if minS[j] == i then
+                                        result.platformLiftsFacingOutwards[#result.platformLiftsFacingOutwards+1] = northId
+                                    end
                                     AddSlot2(
-                                        id,
+                                        northId,
                                         transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth - 2.5, j * platformLength + k * 12, 0)),
                                         'platform_lifts',
                                         {0, 0, 0, 0}
                                     )
+                                    if params.modules[northId] ~= nil then
+                                        setOccupiedOnGround(finerThanJ + k, i)
+                                    end
                                 end
                             end
                         end
@@ -1178,95 +1230,90 @@ function data()
                 end
             end
 
-            -- --------------------- side station squares
-            -- print('result.models =')
-            -- debugPrint(result.models)
-            for j = _jMin, _jMax do
-                -- -- along the tracks, south side - side 2
-                -- in front of elevated stairs
-                if maxS[j] ~= nil then
-                    for k = -1, 1 do
-                        local adjacentStairs = params.modules[stairsSlotId + 40 * j + 12 * k + 1]
-                        if adjacentStairs ~= nil then
-                            local id = squareSlotId + 40 * j + 12 * k + 1
-                            AddSlot2(
-                                id,
-                                transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(maxS[j] * platformWidth + 2.5 + 6, j * platformLength + k * 12, 0)),
-                                'station_square',
-                                {0, 0, 0, 0}
-                            )
+            -- --------------------- station squares -----------------------------------------------
+            -- -- side station squares
+            for j = _jMin, _jMax do -- along
+                local finerThanJ = (j - _jMin) * 4 + 1
+                for k = -1, 1 do -- along, finer
+                    -- south side - side 2
+                    -- in front of elevated stairs
+                    if params.modules[stairsSlotId + 40 * j + 12 * k + 1] ~= nil then
+                        local id = squareSlotId + 1000 * maxS[j] + 40 * j + 12 * k + 1
+                        AddSlot2(
+                            id,
+                            transf.rotZYXTransl(
+                                transf.degToRad(0.0, 0.0, 0.0),
+                                vec3.new(maxS[j] * platformWidth + 2.5 + 6, j * platformLength + k * 12, 0)
+                            ),
+                            'station_square',
+                            {0, 0, 0, 0}
+                        )
+                        if params.modules[id] ~= nil then
+                            setOccupiedOnGround(finerThanJ + k, maxS[j] + 2)
                         end
                     end
-                end
-                -- in front of platform lifts
-                for i = -_backwardDist, _forwardDist + 1 do
-                    for k = -1, 1 do
-                        local liftId = platformLiftsSlotId + 1000 * i + 40 * j + 12 * k + 1
-                        local adjacentLift = params.modules[liftId]
-                        if adjacentLift ~= nil then
-                            if i == maxS[j] then
-                                local adjacentStairs = params.modules[stairsSlotId + 40 * j + 12 * k + 1]
-                                if not(adjacentStairs) then
-                                    local id = squareSlotId + 40 * j + 12 * k + 1
+                    -- in front of platform lifts
+                    for i = _forwardDist + 1, -_backwardDist, -1 do -- across, south to north
+                        -- 5 m platform lifts only get squares outside the bridge coz it's too low
+                        if _zed > 5 or i == maxS[j] then
+                            -- if there are elevated stairs, they win
+                            if i ~= maxS[j] or params.modules[stairsSlotId + 40 * j + 12 * k + 1] == nil then
+                                if params.modules[platformLiftsSlotId + 1000 * i + 40 * j + 12 * k + 1] ~= nil then
+                                    local id = squareSlotId + 1000 * i + 40 * j + 12 * k + 1
                                     AddSlot2(
                                         id,
-                                        transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth - 2.8 + 6, j * platformLength + k * 12, 0)),
+                                        transf.rotZYXTransl(
+                                            transf.degToRad(0.0, 0.0, 0.0),
+                                            vec3.new(i * platformWidth - 2.8 + 6, j * platformLength + k * 12, 0)
+                                        ),
                                         'station_square',
                                         {0, 0, 0, 0}
                                     )
+                                    if params.modules[id] ~= nil then
+                                        setOccupiedOnGround(finerThanJ + k, i + 1)
+                                    end
                                 end
-                            -- else
-                            --     local id = innerSquareSlotId + 40 * j + 12 * k + 1
-                            --     AddSlot2(
-                            --         id,
-                            --         transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth - 2.8 + 6, j * platformLength + k * 12, 0)),
-                            --         'station_square',
-                            --         {0, 0, 0, 0}
-                            --     )
                             end
                         end
                     end
-                end
-                -- -- along the tracks, north side - side 1
-                -- in front of elevated stairs
-                if minS[j] ~= nil then
-                    for k = -1, 1 do
-                        local adjacentStairs = params.modules[stairsSlotId + 40 * j + 12 * k]
-                        if adjacentStairs ~= nil then
-                            local id = squareSlotId + 40 * j + 12 * k
-                            AddSlot2(
-                                id,
-                                transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(minS[j] * platformWidth - 2.5 - 6, j * platformLength + k * 12, 0)),
-                                'station_square',
-                                {0, 0, 0, 0}
-                            )
-                        end                    end
-                end
-                -- in front of platform lifts
-                for i = -_backwardDist, _forwardDist + 1 do
-                    for k = -1, 1 do
-                        local liftId = platformLiftsSlotId + 1000 * i + 40 * j + 12 * k
-                        local adjacentLift = params.modules[liftId]
-                        if adjacentLift ~= nil then
-                            if i == minS[j] then
-                                local adjacentStairs = params.modules[stairsSlotId + 40 * j + 12 * k]
-                                if not(adjacentStairs) then
-                                    local id = squareSlotId + 40 * j + 12 * k
+                    -- north side - side 1
+                    -- in front of elevated stairs
+                    if params.modules[stairsSlotId + 40 * j + 12 * k] ~= nil then
+                        local id = squareSlotId + 1000 * minS[j] + 40 * j + 12 * k
+                        AddSlot2(
+                            id,
+                            transf.rotZYXTransl(
+                                transf.degToRad(180.0, 0.0, 0.0),
+                                vec3.new(minS[j] * platformWidth - 2.5 - 6, j * platformLength + k * 12, 0)
+                            ),
+                            'station_square',
+                            {0, 0, 0, 0}
+                        )
+                        if params.modules[id] ~= nil then
+                            setOccupiedOnGround(finerThanJ + k, minS[j] - 2)
+                        end
+                    end
+                    -- in front of platform lifts
+                    for i = -_backwardDist, _forwardDist + 1 do -- across, north to south
+                        -- 5 m platform lifts only get squares outside the bridge coz it's too low
+                        if _zed > 5 or i == minS[j] then
+                            -- if there are elevated stairs, they win
+                            if i ~= minS[j] or params.modules[stairsSlotId + 40 * j + 12 * k] == nil then
+                                if params.modules[platformLiftsSlotId + 1000 * i + 40 * j + 12 * k] ~= nil then
+                                    local id = squareSlotId + 1000 * i + 40 * j + 12 * k
                                     AddSlot2(
                                         id,
-                                        transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(i * platformWidth + 2.8 - 6, j * platformLength + k * 12, 0)),
+                                        transf.rotZYXTransl(
+                                            transf.degToRad(180.0, 0.0, 0.0),
+                                            vec3.new(i * platformWidth + 2.8 - 6, j * platformLength + k * 12, 0)
+                                        ),
                                         'station_square',
                                         {0, 0, 0, 0}
                                     )
+                                    if params.modules[id] ~= nil then
+                                        setOccupiedOnGround(finerThanJ + k, i - 1)
+                                    end
                                 end
-                            -- else
-                            --     local id = innerSquareSlotId + 40 * j + 12 * k
-                            --     AddSlot2(
-                            --         id,
-                            --         transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(i * platformWidth + 2.8 - 6, j * platformLength + k * 12, 0)),
-                            --         'station_square',
-                            --         {0, 0, 0, 0}
-                            --     )
                             end
                         end
                     end
@@ -1276,13 +1323,13 @@ function data()
             -- -- head station squares
             -- left end - side 3
             if not isStockStationOnHead(3, result.occupied) then -- avoid duplicate edges
-                for i = -_backwardDist, _forwardDist do
+                for i = -_backwardDist, _forwardDist do -- across
                     if leftW[i] ~= nil then
                         local adjacentStation = params.modules[stairsSlotId + 1000 * i + 10 * leftW[i] + 2]
                         if adjacentStation ~= nil then
                             local id = squareSlotId + 1000 * i + 10 * leftW[i] + 2
                             AddSlot2(
-                                id, 
+                                id,
                                 transf.rotZYXTransl(transf.degToRad(-90.0, 0.0, 0.0), vec3.new(i * platformWidth, leftW[i] * platformLength - .5 * platformLength - 6, 0)),
                                 'station_square', 
                                 {0, 0, 0, 0}
@@ -1291,10 +1338,9 @@ function data()
                     end
                 end
             end
-
             -- right end - side 4
             if not isStockStationOnHead(4, result.occupied) then -- avoid duplicate edges
-                for i = -_backwardDist, _forwardDist do
+                for i = -_backwardDist, _forwardDist do -- across
                     if rightW[i] ~= nil then
                         local adjacentStation = params.modules[stairsSlotId + 1000 * i + 10 * rightW[i] + 3]
                         if adjacentStation ~= nil then
@@ -1302,13 +1348,44 @@ function data()
                             AddSlot2(
                                 id,
                                 transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(i * platformWidth, rightW[i] * platformLength + .5 * platformLength + 6, 0)),
-                                'station_square', 
+                                'station_square',
                                 {0, 0, 0, 0}
                             )
                         end
                     end
                 end
             end
+
+            -- --------------------- plain station squares -----------------------------------------
+            -- local i0 = getMinI() - 1
+            -- local iN = getMaxI() + 1
+
+            -- for j = _jMin, _jMax do -- along
+            --     if isAnyPlatformOrTrackAt(j) then
+            --         local finerThanJ = (j - _jMin) * 4 + 1
+            --         -- local i0 = (minS[j] or -_backwardDist) - 1
+            --         -- local iN = (maxS[j] or _forwardDist + 1) + 1
+            --         -- local i0 = -_backwardDist - 1
+            --         -- local iN = _forwardDist + 2
+            --         for k = -1, 1 do
+            --             for i = i0, iN do -- across
+            --                 if not(getOccupiedOnGround(finerThanJ + k, i)) then
+            --                     AddSlot2(
+            --                         plainSquareSlotId + 1000 * i + 40 * j + 12 * k,
+            --                         transf.rotZYXTransl(
+            --                             transf.degToRad(0.0, 0.0, 0.0),
+            --                             vec3.new(i * platformWidth, j * platformLength + k * 12, 0)
+            --                         ),
+            --                         'station_square_plain',
+            --                         {0, 0, 0, 0}
+            --                     )
+            --                 end
+            --             end
+            --         end
+            --     end
+            -- end
+            -- print('occupiedOnGround =')
+            -- debugPrint(occupiedOnGround)
 
             result.cost = 0
 

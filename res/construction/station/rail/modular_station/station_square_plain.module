@@ -15,9 +15,9 @@ function data()
             price = 1000
         },
         description = {
-            name = _('Station Square'),
-            description = _('Small square to be placed in front of a station, with street access.'),
-            icon = 'ui/station_square.tga'
+            name = _('Plain Station Square'),
+            description = _('Small square to be placed in front or behind a station, with street access.'),
+            icon = 'ui/station_square_plain.tga'
         },
         category = {
             categories = {'elevated passenger buildings'}
@@ -28,16 +28,16 @@ function data()
             span = {1, 2},
             stock_station = false -- LOLLO NOTE use this to override the default station handling
         },
-        type = 'station_square',
+        type = 'station_square_plain',
         order = {
             value = 702
         },
         updateFn = function(result, transform, tag, slotId, addModuleFn, params)
             local faces = {
-                {5.0, -5.8, 0.0, 1.0},
-                {5.0, 5.8, 0.0, 1.0},
-                {-1.0, 5.8, 0.0, 1.0},
-                {-1.0, -5.8, 0.0, 1.0}
+                {2.5, -5.8, 0.0, 1.0},
+                {2.5, 5.8, 0.0, 1.0},
+                {-2.5, 5.8, 0.0, 1.0},
+                {-2.5, -5.8, 0.0, 1.0}
             }
             modulesutil.TransformFaces(transform, faces)
             local faces2 = {
@@ -56,7 +56,7 @@ function data()
                     type = 'BOX',
                     transf = transf.mul(transform, transf.transl(vec3.new(0, 0, 5))), --transform,
                     params = {
-                        halfExtents = {5.8, 6.7, 5}
+                        halfExtents = {5.8, 2.5, 3}
                     }
                 }
             )
@@ -84,14 +84,14 @@ function data()
             )
 
             addModuleFn(
-                'station_square.mdl',
+                'station_square_plain.mdl',
                 transf.rotZTransl(math.rad(90), vec3.new(0, 0, 0))
             )
         end,
         getModelsFn = function()
             local result = {
                 {
-                    id = 'station_square.mdl',
+                    id = 'station_square_plain.mdl',
                     transf = transf.rotZTransl(math.rad(90), vec3.new(0, 0, 0))
                 }
             }

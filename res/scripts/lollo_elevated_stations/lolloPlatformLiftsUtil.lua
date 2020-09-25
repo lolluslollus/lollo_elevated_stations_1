@@ -371,7 +371,7 @@ return function(height)
                                     2.4
                                 },
                                 {
-                                    {0, -2.5, -height},
+                                    {0, -2.4, -height},
                                     {0, -1, 0},
                                     2.4
                                 }
@@ -396,7 +396,34 @@ return function(height)
                             },
                             speedLimit = 20,
                             transportModes = {'PERSON'}
-                        }
+                        },
+                        {
+                            -- sideways, to connect extra elements
+                            nodes = {
+                                {
+                                    {-6, -0.3, -height},
+                                    {1, 0.1, 0},
+                                    2.4
+                                },
+                                {
+                                    {0, 0, -height},
+                                    {1, 0.1, 0},
+                                    2.4
+                                },
+                                {
+                                    {0, 0, -height},
+                                    {1, -0.1, 0},
+                                    2.4
+                                },
+                                {
+                                    {6, -0.3, -height},
+                                    {1, -0.1, 0},
+                                    2.4
+                                },
+                            },
+                            speedLimit = 20,
+                            transportModes = {'PERSON'}
+                        },
                 },
                 runways = {},
                 terminals = {}
