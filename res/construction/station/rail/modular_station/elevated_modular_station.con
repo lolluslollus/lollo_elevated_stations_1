@@ -605,6 +605,7 @@ function data()
             }
             result.platformLiftsFacingOutwards = {}
             result.headStations = {}
+            result.plainSquaresWithGap = {}
             -- result.stationSquaresFacingOutwards = {}
             result.setPlatformNumber = {}
             result.addPlatformCallback = function(i, j, callback)
@@ -1171,8 +1172,9 @@ function data()
                     for k = -1, 1 do
                         for i = i0, iN do -- across
                             if not(getOccupiedOnGround(finerThanJ + k, i)) then
+                                local id = plainSquareSlotId + 1000 * i + 40 * j + 12 * k
                                 AddSlot2(
-                                    plainSquareSlotId + 1000 * i + 40 * j + 12 * k,
+                                    id,
                                     transf.rotZYXTransl(
                                         transf.degToRad(0.0, 0.0, 0.0),
                                         vec3.new(i * platformWidth, j * platformLength + k * 12, 0)
@@ -1180,6 +1182,9 @@ function data()
                                     'station_square_plain',
                                     {0, 0, 0, 0}
                                 )
+                                if k == 1 and rightW[i] ~= nil and rightW[i] > j and params.modules[id] ~= nil then
+                                    result.plainSquaresWithGap[#result.plainSquaresWithGap+1] = id
+                                end
                             end
                         end
                     end

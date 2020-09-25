@@ -2,7 +2,7 @@ local transf = require 'transf'
 local vec3 = require 'vec3'
 -- local vec4 = require 'vec4'
 local modulesutil = require 'modulesutil'
--- local arrayUtils = require('lollo_elevated_stations.arrayUtils')
+local arrayUtils = require('lollo_elevated_stations.arrayUtils')
 local lolloConstants = require('lollo_elevated_stations/lolloConstants')
 
 function data()
@@ -33,7 +33,14 @@ function data()
             value = 702
         },
         updateFn = function(result, transform, tag, slotId, addModuleFn, params)
-            local faces = {
+            local _isWithGap = arrayUtils.arrayHasValue(result.plainSquaresWithGap, slotId)
+
+            local faces = _isWithGap and {
+                {2.5, -5.8, 0.0, 1.0},
+                {2.5, 9.8, 0.0, 1.0},
+                {-2.5, 9.8, 0.0, 1.0},
+                {-2.5, -5.8, 0.0, 1.0}
+            } or {
                 {2.5, -5.8, 0.0, 1.0},
                 {2.5, 5.8, 0.0, 1.0},
                 {-2.5, 5.8, 0.0, 1.0},
@@ -87,6 +94,14 @@ function data()
                 'station_square_plain.mdl',
                 transf.rotZTransl(math.rad(90), vec3.new(0, 0, 0))
             )
+
+            if _isWithGap then
+                addModuleFn(
+                    'between_plain_squares.mdl',
+                    transf.rotZTransl(math.rad(0), vec3.new(0, 8, 0))
+                )
+            end
+
         end,
         getModelsFn = function()
             local result = {
