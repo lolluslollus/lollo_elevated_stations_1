@@ -1039,7 +1039,7 @@ function data()
                             id,
                             transf.rotZYXTransl(
                                 transf.degToRad(0.0, 0.0, 0.0),
-                                vec3.new(maxS[j] * platformWidth + 2.5 + 6, j * platformLength + k * 12, 0)
+                                vec3.new(maxS[j] * platformWidth + 2.2 + 6, j * platformLength + k * 12, 0)
                             ),
                             'station_square',
                             {0, 0, 0, 0}
@@ -1080,7 +1080,7 @@ function data()
                             id,
                             transf.rotZYXTransl(
                                 transf.degToRad(180.0, 0.0, 0.0),
-                                vec3.new(minS[j] * platformWidth - 2.5 - 6, j * platformLength + k * 12, 0)
+                                vec3.new(minS[j] * platformWidth - 2.2 - 6, j * platformLength + k * 12, 0)
                             ),
                             'station_square',
                             {0, 0, 0, 0}
@@ -1125,8 +1125,11 @@ function data()
                         local id = squareSlotId + 1000 * i + 10 * leftW[i] + 2
                         AddSlot2(
                             id,
-                            transf.rotZYXTransl(transf.degToRad(-90.0, 0.0, 0.0), vec3.new(i * platformWidth, leftW[i] * platformLength - .5 * platformLength - 6, 0)),
-                            'station_square', 
+                            transf.rotZYXTransl(
+                                transf.degToRad(-90.0, 0.0, 0.0),
+                                vec3.new(i * platformWidth, leftW[i] * platformLength - 0.5 * platformLength - 6 + 0.4, 0)
+                            ),
+                            'station_square',
                             {0, 0, 0, 0}
                         )
                     end
@@ -1140,7 +1143,10 @@ function data()
                         local id = squareSlotId + 1000 * i + 10 * rightW[i] + 3
                         AddSlot2(
                             id,
-                            transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(i * platformWidth, rightW[i] * platformLength + .5 * platformLength + 6, 0)),
+                            transf.rotZYXTransl(
+                                transf.degToRad(90.0, 0.0, 0.0),
+                                vec3.new(i * platformWidth, rightW[i] * platformLength + 0.5 * platformLength + 6 - 0.4, 0)
+                            ),
                             'station_square',
                             {0, 0, 0, 0}
                         )
@@ -1149,33 +1155,33 @@ function data()
             end
 
             -- --------------------- plain station squares -----------------------------------------
-            -- local i0 = getMinI() - 1
-            -- local iN = getMaxI() + 1
+            local i0 = getMinI() - 1
+            local iN = getMaxI() + 1
 
-            -- for j = _jMin, _jMax do -- along
-            --     if isAnyPlatformOrTrackAt(j) then
-            --         local finerThanJ = (j - _jMin) * 4 + 1
-            --         -- local i0 = (minS[j] or -_backwardDist) - 1
-            --         -- local iN = (maxS[j] or _forwardDist + 1) + 1
-            --         -- local i0 = -_backwardDist - 1
-            --         -- local iN = _forwardDist + 2
-            --         for k = -1, 1 do
-            --             for i = i0, iN do -- across
-            --                 if not(getOccupiedOnGround(finerThanJ + k, i)) then
-            --                     AddSlot2(
-            --                         plainSquareSlotId + 1000 * i + 40 * j + 12 * k,
-            --                         transf.rotZYXTransl(
-            --                             transf.degToRad(0.0, 0.0, 0.0),
-            --                             vec3.new(i * platformWidth, j * platformLength + k * 12, 0)
-            --                         ),
-            --                         'station_square_plain',
-            --                         {0, 0, 0, 0}
-            --                     )
-            --                 end
-            --             end
-            --         end
-            --     end
-            -- end
+            for j = _jMin, _jMax do -- along
+                if isAnyPlatformOrTrackAt(j) then
+                    local finerThanJ = (j - _jMin) * 4 + 1
+                    -- local i0 = (minS[j] or -_backwardDist) - 1
+                    -- local iN = (maxS[j] or _forwardDist + 1) + 1
+                    -- local i0 = -_backwardDist - 1
+                    -- local iN = _forwardDist + 2
+                    for k = -1, 1 do
+                        for i = i0, iN do -- across
+                            if not(getOccupiedOnGround(finerThanJ + k, i)) then
+                                AddSlot2(
+                                    plainSquareSlotId + 1000 * i + 40 * j + 12 * k,
+                                    transf.rotZYXTransl(
+                                        transf.degToRad(0.0, 0.0, 0.0),
+                                        vec3.new(i * platformWidth, j * platformLength + k * 12, 0)
+                                    ),
+                                    'station_square_plain',
+                                    {0, 0, 0, 0}
+                                )
+                            end
+                        end
+                    end
+                end
+            end
             -- print('occupiedOnGround =')
             -- debugPrint(occupiedOnGround)
 

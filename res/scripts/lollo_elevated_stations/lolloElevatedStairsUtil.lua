@@ -39,8 +39,8 @@ return function(height)
     end
     local _wallsBelowThePlatform = _getWallsBelowPlatform()
 
-    local zedShift4groundRoof = -height + 3.00 -- - height * .6 + 2.60
-    local groundRoofTransf = {.4, 0, 0, 0, 0, .05, 0, 0, 0, 0, .05, 0, 0, -5.1, zedShift4groundRoof, 1}
+    local zedShift4groundRoof = -height + 2.9 -- - height * .6 + 2.60
+    local groundRoofTransf = {0.4, 0, 0, 0, 0, 0.05, 0, 0, 0, 0, 0.07, 0, 0, -5.1, zedShift4groundRoof, 1}
 
     local zedShift4groundPillar = -height + 3.2
     local zedZoom4groundPillar = -1.075
@@ -803,10 +803,10 @@ return function(height)
                         transportModes = {'PERSON'}
                     },
                     {
-                        -- out toward the back
+                        -- out to the back
                         nodes = {
                             {
-                                {0, 0.3, -height},
+                                {0, 0, -height},
                                 {0, -1, 0},
                                 2.4
                             },
