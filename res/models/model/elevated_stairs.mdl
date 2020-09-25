@@ -316,7 +316,7 @@ function data()
                             children = {
                                 {
                                     materials = {'station/rail/era_c/era_c_trainstation_assets.mtl'},
-                                    mesh = 'station/rail/asset/era_c_station_name/era_c_station_name_lod0.msh',
+                                    mesh = 'era_c_single_station_name_lod0.msh',
                                     name = 'era_c_station_name',
                                     transf = idTransf
                                 }
