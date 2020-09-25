@@ -336,7 +336,8 @@ function data()
                 end
             end
 
-            local function GetSideModuleAndOffset(variant, level)
+            --LOLLO commented out this
+            --[[ local function GetSideModuleAndOffset(variant, level)
                 local offset = 7 - 3 + level
                 if level == 3 and variant ~= 'era_c' then
                     offset = 6
@@ -344,8 +345,7 @@ function data()
                 return 'station/rail/modular_station/elevated_side_building_' .. level .. '_' .. variant .. '.module', offset
             end
 
-            --LOLLO commented out this
-            --[[ if head then
+            if head then
                 local mul = cargo and 2 or 1
                 local c = params.tracks and (math.floor((params.tracks + 1) / 2) + 1) * mul + 1 + params.tracks or 1
                 c = math.floor(c / 2) - 1
@@ -604,6 +604,7 @@ function data()
                 makeEmptyTrack('high_speed.lua', true)
             }
             result.platformLiftsFacingOutwards = {}
+            result.headStations = {}
             -- result.stationSquaresFacingOutwards = {}
             result.setPlatformNumber = {}
             result.addPlatformCallback = function(i, j, callback)
@@ -930,6 +931,7 @@ function data()
                         -- the -1 takes care of looking in the right spot
                         if not result.GetModuleAt(i - 1, leftW[i] - 1) and not result.GetModuleAt(i + 1, leftW[i] - 1) then
                             local id = stairsSlotId + 1000 * i + 10 * leftW[i] + 2 -- add 2 so it won't overwrite the last stairs along the track
+                            result.headStations[#result.headStations+1] = id
                             AddSlot2(
                                 id,
                                 transf.rotZYXTransl(transf.degToRad(-90.0, 0.0, 0.0), vec3.new(i * platformWidth, leftW[i] * platformLength - .5 * platformLength, 0)),
@@ -954,6 +956,7 @@ function data()
                     if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then
                         if not result.GetModuleAt(i - 1, rightW[i] + 1) and not result.GetModuleAt(i + 1, rightW[i] + 1) then
                             local id = stairsSlotId + 1000 * i + 10 * rightW[i] + 3 -- add 3 so it won't overwrite the last stairs along the track
+                            result.headStations[#result.headStations+1] = id
                             AddSlot2(
                                 id,
                                 transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(i * platformWidth, rightW[i] * platformLength + .5 * platformLength, 0)),

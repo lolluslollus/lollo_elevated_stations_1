@@ -2,6 +2,7 @@ local transf = require 'transf'
 local vec3 = require 'vec3'
 -- local vec4 = require 'vec4'
 local modulesutil = require 'modulesutil'
+local arrayUtils = require('lollo_elevated_stations.arrayUtils')
 local trainstationutil = require 'modules/elevated_trainstationutil'
 local lolloConstants = require('lollo_elevated_stations/lolloConstants')
 
@@ -37,6 +38,7 @@ function data()
             local _zed = trainstationutil.getZed(params)
             local _stationTransf = transf.rotZTransl(math.rad(90), vec3.new(0, 0, _zed))
             local _clockY = 5.3
+
             if _zed == 0 then
                 addModuleFn('elevated_stairs_0.mdl', _stationTransf)
             elseif _zed == 5 then
@@ -62,7 +64,20 @@ function data()
                 return
             end
 
-            local faces = {
+            local _isHeadStation = arrayUtils.arrayHasValue(result.headStations, slotId)
+            if _isHeadStation then
+                addModuleFn(
+                    'behind_head_station.mdl',
+                    transf.rotZTransl(math.rad(90), vec3.new(-1, 0, 0))
+                )
+            end
+
+            local faces = _isHeadStation and {
+                {5.0, -5.8, 0.0, 1.0},
+                {5.0, 5.8, 0.0, 1.0},
+                {-2.5, 5.8, 0.0, 1.0},
+                {-2.5, -5.8, 0.0, 1.0}
+            } or {
                 {5.0, -5.8, 0.0, 1.0},
                 {5.0, 5.8, 0.0, 1.0},
                 {-1.0, 5.8, 0.0, 1.0},

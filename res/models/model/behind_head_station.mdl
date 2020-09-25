@@ -1,0 +1,58 @@
+local _idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
+
+function data()
+    return {
+        boundingInfo = {
+            bbMax = {5.8, 1.0, 3.0},
+            bbMin = {-5.8, -1.0, 0}
+        },
+        collider = {
+            params = {
+                halfExtents = {5.8, 1.0, 2.5}
+            },
+            transf = _idTransf,
+            type = 'BOX'
+        },
+        lods = {
+            {
+                node = {
+                    children = { },
+                    name = 'RootNode',
+                    transf = _idTransf
+                },
+                static = false,
+                visibleFrom = 0,
+                visibleTo = 1000
+            },
+        },
+
+        metadata = {
+            transportNetworkProvider = {
+                laneLists = {
+                    {
+                        -- out of the station
+                        linkable = true,
+                        nodes = {
+                            {
+                                {0, 1, 0},
+                                {0, -1, 0},
+                                2.4000000953674
+                            },
+                            {
+                                {0, -1, 0},
+                                {0, -1, 0},
+                                2.4000000953674
+                            },
+                        },
+                        speedLimit = 20,
+                        transportModes = {'PERSON'}
+                    },
+                    -- LOLLO NOTE linkable inside a construction does not work.
+                },
+                runways = {},
+                terminals = {}
+            }
+        },
+        version = 1
+    }
+end
