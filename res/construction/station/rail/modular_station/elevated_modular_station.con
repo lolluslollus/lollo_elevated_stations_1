@@ -820,204 +820,9 @@ function data()
                 )
             end
 
-            -- NON-HEAD SLOTS
-            for j = _jMin, _jMax do
-                -- along the tracks, north side - side 1
-                if minS[j] ~= nil then
-                    local minDist = -minS[j] * platformWidth
-                    local pos = vec3.sub(mainBuildingPosition, vec3.new(minDist, 0, 0))
-
-                    local last = result.GetModuleAt(minS[j], j)
-                    if last and last.metadata.platform then
-                        for k = -2, minS[j + 1] == nil and 2 or 1 do
-                            -- Allow shifting by removing 3000 offset
-                            local id = GetId(mainBuildingTag, throughBackTag, minS[j], j, k)
-
-                            local tf1 = transf.transl(vec3.add(pos, vec3.new(0, j * platformLength + k * 10 + 5, 0)))
-                            local tf2 = transf.transl(vec3.add(pos, vec3.new(0, j * platformLength + k * 10, 0)))
-
-                            -- MAIN building
-                            AddSlot2(id, tf2, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
-                            AddSlot2(id + 1, tf2, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
-                            -- SIDE building
-                            if k < 2 then
-                                AddSlot2(id + 5, tf1, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
-                            end
-                            AddSlot2(id + 6, tf2, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
-                            AddSlot2(id + 7, tf2, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
-
-                            local mod = params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or params.modules[id + 7]
-                            if mod ~= nil then
-                                local data = {mod, minS[j]}
-                                for size = mod.metadata.span[1], mod.metadata.span[2] do
-                                    result.occupied[1][(j - _jMin) * 4 + k + size] = data
-                                end
-                                result.mainBuildingCoord[id] = {false, false, minS[j], j, k}
-                            end
-                        end
-                    end
-                end
-                -- along the tracks, south side - side 2
-                if maxS[j] ~= nil then
-                    local maxDist = -maxS[j] * platformWidth
-                    local pos = vec3.sub(mainBuildingPosition, vec3.new(maxDist - 20, 0, 0))
-
-                    -- Blacklist non platforms
-                    local last = result.GetModuleAt(maxS[j], j)
-                    if last and last.metadata.platform then
-                        for k = -2, minS[j + 1] == nil and 2 or 1 do
-                            -- Allow shifting by removing 3000 offset
-                            local id = GetId(mainBuildingTag, throughFrontTag, maxS[j], j, k)
-
-                            local tf1 = transf.rotZTransl(math.rad(180), vec3.add(pos, vec3.new(0, j * platformLength + k * 10 + 5, 0)))
-                            local tf2 = transf.rotZTransl(math.rad(180), vec3.add(pos, vec3.new(0, j * platformLength + k * 10, 0)))
-
-                            -- MAIN building
-                            AddSlot2(id, tf2, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
-                            AddSlot2(id + 1, tf2, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
-
-                            -- Side building
-                            if k < 2 then
-                                AddSlot2(id + 5, tf1, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
-                            end
-                            AddSlot2(id + 6, tf2, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
-                            AddSlot2(id + 7, tf2, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
-
-                            local mod = params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or params.modules[id + 7]
-                            if mod ~= nil then
-                                local data = {mod, maxS[j]}
-                                for size = mod.metadata.span[1], mod.metadata.span[2] do
-                                    result.occupied[2][(j - _jMin) * 4 + k + size] = data
-                                end
-                                result.mainBuildingCoord[id] = {false, true, maxS[j], j, k}
-                            end
-                        end
-                    end
-                end
-            end
-
-            -- HEAD SLOTS
-            -- Head station building slots
-            for i = -_backwardDist, _forwardDist do
-                -- Left when looking with station opposite to camera (negative j)
-                --if leftW[i] ~= nil and maxS[leftW[i]] and maxS[leftW[i]] > i then
-                for j = _jMin, _jMax do
-                    -- -- left end - side 3
-                    local pos = vec3.new(i * platformWidth + 2.5, j * platformLength - 0.5 * platformLength - 12.5, 0)
-                    local tf = transf.rotZTransl(math.rad(90), pos)
-
-                    -- Allow shifting by removing 20 offset
-                    local id = GetId(mainBuildingTag, headLeftTag, i, j)
-
-                    local function check(from, to)
-                        for k = from, to do
-                            if result.GetModuleAt(i + k, j) then
-                                return true
-                            end
-                        end
-                        return false
-                    end
-                    local size2l = check(0, 1)
-                    local size4l = check(-1, 2)
-                    local size8l = check(-3, 4)
-
-                    -- MAIN building
-                    if size4l then
-                        AddSlot2(id, tf, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
-                    end
-                    if size8l then
-                        AddSlot2(id + 1, tf, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
-                    end
-
-                    -- SIDE building
-                    if size2l then
-                        AddSlot2(id + 5, tf, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
-                    end
-                    if size4l then
-                        AddSlot2(id + 6, tf, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
-                    end
-                    if size8l then
-                        AddSlot2(id + 7, tf, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
-                    end
-
-                    local mod = params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or params.modules[id + 7]
-                    if mod ~= nil then
-                        local data = {mod, j}
-                        local size = mod.metadata.span[2] - mod.metadata.span[1]
-                        for l = -size - 1, size do
-                            result.occupied[3][i + l] = data
-                            --print('LOLLO result.occupied[3][index] was written at index', i + l)
-                        end
-                        result.mainBuildingCoord[id] = {true, true, i, j}
-                    end
-
-                    -- -- right end - side 4
-                    local pos = vec3.new(i * platformWidth + 2.5, j * platformLength + 0.5 * platformLength + 12.5, 0)
-                    local tf = transf.rotZTransl(math.rad(-90), pos)
-
-                    -- Allow shifting by removing 20 offset
-                    local id = GetId(mainBuildingTag, headRightTag, i, j)
-
-                    local function check(from, to)
-                        for k = from, to do
-                            if result.GetModuleAt(i + k, j) then
-                                return true
-                            end
-                        end
-                        return false
-                    end
-                    local size2l = check(0, 1)
-                    local size4l = check(-1, 2)
-                    local size8l = check(-3, 4)
-
-                    -- MAIN building
-                    if size4l then
-                        AddSlot2(id, tf, 'rail_main_building_size2', mainBuildingSlotSpacing2, 2)
-                    end
-                    if size8l then
-                        AddSlot2(id + 1, tf, 'rail_main_building_size3', mainBuildingSlotSpacing3, 3)
-                    end
-
-                    -- SIDE building
-                    if size2l then
-                        AddSlot2(id + 5, tf, 'rail_side_building_size1', mainBuildingSlotSpacing1, 4)
-                    end
-                    if size4l then
-                        AddSlot2(id + 6, tf, 'rail_side_building_size2', mainBuildingSlotSpacing2, 5)
-                    end
-                    if size8l then
-                        AddSlot2(id + 7, tf, 'rail_side_building_size3', mainBuildingSlotSpacing3, 6)
-                    end
-
-                    local mod = params.modules[id] or params.modules[id + 1] or params.modules[id + 5] or params.modules[id + 6] or params.modules[id + 7]
-                    if mod ~= nil then
-                        local data = {mod, j}
-                        local size = mod.metadata.span[2] - mod.metadata.span[1]
-                        for l = -size - 1, size do
-                            result.occupied[4][i + l] = data
-                            --print('LOLLO result.occupied[4][index] was written at index', i + l)
-                        end
-                        result.mainBuildingCoord[id] = {true, false, i, j}
-                    end
-                end
-            end
-
             --------------------------------- Elevated stations --------------------------
             -- They don't call util.MakeStation nor MakeMainBuildingModule but they still populate occupied
             -- for compatibility with oppie's station roofs
-            local function isStockStationOnHead(sideIndex, occupied)
-                for i = -_backwardDist, _forwardDist do
-                    local occupiedAtI = occupied[sideIndex][i]
-                    if type(occupiedAtI) == 'table' then
-                        if occupiedAtI[1] and occupiedAtI[1].metadata then -- remember lua has base 1!
-                            if occupiedAtI[1].metadata.stock_station then
-                                return true
-                            end
-                        end
-                    end
-                end
-                return false
-            end
 
             local function isAnyPlatformOrTrackAt(j)
                 for i = -_backwardDist, _forwardDist do
@@ -1062,7 +867,7 @@ function data()
                 local finerThanJ = (j - _jMin) * 4 + 1
                 if maxS[j] ~= nil then
                     local platformOrTrackWhereIShouldGo = result.GetModuleAt(maxS[j], j)
-                    if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then --and not result.occupied[2][finerThanJ] then --and not result.occupied[2][finerThanJ + 1]
+                    if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then
                         for k = -1, 1 do
                             -- id = xx00000 + 40 * j + 12 * k + 1
                             local id = stairsSlotId + 40 * j + 12 * k + 1 -- add 1 so it won't overwrite its opposite twin
@@ -1088,7 +893,7 @@ function data()
                 -- along the tracks, north side - side 1
                 if minS[j] ~= nil then
                     local platformOrTrackWhereIShouldGo = result.GetModuleAt(minS[j], j)
-                    if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then --and not result.occupied[1][finerThanJ] then --and not result.occupied[1][finerThanJ + 1]
+                    if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then
                         for k = -1, 1 do
                             local id = stairsSlotId + 40 * j + 12 * k
                             AddSlot2(
@@ -1111,35 +916,30 @@ function data()
                     end
                 end
             end
-
             -- -- head stations
             -- left end - side 3
-            if not isStockStationOnHead(3, result.occupied) then
-                --print('LOLLO side 3 has no stock stations')
-                for i = -_backwardDist, _forwardDist do
-                    if leftW[i] ~= nil then
-                        --print('LOLLO side 3: leftW[i] = ', leftW[i], 'i =', i)
-                        -- looking at the station, platformOrTrackWhereIShouldGo is the piece of track or platform that I would head.
-                        -- it makes sense coz we have a translation transform.
-                        local platformOrTrackWhereIShouldGo = result.GetModuleAt(i, leftW[i])
-                        -- only place this type of station at a platform end
-                        if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then --and not result.occupied[3][i] then
-                            -- looking at the station, platformOrTrackNearWhereIShouldGo is the piece of track or platform alongside my centre, once left and once right
-                            -- the -1 takes care of looking in the right spot
-                            if not result.GetModuleAt(i - 1, leftW[i] - 1) and not result.GetModuleAt(i + 1, leftW[i] - 1) then
-                                -- id = xx00000 + 1000 * i + 10 * j + 2
-                                local id = stairsSlotId + 1000 * i + 10 * leftW[i] + 2 -- add 2 so it won't overwrite the last stairs along the track
-                                AddSlot2(
-                                    id,
-                                    transf.rotZYXTransl(transf.degToRad(-90.0, 0.0, 0.0), vec3.new(i * platformWidth, leftW[i] * platformLength - .5 * platformLength, 0)),
-                                    'elevated_rail_stairs',
-                                    {0, 0, 0, 0}
-                                )
-                                local thisStation = params.modules[id]
-                                if thisStation ~= nil then
-                                    for neighbourIndex = -2, 2 do
-                                        result.occupied[3][i + neighbourIndex] = {thisStation, leftW[i]}
-                                    end
+            for i = -_backwardDist, _forwardDist do
+                if leftW[i] ~= nil then
+                    --print('LOLLO side 3: leftW[i] = ', leftW[i], 'i =', i)
+                    -- looking at the station, platformOrTrackWhereIShouldGo is the piece of track or platform that I would head.
+                    -- it makes sense coz we have a translation transform.
+                    local platformOrTrackWhereIShouldGo = result.GetModuleAt(i, leftW[i])
+                    -- only place this type of station at a platform end
+                    if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then
+                        -- looking at the station, platformOrTrackNearWhereIShouldGo is the piece of track or platform alongside my centre, once left and once right
+                        -- the -1 takes care of looking in the right spot
+                        if not result.GetModuleAt(i - 1, leftW[i] - 1) and not result.GetModuleAt(i + 1, leftW[i] - 1) then
+                            local id = stairsSlotId + 1000 * i + 10 * leftW[i] + 2 -- add 2 so it won't overwrite the last stairs along the track
+                            AddSlot2(
+                                id,
+                                transf.rotZYXTransl(transf.degToRad(-90.0, 0.0, 0.0), vec3.new(i * platformWidth, leftW[i] * platformLength - .5 * platformLength, 0)),
+                                'elevated_rail_stairs',
+                                {0, 0, 0, 0}
+                            )
+                            local thisStation = params.modules[id]
+                            if thisStation ~= nil then
+                                for neighbourIndex = -2, 2 do
+                                    result.occupied[3][i + neighbourIndex] = {thisStation, leftW[i]}
                                 end
                             end
                         end
@@ -1147,26 +947,23 @@ function data()
                 end
             end
             -- right end - side 4
-            if not isStockStationOnHead(4, result.occupied) then
-                --print('LOLLO side 4 has no stock stations')
-                for i = -_backwardDist, _forwardDist do
-                    if rightW[i] ~= nil then
-                        --print('LOLLO side 4: rightW[i] = ', rightW[i], 'i =', i)
-                        local platformOrTrackWhereIShouldGo = result.GetModuleAt(i, rightW[i])
-                        if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then --and not result.occupied[4][i] then
-                            if not result.GetModuleAt(i - 1, rightW[i] + 1) and not result.GetModuleAt(i + 1, rightW[i] + 1) then
-                                local id = stairsSlotId + 1000 * i + 10 * rightW[i] + 3 -- add 3 so it won't overwrite the last stairs along the track
-                                AddSlot2(
-                                    id,
-                                    transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(i * platformWidth, rightW[i] * platformLength + .5 * platformLength, 0)),
-                                    'elevated_rail_stairs',
-                                    {0, 0, 0, 0}
-                                )
-                                local thisStation = params.modules[id]
-                                if thisStation ~= nil then
-                                    for neighbourIndex = -2, 2 do
-                                        result.occupied[4][i + neighbourIndex] = {thisStation, rightW[i]}
-                                    end
+            for i = -_backwardDist, _forwardDist do
+                if rightW[i] ~= nil then
+                    --print('LOLLO side 4: rightW[i] = ', rightW[i], 'i =', i)
+                    local platformOrTrackWhereIShouldGo = result.GetModuleAt(i, rightW[i])
+                    if platformOrTrackWhereIShouldGo and not platformOrTrackWhereIShouldGo.metadata.track then
+                        if not result.GetModuleAt(i - 1, rightW[i] + 1) and not result.GetModuleAt(i + 1, rightW[i] + 1) then
+                            local id = stairsSlotId + 1000 * i + 10 * rightW[i] + 3 -- add 3 so it won't overwrite the last stairs along the track
+                            AddSlot2(
+                                id,
+                                transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(i * platformWidth, rightW[i] * platformLength + .5 * platformLength, 0)),
+                                'elevated_rail_stairs',
+                                {0, 0, 0, 0}
+                            )
+                            local thisStation = params.modules[id]
+                            if thisStation ~= nil then
+                                for neighbourIndex = -2, 2 do
+                                    result.occupied[4][i + neighbourIndex] = {thisStation, rightW[i]}
                                 end
                             end
                         end
@@ -1189,8 +986,7 @@ function data()
                         local platformWhereIShouldGo = result.GetModuleAt(i, j)
                         if platformWhereIShouldGo
                         and platformWhereIShouldGo.metadata
-                        -- LOLLO TODO elevated stations and platform lifts might collide with stock stuff: test the check below with result.occupied
-                        and platformWhereIShouldGo.metadata.platform then --and not result.occupied[2][finerThanJ] then --and not result.occupied[2][finerThanJ + 1]
+                        and platformWhereIShouldGo.metadata.platform then
                             for k = -1, 1 do -- along, finer
                                 -- along the tracks, south side - side 2
                                 local northId = platformLiftsSlotId + 1000 * i + 40 * j + 12 * k
@@ -1322,36 +1118,32 @@ function data()
 
             -- -- head station squares
             -- left end - side 3
-            if not isStockStationOnHead(3, result.occupied) then -- avoid duplicate edges
-                for i = -_backwardDist, _forwardDist do -- across
-                    if leftW[i] ~= nil then
-                        local adjacentStation = params.modules[stairsSlotId + 1000 * i + 10 * leftW[i] + 2]
-                        if adjacentStation ~= nil then
-                            local id = squareSlotId + 1000 * i + 10 * leftW[i] + 2
-                            AddSlot2(
-                                id,
-                                transf.rotZYXTransl(transf.degToRad(-90.0, 0.0, 0.0), vec3.new(i * platformWidth, leftW[i] * platformLength - .5 * platformLength - 6, 0)),
-                                'station_square', 
-                                {0, 0, 0, 0}
-                            )
-                        end
+            for i = -_backwardDist, _forwardDist do -- across
+                if leftW[i] ~= nil then
+                    local adjacentStation = params.modules[stairsSlotId + 1000 * i + 10 * leftW[i] + 2]
+                    if adjacentStation ~= nil then
+                        local id = squareSlotId + 1000 * i + 10 * leftW[i] + 2
+                        AddSlot2(
+                            id,
+                            transf.rotZYXTransl(transf.degToRad(-90.0, 0.0, 0.0), vec3.new(i * platformWidth, leftW[i] * platformLength - .5 * platformLength - 6, 0)),
+                            'station_square', 
+                            {0, 0, 0, 0}
+                        )
                     end
                 end
             end
             -- right end - side 4
-            if not isStockStationOnHead(4, result.occupied) then -- avoid duplicate edges
-                for i = -_backwardDist, _forwardDist do -- across
-                    if rightW[i] ~= nil then
-                        local adjacentStation = params.modules[stairsSlotId + 1000 * i + 10 * rightW[i] + 3]
-                        if adjacentStation ~= nil then
-                            local id = squareSlotId + 1000 * i + 10 * rightW[i] + 3
-                            AddSlot2(
-                                id,
-                                transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(i * platformWidth, rightW[i] * platformLength + .5 * platformLength + 6, 0)),
-                                'station_square',
-                                {0, 0, 0, 0}
-                            )
-                        end
+            for i = -_backwardDist, _forwardDist do -- across
+                if rightW[i] ~= nil then
+                    local adjacentStation = params.modules[stairsSlotId + 1000 * i + 10 * rightW[i] + 3]
+                    if adjacentStation ~= nil then
+                        local id = squareSlotId + 1000 * i + 10 * rightW[i] + 3
+                        AddSlot2(
+                            id,
+                            transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(i * platformWidth, rightW[i] * platformLength + .5 * platformLength + 6, 0)),
+                            'station_square',
+                            {0, 0, 0, 0}
+                        )
                     end
                 end
             end
