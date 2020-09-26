@@ -64,7 +64,7 @@ function data()
                 return
             end
 
-            local _isHeadStation = arrayUtils.arrayHasValue(result.headStations, slotId)
+            local _isHeadStation = arrayUtils.arrayHasValue(result.elevatedHeadStations, slotId)
             if _isHeadStation then
                 addModuleFn(
                     'behind_head_station.mdl',
