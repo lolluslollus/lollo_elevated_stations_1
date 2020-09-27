@@ -2,7 +2,6 @@ local vec3 = require 'vec3'
 local transf = require 'transf'
 local modulesutil = require 'modulesutil'
 local lolloConstants = require('lollo_elevated_stations/lolloConstants')
-local dump = require('luadump')
 
 local trainstationutil = {}
 
@@ -37,7 +36,8 @@ local function replaceBridgeType(params, edgeLists)
             if edgeLists[index1][index2] == 'BRIDGE' then
                 edgeLists[index1][index2].edgeTypeName = bridgeType
             else
-                print('not a bridge: ', dump(true)(edgeLists[index1][index2]))
+                print('not a bridge:')
+                debugPrint(edgeLists[index1][index2])
             end
         end
     end
@@ -215,9 +215,9 @@ function trainstationutil.makeTrack(result, transform, tag, slotId, addModuleFn,
         end
     end
     -- print('- forwardM = ')
-    -- dump(true)(forwardM)
+    -- debugPrint(forwardM)
     -- print('- backwardM = ')
-    -- dump(true)(backwardM)
+    -- debugPrint(backwardM)
 
     if result.edgeLists[edgeListNum].tag2nodes[tag] == nil then
         result.edgeLists[edgeListNum].tag2nodes[tag] = {}

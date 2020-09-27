@@ -251,7 +251,7 @@ function data()
             local variant = cargo and 'cargo' or 'era_' .. era
 
             -- print('-- params = ')
-            -- dump(true)(params)
+            -- debugPrint(params)
 
             local lmap = {0, 1, 2, 3, 5, 7, 9, 11, 13}
             params.length = lmap[params.length + 2]
@@ -1234,7 +1234,7 @@ function data()
                     end
                 end
             end
-            if _zed > 0 then addHeadElevatedStairs() end
+            addHeadElevatedStairs()
 
             -- LOLLO TODO build an irregular station: you will see the bounding boxes looking out, where there is nothing.
             -- This is no good. However, it seems to have no collisions, maybe a bug in the game.
@@ -1975,7 +1975,7 @@ function data()
             end
 
             -- print('-- result = ')
-            -- dump(true)(result)
+            -- debugPrint(result)
             return result
         end
     }
