@@ -40,7 +40,7 @@ function data()
                 )
             end
 
-            local rnd = math.random(2) * 2 - 3
+            local rndPlusOrMinusOne = math.random(2) * 2 - 3
             local models = {
                 'station/bus/asset/com_round_new_1.mdl',
                 'station/bus/asset/com_round_mid_1.mdl',
@@ -61,22 +61,23 @@ function data()
                 -- 'asset/commercial/era_b/com_1_asset_ground_sign_rest_small_b.mdl',
                 -- 'station/air/asset/cart_baggage_b.mdl',
             }
-            addRandomObjects(models, transf.rotZTransl(math.rad(60), vec3.new(1.0, -rnd * 5, 0)))
-            addRandomObjects(models, transf.rotZTransl(math.rad(120), vec3.new(-1.5, -rnd * 1.5, 0)))
+            addRandomObjects(models, transf.rotZTransl(math.rad(60), vec3.new(1.0, -rndPlusOrMinusOne * 5, 0)))
+            addRandomObjects(models, transf.rotZTransl(math.rad(120), vec3.new(-1.5, -rndPlusOrMinusOne * 1.5, 0)))
 
             addModuleFn(
                 -- 'asset/bench_dark_red.mdl',
                 'station/rail/asset/era_c_double_chair.mdl',
-                transf.rotZTransl(math.rad(0), vec3.new(0.9, rnd * 5, 0))
+                transf.rotZTransl(math.rad(0), vec3.new(0.9, rndPlusOrMinusOne * 4.9, 0))
             )
             addModuleFn(
                 -- 'asset/bench_dark_red.mdl',
                 'station/rail/asset/era_c_double_chair.mdl',
-                transf.rotZTransl(math.rad(180), vec3.new(-0.9, rnd * 5, 0))
+                transf.rotZTransl(math.rad(180), vec3.new(-0.9, rndPlusOrMinusOne * 4.9, 0))
             )
+            local rndPlusOrMinusOne2 = math.random(2) * 2 - 3
             addModuleFn(
                 'station/rail/asset/era_c_trashcan.mdl',
-                transf.rotZTransl(math.rad(25), vec3.new(1.3, rnd * 1.5, 0))
+                transf.rotZTransl(math.rad(-rndPlusOrMinusOne2 * 25), vec3.new(rndPlusOrMinusOne2 * 1.5, rndPlusOrMinusOne * 1.5, 0))
             )
 
             local models = {
@@ -87,9 +88,9 @@ function data()
                 'station/air/asset/luggage_03_a.mdl',
                 'station/air/asset/luggage_03_b.mdl',
             }
-            addRandomObjects(models, transf.rotZTransl(3 * (math.random()), vec3.new(0.8, rnd * 3.3, 0)))
-            addRandomObjects(models, transf.rotZTransl(3 * (math.random()), vec3.new(-0.5, rnd * 3.2, 0)))
-            addRandomObjects(models, transf.rotZTransl(3 * (math.random()), vec3.new(-0.9, rnd * 3.7, 0)))
+            addRandomObjects(models, transf.rotZTransl(3 * (math.random()), vec3.new(0.8, rndPlusOrMinusOne * 3.3, 0)))
+            addRandomObjects(models, transf.rotZTransl(3 * (math.random()), vec3.new(-0.5, rndPlusOrMinusOne * 3.2, 0)))
+            addRandomObjects(models, transf.rotZTransl(3 * (math.random()), vec3.new(-0.9, rndPlusOrMinusOne * 3.7, 0)))
         end,
         getModelsFn = function()
             local result = {
