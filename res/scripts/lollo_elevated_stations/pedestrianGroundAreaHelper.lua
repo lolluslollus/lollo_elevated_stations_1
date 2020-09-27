@@ -31,7 +31,17 @@ helper.updateFn = function(result, transform, tag, slotId, addModuleFn, params)
     table.insert(result.terrainAlignmentLists, faces2)
     -- LOLLO NOTE insert colliders here, coz those in the model do not pull.
     -- These values are calculated with trial and error. They are slightly larger than half of the bounding box sizes, which are cut a tad smaller.
-    table.insert(
+    if _isWithGap then table.insert(
+        result.colliders,
+        {
+            type = 'BOX',
+            transf = transf.mul(transform, transf.transl(vec3.new(0, 2, 2.5))),
+            params = {
+                halfExtents = {2.5, 7.8, 2.5}
+            }
+        }
+    )
+    else table.insert(
         result.colliders,
         {
             type = 'BOX',
@@ -41,6 +51,7 @@ helper.updateFn = function(result, transform, tag, slotId, addModuleFn, params)
             }
         }
     )
+    end
     -- insert underground collider to force streets and rails below to be in a tunnel
     table.insert(
         result.colliders,

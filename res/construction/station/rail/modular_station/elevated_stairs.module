@@ -37,7 +37,6 @@ function data()
         updateFn = function(result, transform, tag, slotId, addModuleFn, params)
             local _zed = trainstationutil.getZed(params)
             local _stationTransf = transf.rotZTransl(math.rad(90), vec3.new(0, 0, _zed))
-            local _clockY = 5.3
 
             if _zed == 0 then
                 addModuleFn('elevated_stairs_0.mdl', _stationTransf)
@@ -45,23 +44,36 @@ function data()
                 addModuleFn('elevated_stairs_5.mdl', _stationTransf)
             elseif _zed == 10 then
                 addModuleFn('elevated_stairs_10.mdl', _stationTransf)
-                local _clockTransf = transf.rotZTransl(math.rad(90), vec3.new(_clockY, 0, _zed - 3))
-                addModuleFn('station/rail/asset/era_c_big_clock.mdl', _clockTransf)
             elseif _zed == 15 then
                 addModuleFn('elevated_stairs_15.mdl', _stationTransf)
-                local _clockTransf = transf.rotZTransl(math.rad(90), vec3.new(_clockY, 0, _zed - 5))
-                addModuleFn('station/rail/asset/era_c_big_clock.mdl', _clockTransf)
             elseif _zed == 20 then
                 addModuleFn('elevated_stairs_20.mdl', _stationTransf)
-                local _clockTransf = transf.rotZTransl(math.rad(90), vec3.new(_clockY, 0, _zed - 5))
-                addModuleFn('station/rail/asset/era_c_big_clock.mdl', _clockTransf)
             elseif _zed == 25 then
                 addModuleFn('elevated_stairs_25.mdl', _stationTransf)
-                local _clockTransf = transf.rotZTransl(math.rad(90), vec3.new(_clockY, 0, _zed - 5))
-                addModuleFn('station/rail/asset/era_c_big_clock.mdl', _clockTransf)
             else
                 -- addModuleFn('elevated_stairs.mdl', stationTransf)
                 return
+            end
+
+            local _clockY = 5.3
+            if _zed == 10 then
+                addModuleFn(
+                    'station/rail/asset/era_c_big_clock.mdl',
+                    transf.rotZTransl(math.rad(90), vec3.new(_clockY, 0, _zed - 3))
+                )
+            elseif _zed >= 15 then
+                addModuleFn(
+                    'station/rail/asset/era_c_big_clock.mdl',
+                    transf.rotZTransl(math.rad(90), vec3.new(_clockY, 0, _zed - 5))
+                )
+            end
+
+            if _zed == 0 then
+                addModuleFn('asset/arrivi.mdl', transf.rotZTransl(math.rad(90), vec3.new(4.7, 5.4, 0)))
+                addModuleFn('asset/partenze.mdl', transf.rotZTransl(math.rad(-90), vec3.new(4.7, -5.4, 0)))
+            else
+                addModuleFn('asset/arrivi.mdl', transf.rotZTransl(math.rad(90), vec3.new(4.3, 3.7, _zed + 0.8)))
+                addModuleFn('asset/partenze.mdl', transf.rotZTransl(math.rad(-90), vec3.new(4.3, -3.7, _zed + 0.8)))
             end
 
             local _isHeadAndHigh = _zed > 0 and arrayUtils.arrayHasValue(result.elevatedHeadStations, slotId)
@@ -94,16 +106,27 @@ function data()
             table.insert(result.terrainAlignmentLists, faces2)
             -- LOLLO NOTE insert colliders here, coz those in the model do not pull.
             -- These values are calculated with trial and error. They are slightly larger than half of the bounding box sizes, which are cut a tad smaller.
-            table.insert(
+            if _isHeadAndHigh then table.insert(
                 result.colliders,
                 {
                     type = 'BOX',
-                    transf = transf.mul(transform, transf.transl(vec3.new(2.0, 0, _zed * .5 + 5))),
+                    transf = transf.mul(transform, transf.transl(vec3.new(1.25, 0, _zed * .5 + 5))),
                     params = {
-                        halfExtents = {3.0, 5.8, _zed * .5 + 5}
+                        halfExtents = {3.75, 5.8, _zed * .5 + 5}
                     }
                 }
             )
+            else table.insert(
+                    result.colliders,
+                    {
+                        type = 'BOX',
+                        transf = transf.mul(transform, transf.transl(vec3.new(2.0, 0, _zed * .5 + 5))),
+                        params = {
+                            halfExtents = {3.0, 5.8, _zed * .5 + 5}
+                        }
+                    }
+                )
+            end
             -- insert underground collider to force streets and rails below to be in a tunnel
             table.insert(
                 result.colliders,
