@@ -144,9 +144,9 @@ function data()
                 result.colliders,
                 {
                     type = 'BOX',
-                    transf = transf.mul(transform, transf.rotZTransl(math.rad(-90), vec3.new(2.8, 0, -3.8))),
+                    transf = transf.mul(transform, transf.rotZTransl(math.rad(-90), vec3.new(2.8, 0, -lolloConstants().undergroundClearing))),
                     params = {
-                        halfExtents = {5.8, 2.3, 3.8}
+                        halfExtents = {5.8, 2.3, lolloConstants().undergroundClearing}
                     }
                 }
             )            

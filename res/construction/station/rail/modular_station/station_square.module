@@ -63,9 +63,9 @@ function data()
                 result.colliders,
                 {
                     type = 'BOX',
-                    transf = transf.mul(transform, transf.transl(vec3.new(2.0, 0, -3.8))),
+                    transf = transf.mul(transform, transf.transl(vec3.new(2.0, 0, -lolloConstants().undergroundClearing))),
                     params = {
-                        halfExtents = {3.0, 5.8, 3.8}
+                        halfExtents = {3.0, 5.8, lolloConstants().undergroundClearing}
                     }
                 }
             )
