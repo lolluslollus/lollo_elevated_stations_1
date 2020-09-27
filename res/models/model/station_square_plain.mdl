@@ -1,7 +1,7 @@
 local zedShift4groundRoof = 2.89 -- micro shift to avoid flickering
 local groundRoofTransf = {0.4, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0.07, 0, 0, 0.5, zedShift4groundRoof, 1}
-local _lampLeftTransf = {1, 1, 0, 0, 1, -1, 0, 0, 0, 0, 1, 0, -9, -4, 0, 1}
-local _lampRightTransf = {-1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 9, -4, 0, 1}
+local _lampLeftTransf = {1, -1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, -9, -4, 0, 1}
+local _lampRightTransf = {-1, -1, 0, 0, 1, -1, 0, 0, 0, 0, 1, 0, 9, -4, 0, 1}
 local _streetPillarY = -3.8
 local _idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 local _stationMainTransf = {0.6, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
