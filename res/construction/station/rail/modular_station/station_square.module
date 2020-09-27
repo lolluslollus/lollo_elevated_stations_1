@@ -52,9 +52,20 @@ function data()
                 result.colliders,
                 {
                     type = 'BOX',
-                    transf = transf.mul(transform, transf.transl(vec3.new(0, 0, 2.5))),
+                    transf = transf.mul(transform, transf.transl(vec3.new(2.0, 0, 3))),
                     params = {
-                        halfExtents = {5.8, 6.7, 2.5}
+                        halfExtents = {3.0, 5.8, 3}
+                    }
+                }
+            )
+            -- insert underground collider to force streets and rails below to be in a tunnel
+            table.insert(
+                result.colliders,
+                {
+                    type = 'BOX',
+                    transf = transf.mul(transform, transf.transl(vec3.new(2.0, 0, -3.8))),
+                    params = {
+                        halfExtents = {3.0, 5.8, 3.8}
                     }
                 }
             )
