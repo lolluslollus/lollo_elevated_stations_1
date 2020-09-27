@@ -1,0 +1,86 @@
+local lolloConstants = require('lollo_elevated_stations/lolloConstants')
+local pedestrianGroundAreaHelper = require('lollo_elevated_stations.pedestrianGroundAreaHelper')
+local transf = require 'transf'
+local vec3 = require 'vec3'
+
+function data()
+    return {
+        availability = {
+            yearFrom = lolloConstants().availableFrom -- was 0
+            --yearTo = -1 -- no!
+        },
+        cost = {
+            price = 1000
+        },
+        description = {
+            name = _('Retro Passenger Area'),
+            description = _('Retro passenger area to be placed under the station bridge, with pedestrian connections and street access.'),
+            icon = 'ui/pedestrian_ground_area_retro.tga'
+        },
+        category = {
+            categories = {'elevated passenger buildings'}
+        },
+        metadata = {
+            -- era = 1,
+            -- level = 1,
+            span = {1, 2},
+            stock_station = false -- LOLLO NOTE use this to override the default station handling
+        },
+        type = 'pedestrian_ground_area',
+        order = {
+            value = 706
+        },
+        updateFn = function(result, transform, tag, slotId, addModuleFn, params)
+            pedestrianGroundAreaHelper.updateFn(result, transform, tag, slotId, addModuleFn, params)
+
+            local function addRandomObjects(models, transformation)
+                addModuleFn(
+                    models[math.random(#models)],
+                    transformation
+                )
+            end
+
+            local rnd = math.random(2) * 2 - 3
+            addModuleFn(
+                -- 'asset/bench_dark_brown.mdl',
+                'station/bus/asset/bench_old_l3.mdl',
+                transf.rotZTransl(math.rad(90), vec3.new(-1.4, rnd * 2.5, 0))
+            )
+            addModuleFn(
+                -- 'asset/bench_dark_brown.mdl',
+                'station/bus/asset/bench_old_l3.mdl',
+                transf.rotZTransl(math.rad(-90), vec3.new(1.4, rnd * 2.5, 0))
+            )
+            addModuleFn(
+                'station/rail/asset/era_b_trashcan.mdl',
+                transf.rotZTransl(math.rad(-90), vec3.new(1.4, rnd * 5.0, 0))
+            )
+            local models = {
+                'station/air/asset/luggage_01_a.mdl',
+                'station/air/asset/luggage_01_b.mdl',
+                'station/air/asset/luggage_02_a.mdl',
+                'station/air/asset/luggage_02_b.mdl',
+                'station/air/asset/luggage_03_a.mdl',
+                'station/air/asset/luggage_03_b.mdl',
+            }
+            addRandomObjects(models, transf.rotZTransl(3 * (math.random()), vec3.new(1.3, rnd * 1.0, 0)))
+            addRandomObjects(models, transf.rotZTransl(3 * (math.random()), vec3.new(-1.0, rnd * 0.9, 0)))
+            addRandomObjects(models, transf.rotZTransl(3 * (math.random()), vec3.new(-1.4, rnd * 1.4, 0)))
+
+            addModuleFn(
+                'asset/arrivi_partenze_colonna_mid.mdl',
+                transf.rotZTransl(math.rad(80), vec3.new(1.0, -rnd * 4.4, 0))
+            )
+        end,
+        getModelsFn = function()
+            local result = {
+                {
+                    id = 'pedestrian_ground_areas/poles.mdl',
+                    transf = transf.rotZTransl(math.rad(90), vec3.new(0, 0, 0))
+                }
+            }
+
+            return result
+        end
+    }
+end

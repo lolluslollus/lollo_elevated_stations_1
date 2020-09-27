@@ -1,0 +1,53 @@
+function data()
+    return {
+        boundingInfo = {
+            bbMax = { 0.85560899972916, 0.30236300826073, 0.90711998939514, },
+            bbMin = { -0.85560899972916, -0.29146999120712, 0, },
+        },
+        collider = {
+            params = { },
+            transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+            type = "MESH",
+        },
+        lods = {
+            {
+                node = {
+                    children = {
+                        {
+                            materials = { "asset/bench_dark_brown.mtl", },
+                            mesh = "asset/bench_new_lod_0.msh",
+                            transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                        },
+                    },
+                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                },
+                static = false,
+                visibleFrom = 0,
+                visibleTo = 50,
+            },
+            {
+                node = {
+                    children = {
+                        {
+                            materials = { "asset/bench_dark_brown.mtl", },
+                            mesh = "asset/bench_new_lod_1.msh",
+                            transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                        },
+                    },
+                    transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+                },
+                static = false,
+                visibleFrom = 50,
+                visibleTo = 250,
+            },
+        },
+        metadata = {
+            availability = {
+                yearFrom = 1925,
+                yearTo = 0,
+            },
+        },
+        version = 1,
+    }
+    end
+    
