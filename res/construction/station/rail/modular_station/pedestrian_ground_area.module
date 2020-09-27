@@ -1,6 +1,8 @@
 local transf = require 'transf'
 local vec3 = require 'vec3'
 local modulesutil = require 'modulesutil'
+local arrayUtils = require('lollo_elevated_stations.arrayUtils')
+local trainstationutil = require 'modules/elevated_trainstationutil'
 local lolloConstants = require('lollo_elevated_stations/lolloConstants')
 
 function data()
@@ -13,9 +15,9 @@ function data()
             price = 1000
         },
         description = {
-            name = _('Plain Station Square'),
-            description = _('Small plain square to be placed in front or behind a station, with street access.'),
-            icon = 'ui/station_square_plain.tga'
+            name = _('Passenger area'),
+            description = _('Passenger area to be placed under the station bridge, with pedestrian connections and street access.'),
+            icon = 'ui/pedestrian_ground_area.tga'
         },
         category = {
             categories = {'elevated passenger buildings'}
@@ -26,16 +28,23 @@ function data()
             span = {1, 2},
             stock_station = false -- LOLLO NOTE use this to override the default station handling
         },
-        type = 'station_square_plain',
+        type = 'pedestrian_ground_area',
         order = {
-            value = 703
+            value = 704
         },
         updateFn = function(result, transform, tag, slotId, addModuleFn, params)
-            local faces = {
-                {5.0, -5.8, 0.0, 1.0},
-                {5.0, 5.8, 0.0, 1.0},
-                {-1.0, 5.8, 0.0, 1.0},
-                {-1.0, -5.8, 0.0, 1.0}
+            local _isWithGap = arrayUtils.arrayHasValue(result.pedestrianGroundAreasWithGap, slotId)
+
+            local faces = _isWithGap and {
+                {2.5, -5.8, 0.0, 1.0},
+                {2.5, 9.8, 0.0, 1.0},
+                {-2.5, 9.8, 0.0, 1.0},
+                {-2.5, -5.8, 0.0, 1.0}
+            } or {
+                {2.5, -5.8, 0.0, 1.0},
+                {2.5, 5.8, 0.0, 1.0},
+                {-2.5, 5.8, 0.0, 1.0},
+                {-2.5, -5.8, 0.0, 1.0}
             }
             modulesutil.TransformFaces(transform, faces)
             local faces2 = {
@@ -54,7 +63,7 @@ function data()
                     type = 'BOX',
                     transf = transf.mul(transform, transf.transl(vec3.new(0, 0, 2.5))),
                     params = {
-                        halfExtents = {5.8, 6.7, 2.5}
+                        halfExtents = {5.8, 2.5, 2.5}
                     }
                 }
             )
@@ -82,14 +91,22 @@ function data()
             )
 
             addModuleFn(
-                'station_square_plain.mdl',
+                'pedestrian_ground_area.mdl',
                 transf.rotZTransl(math.rad(90), vec3.new(0, 0, 0))
             )
+
+            if _isWithGap then
+                addModuleFn(
+                    'between_plain_squares.mdl',
+                    transf.rotZTransl(math.rad(0), vec3.new(0, 8, 0))
+                )
+            end
+
         end,
         getModelsFn = function()
             local result = {
                 {
-                    id = 'station_square_plain.mdl',
+                    id = 'pedestrian_ground_area.mdl',
                     transf = transf.rotZTransl(math.rad(90), vec3.new(0, 0, 0))
                 }
             }

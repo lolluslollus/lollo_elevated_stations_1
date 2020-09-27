@@ -1,8 +1,6 @@
 local transf = require 'transf'
 local vec3 = require 'vec3'
--- local vec4 = require 'vec4'
 local modulesutil = require 'modulesutil'
--- local arrayUtils = require('lollo_elevated_stations.arrayUtils')
 local lolloConstants = require('lollo_elevated_stations/lolloConstants')
 
 function data()
@@ -54,9 +52,9 @@ function data()
                 result.colliders,
                 {
                     type = 'BOX',
-                    transf = transf.mul(transform, transf.transl(vec3.new(0, 0, 5))), --transform,
+                    transf = transf.mul(transform, transf.transl(vec3.new(0, 0, 2.5))),
                     params = {
-                        halfExtents = {5.8, 6.7, 5}
+                        halfExtents = {5.8, 6.7, 2.5}
                     }
                 }
             )
