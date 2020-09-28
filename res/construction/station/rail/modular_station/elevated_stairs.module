@@ -68,6 +68,19 @@ function data()
                 )
             end
 
+            local _tableY = -0.8
+            if _zed == 10 then
+                addModuleFn(
+                    'asset/tabellone_hanging.mdl',
+                    transf.rotZTransl(math.rad(90), vec3.new(_tableY, 0, 3))
+                )
+            elseif _zed >= 15 then
+                addModuleFn(
+                    'asset/tabellone_hanging.mdl',
+                    transf.rotZTransl(math.rad(90), vec3.new(_tableY, 0, 3.5))
+                )
+            end
+
             if _zed == 0 then
                 addModuleFn('asset/arrivi.mdl', transf.rotZTransl(math.rad(90), vec3.new(4.7, 5.4, 0)))
                 addModuleFn('asset/partenze.mdl', transf.rotZTransl(math.rad(-90), vec3.new(4.7, -5.4, 0)))

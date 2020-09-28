@@ -111,6 +111,21 @@ function data()
                 end
             end
 
+            if _isFacingOutwards then
+                local _tableY = 5.1
+                if _zed == 10 then
+                    addModuleFn(
+                        'asset/tabellone_hanging.mdl',
+                        transf.rotZTransl(math.rad(-90), vec3.new(_tableY, 0, 3))
+                    )
+                elseif _zed >= 15 then
+                    addModuleFn(
+                        'asset/tabellone_hanging.mdl',
+                        transf.rotZTransl(math.rad(-90), vec3.new(_tableY, 0, 3.5))
+                    )
+                end
+            end
+
             local faces = {
                 -- LOLLO NOTE first comes y, then x. Remember I am transforming with _stationTransf above.
                 {4.7, -5.8, 0.0, 1.0},
