@@ -47,7 +47,9 @@ function data()
     local function GetModelsConfig()
         return {
             --perron = "station/rail/era_c/perron_5_underpass.mdl",
-            perron = 'era_c/perron_5_underpass.mdl',
+            -- perron = 'era_c/perron_5_underpass.mdl',
+            perron = 'era_c/perron_5_underpass_no_stripes.mdl',
+            perron2Track = 'era_c/perron_5_side.mdl',
             --endPerron = "station/rail/era_c/perron_5_end.mdl",
             endPerron = 'era_c/perron_5_end.mdl',
             perronRoof = 'station/rail/era_c/perron_5_roof.mdl',
@@ -177,6 +179,16 @@ function data()
             if not cb then
                 addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0)))
             --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0)))
+            end
+            local moduleLeft = result.GetModuleAt(i - 1, j)
+            if moduleLeft and (moduleLeft.metadata.track) then
+                -- addModelFn(modelsConfig.perron2Track, transf.rotZTransl(math.rad(-90), vec3.new(-0.9, 20, 0.01)))
+                addModelFn(modelsConfig.perron2Track, transf.rotZTransl(math.rad(-90), vec3.new(-0.9, 20, -2.01)))
+            end
+            local moduleRight = result.GetModuleAt(i + 1, j)
+            if moduleRight and (moduleRight.metadata.track) then
+                -- addModelFn(modelsConfig.perron2Track, transf.rotZTransl(math.rad(90), vec3.new(0.9, -20, 0.01)))
+                addModelFn(modelsConfig.perron2Track, transf.rotZTransl(math.rad(90), vec3.new(0.9, -20, -2.01)))
             end
         end,
         getModelsFn = function()
