@@ -68,8 +68,8 @@ function data()
         },
         -- buildMode = "MULTI",
         metadata = {
-            --platform = true,
-            --passenger_platform = true,
+            platform = true,
+            passenger_platform = true,
             underground = true
         },
         updateFn = function(result, transform, tag, slotId, addModelFn)

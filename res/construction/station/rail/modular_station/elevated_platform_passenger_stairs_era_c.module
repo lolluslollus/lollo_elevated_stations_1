@@ -2,6 +2,7 @@ local transf = require 'transf'
 local vec3 = require 'vec3'
 local modulesutil = require 'modulesutil'
 local constructionutil = require 'constructionutil'
+local moduleHelpers = require('lollo_elevated_stations.moduleHelpers')
 
 --Begin Generated
 local generatedData = {
@@ -47,11 +48,11 @@ function data()
     local function GetModelsConfig()
         return {
             --perron = "station/rail/era_c/perron_5_underpass.mdl",
-            -- perron = 'era_c/perron_5_underpass.mdl',
             perron = 'era_c/perron_5_underpass_no_stripes.mdl',
             perron2Track = 'era_c/perron_5_side.mdl',
             --endPerron = "station/rail/era_c/perron_5_end.mdl",
             endPerron = 'era_c/perron_5_end.mdl',
+            endPerronSmall = 'era_c/perron_1_end.mdl',
             perronRoof = 'station/rail/era_c/perron_5_roof.mdl',
             endPerronRoof = 'station/rail/era_c/perron_5_roof_end.mdl',
             era = 2
@@ -156,40 +157,46 @@ function data()
             local tran = transf.mul(transform, transf.rotZTransl(math.rad(90), vec3.new(0, -20, 0)))
             constructionutil.addModels(generatedData['era_c_perron_underpass_assets'], result.models, tran, tag)
 
-            if modelsConfig.era == 2 then
-                -- PUR YOUR ERA C code here
-            elseif modelsConfig.era == 1 then
-                -- PUR YOUR ERA B code here
-            else
-                constructionutil.addModels(generatedData_era_a['era_a_perron_underpass_assets'], result.models, tran, tag)
-            end
-
             local coords = result.GetCoord(slotId)
             local i = coords[1]
             local j = coords[2]
 
             local nextM = result.GetModuleAt(i, j - 1)
-            local ca = (nextM and (nextM.metadata.passenger_platform or nextM.metadata.cargo_platform)) or result.connector[1000 * i + 100 * (j - 1) + 7]
+            local ca = (nextM and (nextM.metadata.passenger_platform or nextM.metadata.cargo_platform))
+                or result.connector[1000 * i + 100 * (j - 1) + 7]
             if not ca then
                 addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0)))
             --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0)))
             end
             local prevM = result.GetModuleAt(i, j + 1)
-            local cb = (prevM and (prevM.metadata.passenger_platform or prevM.metadata.cargo_platform)) or result.connector[1000 * i + 100 * (j + 1) + 0]
+            local cb = (prevM and (prevM.metadata.passenger_platform or prevM.metadata.cargo_platform))
+                or result.connector[1000 * i + 100 * (j + 1) + 0]
             if not cb then
                 addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0)))
             --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0)))
             end
-            local moduleLeft = result.GetModuleAt(i - 1, j)
-            if moduleLeft and (moduleLeft.metadata.track) then
-                -- addModelFn(modelsConfig.perron2Track, transf.rotZTransl(math.rad(-90), vec3.new(-0.9, 20, 0.01)))
-                addModelFn(modelsConfig.perron2Track, transf.rotZTransl(math.rad(-90), vec3.new(-0.9, 20, -2.01)))
-            end
-            local moduleRight = result.GetModuleAt(i + 1, j)
-            if moduleRight and (moduleRight.metadata.track) then
-                -- addModelFn(modelsConfig.perron2Track, transf.rotZTransl(math.rad(90), vec3.new(0.9, -20, 0.01)))
-                addModelFn(modelsConfig.perron2Track, transf.rotZTransl(math.rad(90), vec3.new(0.9, -20, -2.01)))
-            end
+            -- add bit between platform and track, if track is present
+            moduleHelpers.addBitsBetweenPlatformAndTrack(result, i, j, addModelFn, modelsConfig, ca, cb, 0)
+            -- local moduleLeft = result.GetModuleAt(i - 1, j)
+            -- if moduleLeft and (moduleLeft.metadata.track) then
+            --     addModelFn(modelsConfig.perron2Track, transf.rotZTransl(math.rad(-90), vec3.new(-0.9, 20, -1.99)))
+            --     if not ca then
+            --         addModelFn(modelsConfig.endPerronSmall, transf.rotZTransl(math.rad(-90), vec3.new(-2.9, -20, -2)))
+            --     end
+            --     if not cb then
+            --         addModelFn(modelsConfig.endPerronSmall, transf.rotZTransl(math.rad(90), vec3.new(-2.9, 20, -2)))
+            --     end
+            -- end
+            -- local moduleRight = result.GetModuleAt(i + 1, j)
+            -- if moduleRight and (moduleRight.metadata.track) then
+            --     addModelFn(modelsConfig.perron2Track, transf.rotZTransl(math.rad(90), vec3.new(0.9, -20, -1.99)))
+            --     if not ca then
+            --         addModelFn(modelsConfig.endPerronSmall, transf.rotZTransl(math.rad(-90), vec3.new(2.9, -20, -2)))
+            --     end
+            --     if not cb then
+            --         addModelFn(modelsConfig.endPerronSmall, transf.rotZTransl(math.rad(90), vec3.new(2.9, 20, -2)))
+            --     end
+            -- end
         end,
         getModelsFn = function()
             local modelsConfig = GetModelsConfig()

@@ -27,7 +27,7 @@ function data()
                                 'station/rail/era_c/era_c_trainstation_borders_1.mtl'
                             },
                             -- mesh = 'station/rail/era_c/perron_5_underpass/perron_5_underpass_lod0.msh',
-                            mesh = 'perron_5_underpass/perron_5_underpass_lod0.msh',
+                            mesh = 'perron_5/perron_5_underpass_lod0.msh',
                             name = 'perron_5_underpass',
                             transf = idTransf
                         }
@@ -52,7 +52,7 @@ function data()
                                 'station/rail/era_c/era_c_trainstation_borders_1.mtl'
                             },
                             -- mesh = 'station/rail/era_c/perron_5_underpass/perron_5_underpass_lod1.msh',
-                            mesh = 'perron_5_underpass/perron_5_underpass_lod1.msh',
+                            mesh = 'perron_5/perron_5_underpass_lod1.msh',
                             name = 'perron_5_underpass',
                             transf = idTransf
                         }
