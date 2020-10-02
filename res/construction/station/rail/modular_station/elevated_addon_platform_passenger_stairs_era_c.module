@@ -156,12 +156,12 @@ function data()
             constructionutil.addModels(generatedData['era_c_name'], result.models, tran, tag)
             constructionutil.addModels(generatedData['era_c_perron_underpass_assets'], result.models, tran, tag)
 
-            local ca = moduleHelpers.isWestNeighbourThere(result, i, j)
+            local ca = moduleHelpers.isWestPlatformNeighbourThere(result, i, j)
             if not ca then
                 addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, -1.98)))
             --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0)))
             end
-            local cb = moduleHelpers.isEastNeighbourThere(result, i, j)
+            local cb = moduleHelpers.isEastPlatformNeighbourThere(result, i, j)
             if not cb then
                 addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(90), vec3.new(0, 20, -1.98)))
             --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0)))

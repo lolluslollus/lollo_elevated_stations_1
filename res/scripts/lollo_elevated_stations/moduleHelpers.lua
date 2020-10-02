@@ -1,4 +1,3 @@
-local trainstationutil = require 'modules/elevated_trainstationutil'
 local transf = require 'transf'
 local vec3 = require 'vec3'
 
@@ -29,7 +28,7 @@ helpers.addBitsBetweenPlatformAndTrack = function(result, i, j, addModelFn, mode
     end
 end
 
-helpers.isWestNeighbourThere = function(result, i, j, isIncludeTracks)
+helpers.isWestPlatformNeighbourThere = function(result, i, j, isIncludeTracks)
     local nextM = result.GetModuleAt(i, j - 1)
     local ca = (nextM and (nextM.metadata.passenger_platform or nextM.metadata.cargo_platform or (isIncludeTracks and nextM.metadata.track)))
     or result.connector[1000 * i + 100 * (j - 1) + 7]
@@ -38,13 +37,23 @@ helpers.isWestNeighbourThere = function(result, i, j, isIncludeTracks)
     return ca
 end
 
-helpers.isEastNeighbourThere = function(result, i, j, isIncludeTracks)
+helpers.isEastPlatformNeighbourThere = function(result, i, j, isIncludeTracks)
     local prevM = result.GetModuleAt(i, j + 1)
     local cb = (prevM and (prevM.metadata.passenger_platform or prevM.metadata.cargo_platform or (isIncludeTracks and prevM.metadata.track)))
     or result.connector[1000 * i + 100 * (j + 1) + 0]
     or helpers.isStationOnHead(result, i, 4)
 
     return cb
+end
+
+helpers.isSouthPlatformNeighbourThere = function(result, i, j, isIncludeTracks)
+    local nextM = result.GetModuleAt(i + 1, j)
+    return (nextM and (nextM.metadata.passenger_platform or nextM.metadata.cargo_platform or (isIncludeTracks and nextM.metadata.track)))
+end
+
+helpers.isNorthPlatformNeighbourThere = function(result, i, j, isIncludeTracks)
+    local prevM = result.GetModuleAt(i - 1, j)
+    return (prevM and (prevM.metadata.passenger_platform or prevM.metadata.cargo_platform or (isIncludeTracks and prevM.metadata.track)))
 end
 
 helpers.isStationOnHead = function(result, i, side34)

@@ -44,7 +44,7 @@ function data()
 			local j = _coords[2]
 
 			-- along the west side
-			local ca = moduleHelpers.isWestNeighbourThere(result, i, j, true)
+			local ca = moduleHelpers.isWestPlatformNeighbourThere(result, i, j, true)
 			if not ca then
 				for k = -1.25, 1.25, 2.5 do
 					addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(0), vec3.new(k, -20, -2 + _zShift)))
@@ -52,7 +52,7 @@ function data()
 			end
 
 			-- along the east side
-			local cb = moduleHelpers.isEastNeighbourThere(result, i, j, true)
+			local cb = moduleHelpers.isEastPlatformNeighbourThere(result, i, j, true)
 			if not cb then
 				for k = -1.25, 1.25, 2.5 do
 					addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(0), vec3.new(k, 20, -2 + _zShift)))
@@ -60,9 +60,7 @@ function data()
 			end
 
 			-- along the south side
-			local nextM = result.GetModuleAt(i + 1, j)
-			local adjSouth = (nextM and (nextM.metadata.passenger_platform or nextM.metadata.cargo_platform or nextM.metadata.track))
-			if not adjSouth then
+			if not(moduleHelpers.isSouthPlatformNeighbourThere(result, i, j, true)) then
 				addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(-90), vec3.new(2.4, -18.75, -2 + _zShift)))
 				if not(moduleHelpers.isStationOnSide(result, (j - _jMin) * 4 - 0, 2)) then
 					for k = -16.25, -6.25, 2.5 do
@@ -83,9 +81,7 @@ function data()
 			end
 
 			-- along the north side
-			local prevM = result.GetModuleAt(i - 1, j)
-			local adjNorth = (prevM and (prevM.metadata.passenger_platform or prevM.metadata.cargo_platform or prevM.metadata.track))
-			if not adjNorth then
+			if not(moduleHelpers.isNorthPlatformNeighbourThere(result, i, j, true)) then
 				addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(-90), vec3.new(-2.4, -18.75, -2 + _zShift)))
 				if not(moduleHelpers.isStationOnSide(result, (j - _jMin) * 4 - 0, 1)) then
 					for k = -16.25, -6.25, 2.5 do

@@ -161,12 +161,12 @@ function data()
             local i = coords[1]
             local j = coords[2]
 
-            local ca = moduleHelpers.isWestNeighbourThere(result, i, j)
+            local ca = moduleHelpers.isWestPlatformNeighbourThere(result, i, j)
             if not ca then
                 addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0.02)))
             --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0)))
             end
-            local cb = moduleHelpers.isEastNeighbourThere(result, i, j)
+            local cb = moduleHelpers.isEastPlatformNeighbourThere(result, i, j)
             if not cb then
                 addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0.02)))
             --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0)))

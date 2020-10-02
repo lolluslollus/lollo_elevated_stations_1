@@ -59,7 +59,7 @@ return function(height)
     -- local solarTwoTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -3.4, 5.25, 1}
     local ventOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 6, -2, 5.3, 1}
     local ventTwoTransf = {-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -6, -2, 5.3, 1}
-    local floorPavingTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -.03, 0, 1}
+    local floorPavingTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.01, 0, 1}
     local floorTransf = {1.9, 0, 0, 0, 0, 0, 1.9, 0, 0, 1.9, 0, 0, 0, -4.7, 0.32, 1}
     local idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
     local stationMainTransf = {.6, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
@@ -630,12 +630,12 @@ return function(height)
                                     transf = floorPavingTransf
                                 },
                                 -- floor structure
-                                {
-                                    materials = {'lollo_trainstation_wall_grey_no_horiz_stripes.mtl'},
-                                    mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
-                                    name = 'station_1_main_floor',
-                                    transf = floorTransf
-                                }
+                                -- {
+                                --     materials = {'lollo_trainstation_wall_grey_no_horiz_stripes.mtl'},
+                                --     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
+                                --     name = 'station_1_main_floor',
+                                --     transf = floorTransf
+                                -- }
                             },
                             name = 'station_1_main_grp',
                             transf = stationMainTransf

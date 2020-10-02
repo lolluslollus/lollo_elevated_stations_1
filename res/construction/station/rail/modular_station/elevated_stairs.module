@@ -97,11 +97,11 @@ function data()
                 )
                 addModuleFn(
                     'railing.mdl',
-                    transf.rotZTransl(math.rad(90), vec3.new(0, -4, _zed + 0.8))
+                    transf.rotZTransl(math.rad(90), vec3.new(0.5, -4, _zed + 0.8))
                 )
                 addModuleFn(
                     'railing.mdl',
-                    transf.rotZTransl(math.rad(90), vec3.new(0, 4, _zed + 0.8))
+                    transf.rotZTransl(math.rad(90), vec3.new(0.5, 4, _zed + 0.8))
                 )
             end
 
