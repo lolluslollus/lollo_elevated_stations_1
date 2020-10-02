@@ -28,4 +28,13 @@ helpers.addBitsBetweenPlatformAndTrack = function(result, i, j, addModelFn, mode
     end
 end
 
+helpers.isStationOnHead = function(result, i, side34)
+    if not(result) or not(result.occupied) or not(result.occupied[side34]) then return false end
+    -- for neighbourIndex = -1, 1 do
+    --     if result.occupied[side34][i + neighbourIndex] ~= nil then return true end
+    -- end
+    if result.occupied[side34][i] ~= nil then return true end
+    return false
+end
+
 return helpers
