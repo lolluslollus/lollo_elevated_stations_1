@@ -1,0 +1,121 @@
+local transf = require "transf"
+local vec3 = require "vec3"
+-- local modulesutil = require "modulesutil"
+local moduleHelpers = require('lollo_elevated_stations.moduleHelpers')
+local trainstationutil = require 'modules/elevated_trainstationutil'
+
+function data()
+	local _zShift = 0.8
+	local function GetModelsConfig()
+		return {
+			railing = 'railing.mdl',
+		}
+	end
+
+	return {
+		availability = {
+			yearFrom = 1960,
+			yearTo = 0,
+		},
+		cost = {
+			price = 0,
+		},
+		category = {
+			categories = { "misc", },
+		},
+		description = {
+			name = _("Railing"),
+			description = _("Decorative.\nRailing for passenger platforms. It does not match stock stations, which you should only use on a hillside anyway."),
+			icon = "ui/railing.tga"
+		},
+		-- buildMode = "MULTI",
+		type = "railing_platform_addon",
+		order = {
+			value = 806,
+		},
+		metadata = {
+			railing_platform_addon = true,
+		},
+		updateFn = function(result, transform, tag, slotId, addModelFn)
+			local _modelsConfig = GetModelsConfig()
+			local _jMin = trainstationutil.stationYMin
+			local _coords = result.GetCoord(slotId)
+			local i = _coords[1]
+			local j = _coords[2]
+
+			-- along the west side
+			local ca = moduleHelpers.isWestNeighbourThere(result, i, j, true)
+			if not ca then
+				for k = -1.25, 1.25, 2.5 do
+					addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(0), vec3.new(k, -20, -2 + _zShift)))
+				end
+			end
+
+			-- along the east side
+			local cb = moduleHelpers.isEastNeighbourThere(result, i, j, true)
+			if not cb then
+				for k = -1.25, 1.25, 2.5 do
+					addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(0), vec3.new(k, 20, -2 + _zShift)))
+				end
+			end
+
+			-- along the south side
+			local nextM = result.GetModuleAt(i + 1, j)
+			local adjSouth = (nextM and (nextM.metadata.passenger_platform or nextM.metadata.cargo_platform or nextM.metadata.track))
+			if not adjSouth then
+				addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(-90), vec3.new(2.4, -18.75, -2 + _zShift)))
+				if not(moduleHelpers.isStationOnSide(result, (j - _jMin) * 4 - 0, 2)) then
+					for k = -16.25, -6.25, 2.5 do
+						addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(-90), vec3.new(2.4, k, -2 + _zShift)))
+					end
+				end
+				if not(moduleHelpers.isStationOnSide(result, (j - _jMin) * 4 + 1, 2)) then
+					for k = -6.25, 6.25, 2.5 do
+						addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(-90), vec3.new(2.4, k, -2 + _zShift)))
+					end
+				end
+				if not(moduleHelpers.isStationOnSide(result, (j - _jMin) * 4 + 2, 2)) then
+					for k = 6.25, 16.25, 2.5 do
+						addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(-90), vec3.new(2.4, k, -2 + _zShift)))
+					end
+				end
+				addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(-90), vec3.new(2.4, 18.75, -2 + _zShift)))
+			end
+
+			-- along the north side
+			local prevM = result.GetModuleAt(i - 1, j)
+			local adjNorth = (prevM and (prevM.metadata.passenger_platform or prevM.metadata.cargo_platform or prevM.metadata.track))
+			if not adjNorth then
+				addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(-90), vec3.new(-2.4, -18.75, -2 + _zShift)))
+				if not(moduleHelpers.isStationOnSide(result, (j - _jMin) * 4 - 0, 1)) then
+					for k = -16.25, -6.25, 2.5 do
+						addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(-90), vec3.new(-2.4, k, -2 + _zShift)))
+					end
+				end
+				if not(moduleHelpers.isStationOnSide(result, (j - _jMin) * 4 + 1, 1)) then
+					for k = -6.25, 6.25, 2.5 do
+						addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(-90), vec3.new(-2.4, k, -2 + _zShift)))
+					end
+				end
+				if not(moduleHelpers.isStationOnSide(result, (j - _jMin) * 4 + 2, 1)) then
+					for k = 6.25, 16.25, 2.5 do
+						addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(-90), vec3.new(-2.4, k, -2 + _zShift)))
+					end
+				end
+				addModelFn(_modelsConfig.railing, transf.rotZTransl(math.rad(-90), vec3.new(-2.4, 18.75, -2 + _zShift)))
+			end
+		end,
+
+		getModelsFn = function()
+			local modelsConfig = GetModelsConfig()
+			local result = {
+				{
+					id = modelsConfig.railing,
+					transf = transf.rotZTransl(math.rad(90), vec3.new(0, -20, 0 + _zShift)),
+				},
+			}
+
+			return result
+		end
+	}
+end

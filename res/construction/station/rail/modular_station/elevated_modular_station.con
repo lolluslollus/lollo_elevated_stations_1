@@ -21,6 +21,7 @@ function data()
     local platformLiftsSlotId = 11600000
     local plainSquareSlotId = 12000000
     local pedestrianGroundAreaSlotId = 12400000
+    local railingPlatformAddonSlotId = 12800000
 
     local platformLength = 40
     local platformWidth = 5
@@ -70,7 +71,7 @@ function data()
         elseif type == platformTag then
             return (subtype == cargoTag and cargoPlatformSlotId or passengerPlatformSlotId) + 1000 * i + 10 * j
         elseif type == addonTag then
-            return ((subtype == genericAddonTag) and passengerPlatformAddonSlotId or passengerPlatformRoofSlotId) + 1000 * i + 10 * j
+            return ((subtype == genericAddonTag) and passengerPlatformAddonSlotId or passengerPlatformRoofSlotId or railingPlatformAddonSlotId) + 1000 * i + 10 * j
         end
     end
 
@@ -659,6 +660,9 @@ function data()
             result.GetPlatformAddonAt = function(i, j)
                 return params.modules[passengerPlatformAddonSlotId + 1000 * i + 10 * j]
             end
+            -- result.GetRailingAt = function(i, j)
+            --     return params.modules[railingPlatformAddonSlotId + 1000 * i + 10 * j]
+            -- end
             result.GetCoord = function(slotId)
                 return slotId2Coord[slotId]
             end
@@ -726,7 +730,21 @@ function data()
                                 slotId2Coord[id2] = {i, j}
                             end
 
-                            result.dependentSlots[id] = {id1, id2}
+                            local id3 = railingPlatformAddonSlotId + 1000 * i + 10 * j
+                            if not(result.GetModuleAt(i - 1, j))
+                            or not(result.GetModuleAt(i + 1, j))
+                            or not(result.GetModuleAt(i, j - 1))
+                            or not(result.GetModuleAt(i, j + 1)) then
+                                result.slots[#result.slots + 1] = {
+                                    id = id3,
+                                    transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(i * platformWidth, j * platformLength, 2 + _zed)),
+                                    type = 'railing_platform_addon',
+                                    spacing = {0, 0, 0, 0}
+                                }
+                                slotId2Coord[id3] = {i, j}
+                            end
+
+                            result.dependentSlots[id] = {id1, id2, id3}
                         end
                     --LOLLO commented this out
                     --[[                         if mod and mod.metadata.platform and mod.metadata.cargo_platform then
@@ -1133,7 +1151,7 @@ function data()
                             if thisStation ~= nil then
                                 -- result.occupied[2][finerThanJ + k - 1] = {thisStation, maxS[j]}
                                 result.occupied[2][finerThanJ + k] = {thisStation, maxS[j]}
-                                result.occupied[2][finerThanJ + k + 1] = {thisStation, maxS[j]}
+                                -- result.occupied[2][finerThanJ + k + 1] = {thisStation, maxS[j]}
                                 setOccupiedOnGround(finerThanJ + k, maxS[j] + 1, id)
                             end
                         end
@@ -1163,7 +1181,7 @@ function data()
                             if thisStation ~= nil then
                                 -- result.occupied[1][finerThanJ + k - 1] = {thisStation, minS[j]}
                                 result.occupied[1][finerThanJ + k] = {thisStation, minS[j]}
-                                result.occupied[1][finerThanJ + k + 1] = {thisStation, minS[j]}
+                                -- result.occupied[1][finerThanJ + k + 1] = {thisStation, minS[j]}
                                 setOccupiedOnGround(finerThanJ + k, minS[j] - 1, id)
                             end
                         end
@@ -1570,7 +1588,7 @@ function data()
                     return
                 end
 
-                -- Add connectors
+                -- Add connectors for stock head stations
                 for i, k in pairs(result.connector) do
                     local coordI = k[1]
                     local coordJ = k[2]
@@ -1582,7 +1600,7 @@ function data()
                     local offsetX = 0
                     local offsetY = 0
 
-                    if type == 0 then
+                    if type == 0 then -- cargo
                         if l == 0 then
                             angle = -90
                             local mod = result.GetModuleAt(coordI, coordJ - 1)
@@ -1617,7 +1635,7 @@ function data()
                                 tag = ''
                             }
                         end
-                    else
+                    else -- passengers
                         offsetX = 2.5
                         offsetY = -2.5
                         if

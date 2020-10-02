@@ -161,44 +161,18 @@ function data()
             local i = coords[1]
             local j = coords[2]
 
-            local nextM = result.GetModuleAt(i, j - 1)
-            local ca = (nextM and (nextM.metadata.passenger_platform or nextM.metadata.cargo_platform))
-                or result.connector[1000 * i + 100 * (j - 1) + 7]
-                or moduleHelpers.isStationOnHead(result, i, 3)
+            local ca = moduleHelpers.isWestNeighbourThere(result, i, j)
             if not ca then
-                addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0)))
+                addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0.02)))
             --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0)))
             end
-            local prevM = result.GetModuleAt(i, j + 1)
-            local cb = (prevM and (prevM.metadata.passenger_platform or prevM.metadata.cargo_platform))
-                or result.connector[1000 * i + 100 * (j + 1) + 0]
-                or moduleHelpers.isStationOnHead(result, i, 4)
+            local cb = moduleHelpers.isEastNeighbourThere(result, i, j)
             if not cb then
-                addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0)))
+                addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0.02)))
             --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0)))
             end
             -- add bit between platform and track, if track is present
             moduleHelpers.addBitsBetweenPlatformAndTrack(result, i, j, addModelFn, modelsConfig, ca, cb, 0)
-            -- local moduleLeft = result.GetModuleAt(i - 1, j)
-            -- if moduleLeft and (moduleLeft.metadata.track) then
-            --     addModelFn(modelsConfig.perron2Track, transf.rotZTransl(math.rad(-90), vec3.new(-0.9, 20, -1.99)))
-            --     if not ca then
-            --         addModelFn(modelsConfig.endPerronSmall, transf.rotZTransl(math.rad(-90), vec3.new(-2.9, -20, -2)))
-            --     end
-            --     if not cb then
-            --         addModelFn(modelsConfig.endPerronSmall, transf.rotZTransl(math.rad(90), vec3.new(-2.9, 20, -2)))
-            --     end
-            -- end
-            -- local moduleRight = result.GetModuleAt(i + 1, j)
-            -- if moduleRight and (moduleRight.metadata.track) then
-            --     addModelFn(modelsConfig.perron2Track, transf.rotZTransl(math.rad(90), vec3.new(0.9, -20, -1.99)))
-            --     if not ca then
-            --         addModelFn(modelsConfig.endPerronSmall, transf.rotZTransl(math.rad(-90), vec3.new(2.9, -20, -2)))
-            --     end
-            --     if not cb then
-            --         addModelFn(modelsConfig.endPerronSmall, transf.rotZTransl(math.rad(90), vec3.new(2.9, 20, -2)))
-            --     end
-            -- end
         end,
         getModelsFn = function()
             local modelsConfig = GetModelsConfig()

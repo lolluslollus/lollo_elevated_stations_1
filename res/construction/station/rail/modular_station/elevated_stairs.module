@@ -95,6 +95,14 @@ function data()
                     'behind_head_station.mdl',
                     transf.rotZTransl(math.rad(90), vec3.new(-1, 0, 0))
                 )
+                addModuleFn(
+                    'railing.mdl',
+                    transf.rotZTransl(math.rad(90), vec3.new(0, -4, _zed + 0.8))
+                )
+                addModuleFn(
+                    'railing.mdl',
+                    transf.rotZTransl(math.rad(90), vec3.new(0, 4, _zed + 0.8))
+                )
             end
 
             local faces = _isHeadAndHigh and {

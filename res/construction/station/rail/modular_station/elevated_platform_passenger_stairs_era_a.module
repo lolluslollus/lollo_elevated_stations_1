@@ -164,13 +164,13 @@ function data()
             local nextM = result.GetModuleAt(i, j - 1)
             local ca = (nextM and (nextM.metadata.passenger_platform or nextM.metadata.cargo_platform)) or result.connector[1000 * i + 100 * (j - 1) + 7]
             if not ca then
-                addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0)))
+                addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0.02)))
             --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(-90), vec3.new(0, -20, 0)))
             end
             local prevM = result.GetModuleAt(i, j + 1)
             local cb = (prevM and (prevM.metadata.passenger_platform or prevM.metadata.cargo_platform)) or result.connector[1000 * i + 100 * (j + 1) + 0]
             if not cb then
-                addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0)))
+                addModelFn(modelsConfig.endPerron, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0.02)))
             --addModelFn(modelsConfig.endPerronRoof, transf.rotZTransl(math.rad(90), vec3.new(0, 20, 0)))
             end
         end,
