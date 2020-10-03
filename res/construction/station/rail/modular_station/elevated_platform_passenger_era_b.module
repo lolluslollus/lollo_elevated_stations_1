@@ -41,17 +41,22 @@ local generatedData = {
             ['street/street_light_us_a.mdl'] = {
                 {1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 12.00000, 0.00000, 0.80000, 1.00000},
                 {1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 28.00000, 0.00000, 0.80000, 1.00000}
+            },
+            ['asset/arrivi.mdl'] = {
+                {-1.00000, 0.00000, 0.00000, 0.00000, -0.00000, -1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 15.00000, 0.00000, 0.80000, 1.00000},
+            },
+            ['asset/partenze.mdl'] = {
+                {-1.00000, 0.00000, 0.00000, 0.00000, -0.00000, -1.00000, 0.00000, 0.00000, 0.00000, 0.00000, 1.00000, 0.00000, 25.00000, 0.00000, 0.80000, 1.00000},
             }
         }
-    }
+    },
 }
 
 function data()
     local function GetModelsConfig()
         return {
             perron = 'station/rail/era_b/perron_5.mdl',
-            --endPerron = "station/rail/era_b/perron_5_end.mdl",
-            endPerron = 'era_b/perron_5_end.mdl',
+            endPerron = "station/rail/era_b/perron_5_end.mdl",
             perronRoof = 'station/rail/era_b/perron_5_roof.mdl',
             endPerronRoof = 'station/rail/era_b/perron_5_roof_end.mdl',
             era = 1
