@@ -1,7 +1,8 @@
 return function(height)
     local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
     local topTransf = {1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 6, -5.25, 0.707, 1}
-    local upperLiftShaftTransf = {0, 0, 1, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, -2.5, 4.0, 1}
+    local upperLiftShaftTransf = {0, 0, 1, 0, 0, 7, 0, 0, 11.667, 0, 0, 0, -11.667, -2.5, 4.0, 1}
+    local groundLiftShaftTransf = {0, 0, -height / 4.0, 0, 0, 7, 0, 0, 11.667, 0, 0, 0, -11.667, -2.5, -height, 1}
 
     local function _getWallsBelowPlatform()
         local results = {}
@@ -37,18 +38,14 @@ return function(height)
     local rearLeftPillarTransf = {0.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, 0.5, zedShift4groundPillar, 1}
     local rearRightPillarTransf = {0.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, 0.5, zedShift4groundPillar, 1}
 
-    local groundLiftShaftTransf = {0, 0, -height / 4.0, 0, 0, 6, 0, 0, 14, 0, 0, 0, -14.0, -2.5, -height, 1}
-
-    -- local zedShift4GroundFloor = -height - .79
-    -- local groundFloorPavingTransf = {1.024, 0, 0, 0, 0, 1.30, 0, 0, 0, 0, 1, 0, 0, 1.25, zedShift4GroundFloor, 1}
-
     local roofTransf = {1.95, 0, 0, 0, 0, 0, 4.0, 0, 0, 1.55, 0, 0, 0.0, -5.24, 4.2, 1}
     -- local solarOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1.1, 5.25, 1}
     -- local solarTwoTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -3.4, 5.25, 1}
     local ventOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 6, -2, 5.3, 1}
     local ventTwoTransf = {-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -6, -2, 5.3, 1}
+    local floorPavingWithHoleTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -2.51, 0.0, 1}
     local floorPavingTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -0.01, 0, 1}
-    local floorTransf = {1.9, 0, 0, 0, 0, 0, 1.9, 0, 0, 1.9, 0, 0, 0, -4.7, 0.32, 1}
+    local floorTransf = {1.96, 0, 0, 0, 0, 0, 1.9, 0, 0, 0.2, 0, 0, 0, -0.6, 0.32, 1}
     local idTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
     local stationMainTransf = {.6, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}
 
@@ -271,9 +268,10 @@ return function(height)
                                 -- floor paving upstairs
                                 {
                                     materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
-                                    mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod0.msh',
+                                    -- mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod0.msh',
+                                    mesh = 'floor_with_hole.msh',
                                     name = 'station_1_main_perron',
-                                    transf = floorPavingTransf
+                                    transf = floorPavingWithHoleTransf
                                 },
                                 -- floor structure
                                 {
