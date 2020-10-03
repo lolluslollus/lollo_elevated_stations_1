@@ -1,0 +1,76 @@
+function data()
+return {
+	matConfigs = {
+		{ 0, 0, }, 
+	},
+	subMeshes = {
+		{
+			indices = {
+				normal = {
+					count = 480,
+					offset = 4188,
+				},
+				position = {
+					count = 480,
+					offset = 3708,
+				},
+				tangent = {
+					count = 480,
+					offset = 3228,
+				},
+				uv0 = {
+					count = 480,
+					offset = 2748,
+				},
+			},
+			materials = {
+				"station/train/passenger/trainstation_1990_floor_1.mtl", 
+			},
+		}, {
+			indices = {
+				normal = {
+					count = 768,
+					offset = 6972,
+				},
+				position = {
+					count = 768,
+					offset = 6204,
+				},
+				tangent = {
+					count = 768,
+					offset = 5436,
+				},
+				uv0 = {
+					count = 768,
+					offset = 4668,
+				},
+			},
+			materials = {
+				"station/train/passenger/trainstation_1920_floor_1.mtl", 
+			},
+		}, 
+	},
+	vertexAttr = {
+		normal = {
+			count = 396,
+			numComp = 3,
+			offset = 2352,
+		},
+		position = {
+			count = 864,
+			numComp = 3,
+			offset = 1488,
+		},
+		tangent = {
+			count = 656,
+			numComp = 4,
+			offset = 832,
+		},
+		uv0 = {
+			count = 832,
+			numComp = 2,
+			offset = 0,
+		},
+	},
+}
+end

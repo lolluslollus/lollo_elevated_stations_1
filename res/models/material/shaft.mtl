@@ -18,14 +18,19 @@ return {
 		},
 		map_albedo_opacity = {
 			-- fileName = "shaft_transparent_128.tga",
-			fileName = "shaft_transparent_striped_128.tga",
+			-- fileName = "shaft_transparent_striped_128.tga",
+			-- fileName = "shaft_transparent_striped_ornate_256.tga",
+			fileName = "shaft_transparent_striped_ornate_128.tga",
 			type = "TWOD",
+			-- wrapS = "CLAMP_TO_EDGE",
+			-- wrapT = "CLAMP_TO_EDGE",
 			wrapS = "REPEAT",
 			wrapT = "REPEAT",
 		},
 		map_metal_gloss_ao = {
 			-- fileName = "shaft_metal_gloss_ao_128.tga",
-			fileName = 'shaft_striped_metal_gloss_ao_128.tga',
+			-- fileName = 'shaft_striped_metal_gloss_ao_128.tga',
+			fileName = 'shaft_striped_ornate_metal_gloss_ao_128.tga',
 			type = "TWOD",
 			wrapS = "REPEAT",
 			wrapT = "REPEAT",
@@ -41,5 +46,6 @@ return {
 		},
 	},
 	type = "PHYS_TRANSPARENT",
+	-- type = "PHYS_TRANSPARENT_UV1_OP"
 }
 end

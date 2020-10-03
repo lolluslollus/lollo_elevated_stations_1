@@ -1,32 +1,45 @@
 return function(height)
     local underpassZed = require('lollo_elevated_stations/lolloConstants')().underpassZed -- LOLLO we make the passenger underpass less deep
     local topTransf = {1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 6, -5.25, 0.707, 1}
-    local upperLiftShaftTransf = {0, 0, 1, 0, 0, 7, 0, 0, 11.667, 0, 0, 0, -11.667, -2.5, 4.0, 1}
-    local groundLiftShaftTransf = {0, 0, -height / 4.0, 0, 0, 7, 0, 0, 11.667, 0, 0, 0, -11.667, -2.5, -height, 1}
 
-    local function _getWallsBelowPlatform()
+    local function _getWallsBelowPlatform(lod)
         local results = {}
 
         local zShift4Wall = -1.8 + 5
         for h = 5, height, 5 do
             zShift4Wall = zShift4Wall - 5
             local zedZoom4Wall = h == 5 and 0.5 or 1
-            local transf0 = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 6, 0.75, zShift4Wall, 1}
-
+            local wallTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Wall, 0, 6, 0.75, zShift4Wall, 1}
             results[#results + 1] = {
-                -- front wall
                 --materials = {'industry/oil_refinery/era_a/wall_2.mtl'},
                 materials = {'lollo_trainstation_wall_grey_no_horiz_stripes.mtl'},
                 -- mesh = 'lollo12x6x5room.msh',
                 mesh = 'lollo12x6x5room_deco.msh',
-                name = 'oil_refinery_wall_large',
-                transf = transf0
+                name = 'walls',
+                transf = wallTransf
             }
+        end
+
+        if lod == 0 then
+            local zShift4Shaft = -1.8 + 5
+            for h = 5, height + 5, 5 do
+                zShift4Shaft = zShift4Shaft - 5
+                -- local zedZoom4Shaft = h == 5 and 0.5 or 1
+                local zedZoom4Shaft = 1
+                local shaftTransf = {0.6, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Shaft, 0, 0, -2.5, zShift4Shaft, 1}
+                    results[#results + 1] = {
+                        materials = {'shaft.mtl'},
+                        mesh = 'inner_shaft_lod0.msh',
+                        name = 'shaft',
+                        transf = shaftTransf
+                    }
+            end
         end
 
         return results
     end
-    local _wallsBelowThePlatform = _getWallsBelowPlatform()
+    local _wallsBelowThePlatformLod0 = _getWallsBelowPlatform(0)
+    local _wallsBelowThePlatformLod1 = _getWallsBelowPlatform(1)
 
     local zedShift4groundRoof = -height + 2.9 -- - height * .6 + 2.60
     local groundRoofTransf = {0.4, 0, 0, 0, 0, 0.05, 0, 0, 0, 0, 0.07, 0, 0, -5.1, zedShift4groundRoof, 1}
@@ -78,41 +91,6 @@ return function(height)
                             children = {
                                 -- above the platform
                                 {
-                                    -- inner lift shaft
-                                    materials = {'shaft.mtl'}, -- glass with a hint of colour
-                                    --materials = { "station/rail/era_c/era_c_trainstation_roof_white.mtl", }, -- white, some vertical patterns
-                                    --materials = {'station/rail/era_c/era_c_trainstation_glass_milk.mtl'}, -- always a fallback
-                                    --materials = {'station/rail/era_c/era_c_trainstation_glass.mtl'}, -- dark mirror, always a fallback
-                                    --materials = {'depot/rail/train_depot_era_a/metal_color.mtl'}, -- old dark rust
-                                    --materials = {'station/air/airfield/passenger_terminal_windows_and_doors.mtl'}, -- shiny, light pattern with weird reflections
-                                    --materials = {'station/air/airfield/wall_002.mtl'}, -- marmor-metal w horiz stripes
-                                    --materials = {'station/air/airfield/wall_003.mtl'}, -- horiz white stripes
-                                    --materials = {'station/air/airfield/wall_004.mtl'}, -- horiz wood planks
-                                    --materials = {'station/air/airfield/wall_005.mtl'}, -- horiz wood mahogany
-                                    --materials = {'station/air/airfield/wall_006.mtl'}, -- white marmor-metal w horiz light stripes, white
-                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", }, -- weird, glass and some white pattern, still a fallback
-                                    --materials = {'asset/commercial/era_c/com_glass.mtl'}, -- transparent with little reflection, it could be useful
-                                    -- these are unsuitable
-                                    --materials = {'station/harbor/harbor_window_1.mtl'}, -- mirrory glass and rust
-                                    --materials = {'station/air/airfield/main_building_windows_and_doors.mtl'},
-                                    --materials = {'industry/oil_well/windows_and_doors_1.mtl'}, --  looks like a bunker
-                                    --materials = {'asset/industry/asset_industry_transparent_01.mtl'},
-                                    -- these fail
-                                    --materials = {'asset/station/rail/era_b/station_windows_and_doors_1.mtl'},
-                                    --materials = {'asset/station/train/passenger/trainstation_1990_doors_and_windows_1.mtl'},
-                                    --materials = {'building/era_c/res_3_3x4_03/res_1_windows_and_doors_01_mat.mtl'},
-                                    --materials = {'depot/rail/train_depot_era_a/metal_floor.mtl'},
-                                    --materials = {'headquarter/headquarter_era_c_05/headquarter_era_c_05_window_highrise_01.mtl'},
-                                    --materials = {'headquarter/headquarter_era_c_05/headquarter_era_c_05_window_highrise_02.mtl'},
-                                    --materials = {'headquarter/headquarter_era_c_05/headquarter_era_c_05_special.mtl'},
-                                    --mesh = 'asset/industry/ind_chimney_3_big_single/ind_chimney_3_big_single_lod0.msh', -- this gives different results altogether
-                                    --mesh = 'asset/industry/pipes_small_straight/pipes_small_straight_lod0.msh',
-                                    --materials = {'station/air/airfield/passenger_terminal_windows_and_doors.mtl'},
-                                    mesh = 'asset/industry/pipes_large_straight/pipes_large_straight_lod0.msh',
-                                    name = 'ind_chimney_3_big_single',
-                                    transf = upperLiftShaftTransf
-                                },
-                                {
                                     -- ticket machine upstairs right
                                     materials = {'station/road/streetstation/streetstation_1.mtl'},
                                     mesh = 'station/road/streetstation/asset/tickets_era_c_1/tickets_era_c_1_lod0.msh',
@@ -127,40 +105,6 @@ return function(height)
                                     transf = {0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, -7.75, -2.7, 0.8, 1}
                                 },
                                 -- ground level
-                                {
-                                    -- inner lift shaft
-                                    materials = {'shaft.mtl'}, -- glass with a hint of colour
-                                    --materials = { "station/rail/era_c/era_c_trainstation_roof_white.mtl", },
-                                    --materials = {'station/rail/era_c/era_c_trainstation_glass_milk.mtl'},
-                                    --materials = {'station/harbor/harbor_window_1.mtl'}, -- mirrory glass and rust
-                                    --materials = {'depot/rail/train_depot_era_a/metal_color.mtl'}, -- old dark rust
-                                    --materials = {'station/air/airfield/passenger_terminal_windows_and_doors.mtl'}, -- shiny, light pattern
-                                    --materials = {'station/air/airfield/main_building_windows_and_doors.mtl'},
-                                    --materials = {'station/air/airfield/wall_002.mtl'}, -- marmor-metal
-                                    --materials = {'station/air/airfield/wall_003.mtl'}, -- marble column
-                                    -- these are unsuitable
-                                    --materials = {'station/air/asset/asset_tf2/asset_transparent.mtl'},
-                                    --materials = {'station/harbor/harbor_windows_and_doors_3.mtl'},
-                                    --materials = {'station/harbor/harbor_windows_and_doors_2.mtl'},
-                                    --materials = {'station/harbor/harbor_windows_and_doors_1.mtl'},
-                                    --materials = {'station/rail/cargo/cargo_station_windows_and_doors_2.mtl'},
-                                    --materials = {'station/rail/cargo/cargo_station_windows_and_doors_1.mtl'},
-                                    --materials = {'station/rail/era_c/era_c_trainstation_details_1.mtl'},
-                                    --materials = { "station/rail/era_c/era_c_trainstation_special.mtl", }, -- weird, glass and some pattern
-                                    --materials = {'asset/industry/asset_industry_transparent_01.mtl'},
-                                    -- these fail
-                                    --materials = {'station/air/asset/asset_tf2/asset_transparent_skinned.mtl'},
-                                    --materials = {'building/era_c/res_3_3x4_03/res_1_windows_and_doors_01_mat.mtl'},
-                                    --materials = {'depot/rail/train_depot_era_a/metal_floor.mtl'},
-                                    --materials = {'headquarter/headquarter_era_c_05/headquarter_era_c_05_window_highrise_01.mtl'},
-                                    --materials = {'headquarter/headquarter_era_c_05/headquarter_era_c_05_window_highrise_02.mtl'},
-                                    --materials = {'headquarter/headquarter_era_c_05/headquarter_era_c_05_special.mtl'},
-                                    --mesh = 'asset/industry/ind_chimney_3_big_single/ind_chimney_3_big_single_lod0.msh',
-                                    --mesh = 'asset/industry/pipes_small_straight/pipes_small_straight_lod0.msh',
-                                    mesh = 'asset/industry/pipes_large_straight/pipes_large_straight_lod0.msh',
-                                    name = 'ind_chimney_3_big_single',
-                                    transf = groundLiftShaftTransf
-                                },
                                 {
                                     -- entrance roof
                                     materials = {
@@ -267,13 +211,15 @@ return function(height)
                                 },
                                 -- floor paving upstairs
                                 {
-                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
+                                    -- materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
                                     -- mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod0.msh',
-                                    mesh = 'floor_with_hole.msh',
-                                    name = 'station_1_main_perron',
+                                    -- mesh = 'floor_with_hole.msh',
+                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl', 'shaft.mtl'},
+                                    mesh = 'floor_with_hole_and_shaft.msh',
+                                    name = 'floor_paving_upstairs',
                                     transf = floorPavingWithHoleTransf
                                 },
-                                -- floor structure
+                                -- floor bracket
                                 {
                                     materials = {'lollo_trainstation_wall_grey_no_horiz_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
@@ -369,7 +315,7 @@ return function(height)
                             transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -2.5, 0, -1, 1, },
                         }, ]]
                         {
-                            children = _wallsBelowThePlatform,
+                            children = _wallsBelowThePlatformLod0,
                             name = 'walls_below_the_platform',
                             transf = idTransf
                         },
@@ -409,7 +355,7 @@ return function(height)
                 },
                 static = false,
                 visibleFrom = 0,
-                visibleTo = 100
+                visibleTo = 200
             },
             {
                 node = {
@@ -417,21 +363,6 @@ return function(height)
                         {
                             children = {
                                 -- above the platform
-                                {
-                                    -- inner lift shaft
-                                    materials = {'shaft.mtl'},
-                                    mesh = 'asset/industry/pipes_large_straight/pipes_large_straight_lod0.msh',
-                                    name = 'ind_chimney_3_big_single',
-                                    transf = upperLiftShaftTransf
-                                },
-                                -- ground level
-                                {
-                                    -- inner lift shaft
-                                    materials = {'shaft.mtl'},
-                                    mesh = 'asset/industry/pipes_large_straight/pipes_large_straight_lod0.msh',
-                                    name = 'ind_chimney_3_big_single',
-                                    transf = groundLiftShaftTransf
-                                },
                                 {
                                     -- entrance roof
                                     materials = {
@@ -513,12 +444,15 @@ return function(height)
                                 },
                                 -- floor paving upstairs
                                 {
-                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
-                                    mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod1.msh',
-                                    name = 'station_1_main_perron',
-                                    transf = floorPavingTransf
+                                    -- materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl'},
+                                    -- mesh = 'station/rail/era_c/station_1_main/station_1_main_perron_lod0.msh',
+                                    -- mesh = 'floor_with_hole.msh',
+                                    materials = {'station/rail/era_c/era_c_trainstation_floor_1.mtl', 'shaft.mtl'},
+                                    mesh = 'floor_with_hole_and_shaft.msh',
+                                    name = 'floor_paving_upstairs',
+                                    transf = floorPavingWithHoleTransf
                                 },
-                                -- floor structure
+                                -- floor bracket
                                 {
                                     materials = {'lollo_trainstation_wall_grey_no_horiz_stripes.mtl'},
                                     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
@@ -530,7 +464,7 @@ return function(height)
                             transf = stationMainTransf
                         },
                         {
-                            children = _wallsBelowThePlatform,
+                            children = _wallsBelowThePlatformLod1,
                             name = 'walls_below_the_platform',
                             transf = idTransf
                         },
@@ -556,7 +490,7 @@ return function(height)
                     transf = idTransf
                 },
                 static = false,
-                visibleFrom = 100,
+                visibleFrom = 200,
                 visibleTo = 400
             },
             {
@@ -615,7 +549,7 @@ return function(height)
                                     name = 'station_1_main_perron',
                                     transf = floorPavingTransf
                                 },
-                                -- floor structure
+                                -- floor bracket
                                 -- {
                                 --     materials = {'lollo_trainstation_wall_grey_no_horiz_stripes.mtl'},
                                 --     mesh = 'industry/oil_refinery/era_a/oil_refinery_wall_large/oil_refinery_wall_large_lod0.msh',
@@ -627,7 +561,7 @@ return function(height)
                             transf = stationMainTransf
                         },
                         {
-                            children = _wallsBelowThePlatform,
+                            children = _wallsBelowThePlatformLod1,
                             name = 'walls_below_the_platform',
                             transf = idTransf
                         },
