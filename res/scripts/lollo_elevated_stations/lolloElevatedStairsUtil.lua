@@ -29,7 +29,8 @@ return function(height)
                 local shaftTransf = {0.6, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Shaft, 0, 0, -2.5, zShift4Shaft, 1}
                     results[#results + 1] = {
                         materials = {'shaft.mtl'},
-                        mesh = 'inner_shaft_lod0.msh',
+                        -- mesh = 'inner_shaft_lod0.msh',
+                        mesh = 'inner_shaft_2_lod0.msh',
                         name = 'shaft',
                         transf = shaftTransf
                     }
