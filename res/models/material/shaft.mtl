@@ -34,6 +34,13 @@ return {
 			wrapS = "REPEAT",
 			wrapT = "REPEAT",
 		},
+		map_normal = {
+			fileName = "shaft_striped_ornate_normal_256.tga",
+			redGreen = true,
+			type = "TWOD",
+			wrapS = "REPEAT",
+			wrapT = "REPEAT",
+		},
 		polygon_offset = {
 			factor = 0,
 			forceDepthWrite = false,
@@ -44,6 +51,6 @@ return {
 			twoSided = true,
 		},
 	},
-	type = "PHYS_TRANSPARENT",
+	type = "PHYS_TRANSPARENT_NRML_MAP",
 }
 end
