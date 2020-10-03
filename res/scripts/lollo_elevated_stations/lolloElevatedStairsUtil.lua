@@ -21,16 +21,15 @@ return function(height)
         end
 
         if lod == 0 then
-            local zShift4Shaft = -1.8 + 5
-            for h = 5, height + 5, 5 do
+            local zShift4Shaft = 0
+            for h = 5, height, 5 do
                 zShift4Shaft = zShift4Shaft - 5
                 -- local zedZoom4Shaft = h == 5 and 0.5 or 1
                 local zedZoom4Shaft = 1
                 local shaftTransf = {0.6, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4Shaft, 0, 0, -2.5, zShift4Shaft, 1}
                     results[#results + 1] = {
                         materials = {'shaft.mtl'},
-                        -- mesh = 'inner_shaft_lod0.msh',
-                        mesh = 'inner_shaft_2_lod0.msh',
+                        mesh = 'inner_shaft_lod0.msh',
                         name = 'shaft',
                         transf = shaftTransf
                     }
