@@ -51,7 +51,7 @@ return function(height)
     local rearLeftPillarTransf = {0.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, -9.0, 0.5, zedShift4groundPillar, 1}
     local rearRightPillarTransf = {0.2, 0, 0, 0, 0, 1, 0, 0, 0, 0, zedZoom4groundPillar, 0, 9.0, 0.5, zedShift4groundPillar, 1}
 
-    local roofTransf = {1.95, 0, 0, 0, 0, 0, 4.0, 0, 0, 1.55, 0, 0, 0.0, -5.24, 4.2, 1}
+    local roofTransf = {1.95, 0, 0, 0, 0, 0, 3.0, 0, 0, 1.55, 0, 0, 0.0, -5.24, 4.5, 1}
     -- local solarOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -1.1, 5.25, 1}
     -- local solarTwoTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -3.4, 5.25, 1}
     local ventOneTransf = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 6, -2, 5.3, 1}
