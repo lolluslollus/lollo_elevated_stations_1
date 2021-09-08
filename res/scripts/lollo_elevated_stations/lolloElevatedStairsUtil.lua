@@ -80,6 +80,22 @@ return function(height)
             params = {
                 halfExtents = {5.8, 3.0, 32.0}
             },
+            -- LOLLO TODO try this and see if you get rid of the extra colliders in the modules:
+            -- boundingInfo = {
+            --     -- bbMax = {5.8, 1.0, 5.0}, -- this would be the building without vents
+            --     -- bbMin = {-5.8, -5.0, -height}
+            --     bbMax = {5.8, 1.0, 6.5}, -- a bit taller to protect the top vents from bridges
+            --     bbMin = {-5.8, -5.0, -height -1.5}
+            -- },
+            -- collider = {
+            --     params = {
+            --         -- halfExtents = {5.8, 3.0, 2.5 + height * 0.5} -- this would be the building without vents
+            --         halfExtents = {5.8, 3.0, 5.5 + height * 0.5} -- a bit taller to protect the floor from tunnels and the top vents from bridges
+            --     },
+            --     -- transf = { 1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, -2, 2.5 - height * 0.5, 1 }, -- this would be the building without vents
+            --     transf = { 1, 0, 0, 0,  0, 1, 0, 0,  0, 0, 1, 0,  0, -2, 1.5 - height * 0.5, 1 }, -- a bit lower to protect the floor from tunnels
+            --     type = 'BOX'
+            -- },
             transf = idTransf,
             type = 'BOX'
         },
